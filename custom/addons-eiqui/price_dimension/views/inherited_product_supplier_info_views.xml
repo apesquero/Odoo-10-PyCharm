@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_product_supplier_form" model="ir.ui.view">
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view" /> 
+        <field name="arch" type="xml">
+        
+        	<xpath expr="//group[1]" position="before">
+				<header>
+	                <button string="Variant Prices" type="object" name="action_open_value_extras"/>
+	            </header>
+            </xpath>
+
+			<xpath expr="//form//label[@for='price']" position="attributes">
+				<attribute name="attrs">{'invisible':[('price_type', 'not in', ['standard', 'area'])]}</attribute>
+            </xpath>
+
+			<xpath expr="//form//field[@name='price']" position="attributes">
+				<attribute name="attrs">{'invisible':[('price_type', 'not in', ['standard', 'area'])]}</attribute>
+            </xpath>
+
+			<xpath expr="//form/group" position="after">
+                <group name="supplier_price_type_g" string="Supplier Price Type">
+                    <label for="price_type"/>
+                    <div>
+                        <field name="price_type" />
+                    </div>
+                </group>
+                <group attrs="{'invisible':[('price_type', '!=', 'area')]}">
+                	<group>
+                		<field name="price_area_min_width" />
+                		<field name="price_area_max_width" />
+                	</group>
+                	<group>
+                		<field name="price_area_min_height" />
+                		<field name="price_area_max_height" />
+                	</group>
+                	<group>
+	                	<field name="min_price_area" />
+	                </group>
+                </group>
+                <div attrs="{'invisible':[('price_type', 'not in', ['table_1d','table_2d'])]}">
+                	<field class="col-md-12" name="prices_table" widget="mdtable" mode="price_type" />
+                	<button name="%(launch_wizard_mdtable_supplier_import_data)d" string="Import Records" type="action" class="oe_highlight pull-right" />
+            	</div>
+            </xpath>
+						 	
+        </field>
+    </record>
+
+</odoo>

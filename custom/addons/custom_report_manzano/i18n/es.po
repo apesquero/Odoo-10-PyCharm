@@ -1,0 +1,295 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* custom_report_manzano
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-16 16:25+0000\n"
+"PO-Revision-Date: 2018-01-16 16:25+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_external_layout_footer
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "&amp;bull;"
+msgstr "&amp;bull;"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "<span>Rest to pay</span>"
+msgstr "<span>Resto a pagar</span>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+msgid "<strong class=\"amount_total\">TOTAL INVOICE (TAX INCLUDED)</strong>"
+msgstr "<strong class=\"amount_total\">TOTAL FACTURA (I.V.A. INCLUIDO)</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "<strong>Address:</strong>"
+msgstr "<strong>Dirección:</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+msgid "<strong>Comment:</strong>"
+msgstr "<strong>Comentarios:</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "<strong>Contact information:</strong>"
+msgstr "<strong>Información de contacto:</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "<strong>Date:</strong>"
+msgstr "<strong>Fecha:</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "<strong>E-mail:</strong>"
+msgstr "<strong>E-mail:</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "<strong>Fiscal Position Remark:</strong>"
+msgstr "<strong>Posición fiscal:</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "<strong>Number:</strong>"
+msgstr "<strong>Número:</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "<strong>Partner:</strong>"
+msgstr "<strong>Cliente:</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "<strong>Phone:</strong>"
+msgstr "<strong>Teléfono:</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "<strong>Salesperson:</strong>"
+msgstr "<strong>Comercial:</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "<strong>Shipping address:</strong>"
+msgstr "<strong>Dirección de Envío</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+msgid "<strong>Source:</strong>"
+msgstr "<strong>Fuente:</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "<strong>Subtotal with Tax:</strong>"
+msgstr "<strong>Subtotal (I.V.A. Incluido):</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "<strong>Subtotal:</strong>"
+msgstr "<strong>Subtotal:</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "<strong>Total Without Taxes</strong>"
+msgstr "<strong>Base Imponible</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "<strong>VAT:</strong>"
+msgstr "<strong>CIF/NIF:</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "<strong>Way to Pay</strong>"
+msgstr "<strong>Forma de pago</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "<strong>Your Reference:</strong>"
+msgstr "<strong>Su Referencia:</strong>"
+
+#. module: custom_report_manzano
+#: model:ir.model.fields,field_description:custom_report_manzano.field_account_invoice_line_price_total
+msgid "Amount with taxs"
+msgstr "Importe (I.V.A. Incluido)"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "Billing information and shipping address:"
+msgstr "Datos de facturación y dirección de envío:"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "Billing information:"
+msgstr "Datos de facturación:"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+msgid "CANCELLED INVOICE"
+msgstr "FACTURA CANCELADA"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+msgid "DRAFT INVOICE"
+msgstr "FACTURA BORRADOR"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "Description"
+msgstr "Descripción"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "Disc.(%)"
+msgstr "Desc.(%)"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_external_layout_footer
+msgid "Email:"
+msgstr "E-mail:"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_external_layout_footer
+msgid "Fax:"
+msgstr "Fax:"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+msgid "INVOICE"
+msgstr "FACTURA"
+
+#. module: custom_report_manzano
+#: model:ir.model,name:custom_report_manzano.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Linea de factura"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "ORDER"
+msgstr "PEDIDO"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+msgid "PRO-FORMA"
+msgstr "PROFORMA"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_external_layout_footer
+msgid "Page:"
+msgstr "Página:"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_external_layout_footer
+msgid "Phone:"
+msgstr "Teléfono:"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+msgid "Price"
+msgstr "Precio"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "QUOTATION"
+msgstr "PRESUPUESTO"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+msgid "REFUND"
+msgstr "FACTURA RECTIFICATIVA"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "Signal Order"
+msgstr "Señal Pedido"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "Signal Quotation"
+msgstr "Señal Presupuesto"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_external_layout_footer
+msgid "TIN:"
+msgstr "NIF:"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "TOTAL ORDER (TAX INCLUDED)"
+msgstr "TOTAL PEDIDO (I.V.A. INCLUIDO)"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "TOTAL QUOTATION (TAX INCLUDED)"
+msgstr "TOTAL PRESUPUESTO (I.V.A. INCLUIDO)"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+msgid "Tax Included Price"
+msgstr "Subtotal"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "Unit Price"
+msgstr "€/Und"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_saleorder_document
+msgid "VAT:"
+msgstr "CIF/NIF:"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+msgid "VENDOR BILL"
+msgstr "FACTURA DE PROVEEDOR"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_report_invoice_document
+msgid "VENDOR REFUND"
+msgstr "DEVOLUCIÓN DE PROVEEDOR"
+
+#. module: custom_report_manzano
+#: model:ir.ui.view,arch_db:custom_report_manzano.ins_external_layout_footer
+msgid "Website:"
+msgstr "Sitio web:"
+

@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="acepted_sale_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <button name="print_quotation" position="after">
+                <button name="do_acepted"
+                        states="draft"
+                        string="Acepted"
+                        class="o_sale_confirm"
+                        type="object"/>
+                <button name="do_acepted"
+                        states="sent"
+                        string="Acepted"
+                        class="btn-primary o_sale_confirm"
+                        type="object"/>
+            </button>
+
+            <button name="action_confirm" states="draft" position="replace">
+                <button name="action_confirm"
+                        string="Confirm Sale"
+                        class="btn-primary o_sale_confirm"
+                        invisible="1"
+                        type="object"/>
+            </button>
+
+            <button name="action_confirm" states="sent" position="replace">
+                <button name="action_confirm"
+                        string="Confirm Sale"
+                        type="object"
+                        class="btn-primary o_sale_confirm"
+                        attrs="{'invisible': ['|','|','|',
+                                             ('date_measure','=', False),
+                                             ('date_signal','=', False),
+                                             ('review_quotation','=', False),
+                                             ('state','!=', 'acepted')]}"/>
+            </button>
+
+            <button name="print_quotation" states="sent,sale" position="replace">
+                <button name="print_quotation"
+                        string="Print"
+                        type="object"
+                        states="sent,sale,acepted"/>
+            </button>
+
+            <button name="action_quotation_send" states="sent,sale" position="replace">
+                <button name="action_quotation_send"
+                        string="Send by Email"
+                        type="object"
+                        states="sent,sale,acepted"/>
+            </button>
+
+            <button name="action_cancel" states="draft,sent,sale" position="replace">
+                <button name="action_cancel"
+                        string="Cancel"
+                        type="object"
+                        states="draft,sent,acepted,sale"/>
+            </button>
+
+            <field name="state" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="draft,sent,acepted,sale"/>
+            </field>
+
+            <field name="date_order" position="after">
+                <field name="acepted" invisible="1"/>
+                <field name="date_measure" attrs="{'invisible': [('acepted','=', False)],
+                                                   'readonly': [('state','=', 'sale')]}"/>
+                <field name="date_signal" attrs="{'invisible': [('acepted','=', False)],
+                                                  'readonly': [('state','=', 'sale')]}"/>
+                <field name="review_quotation" attrs="{'invisible': [('acepted','=', False)],
+                                                       'readonly': [('state','=', 'sale')]}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="acepted_sale_order_tree" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="decoration-it">state=='sent'</attribute>
+                <attribute name="decoration-success">state=='acepted'</attribute>
+                <attribute name="decoration-info">state=='sale'</attribute>
+                <attribute name="decoration-danger">state=='cancel'</attribute>
+            </tree>
+        </field>
+    </record>
+</odoo>

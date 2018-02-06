@@ -1,0 +1,79 @@
+<div class="container">
+	<div class="row">
+    	<div class="col-md-9">
+      		<div>
+      			<h1>PRICE DIMENSION</h1>
+        		<h2 class="text-muted">Price Dimension</h2>
+      		</div>
+      		<hr/>
+			<p class="lead">Compute product prices and supplier prices based on dimensions "Width" and "Height".</p>
+		</div>
+		
+		<div class="row">
+    		<div class="col-md-9 mb32">
+    			<ul>
+    				<li>Adds new fields "Width" and "Height" in sale.order_line and purchuase.order_line
+					<li>Adds new tab "Price Type" for select how compute the price in product.template, product.product and product.supplierinfo:
+				    	<ul>
+				    		<li>Standard: Like Odoo works</li>
+				    		<li>Table 1D: Uses the new field "width" inside order and purchase line</li>
+				    		<li>Table 2D: Uses the new field "width" and "height" inside order and purchase line</li>
+							<li>Area: Multiplies the lst_price by "width" and "height" values defined inside order/purchase line</li>
+						</ul>
+					</li>
+					<li>Adds new widget for view/edit table prices values
+					<li>Adds wizards for import .xsl/.xsls files
+					<li>Adds new field in product.attribute.value for select between:
+				    	<ul>
+				    		<li>Standard: Like Odoo works</li>
+				    		<li>Percentage: Compute 'extra_price' for apply percentage of the product price</li>
+				    	</ul>
+				    </li>
+				</ul>
+			</div>
+		</div>
+				
+		<div class="row">
+   			<div class="col-md-9 mb32">
+				Table Prices Headers are computed like ranges [MIN, MAX), last col and row don't need values:
+				<br/><br/>
+				* Example table (2D):
+				<br/>
+				<table class="col-md-12">
+					<thead>
+						<tr><th style="border-bottom: 1px solid #fdfdfd;">&nbsp;</th><th>100</th><th>120</th><th>150</th></tr>
+					</thead>
+					<tbody>
+						<tr><th style="background-color:#f0f0f0; border-bottom: 1px solid #fdfdfd;">100</th><td>9.40</td><td>10.80</td><td>&nbsp;</td></tr>
+						<tr><th style="background-color:#f0f0f0; border-bottom: 1px solid #fdfdfd;">120</th><td>10.60</td><td>0</td><td>&nbsp;</td></tr>
+						<tr><th style="background-color:#f0f0f0; border-bottom: 1px solid #fdfdfd;">140</th><td>12.30</td><td>15.10</td><td>&nbsp;</td></tr>
+						<tr><th style="background-color:#f0f0f0; border-bottom: 1px solid #fdfdfd;">180</th><td>13.60</td><td>18.60</td><td>&nbsp;</td></tr>
+						<tr><th style="background-color:#f0f0f0">200</th><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+					</tbody>
+				</table>
+				<br/>
+				Possible ranges:
+				<ul>
+			  		<li>Width: 100-120 | 120-150</li>
+			  		<li>Height: 100-120 | 120-140 | 140-180 | 180-200</li>
+			  	</ul>
+				
+				Select values (108x132) = (100x120) = 10.60
+				<br/>
+				Possible max. values (149.99x199.99) = (120x180) = 18.60
+				<br/><br/>
+				Select values (120x120) = 0 = Dimensions aren't available
+    		</div>
+  		</div>
+  		
+  		<hr/>
+		
+    	<div class="row">
+      		<div class="col-md-9 mb32">
+       	 		<a target="_blank" href="http://www.eiqui.com">
+       	 			<img src="eiqui_logo.png" class="img-responsive center-block" />
+       	 		</a>
+      		</div>
+    	</div>    
+	</div>
+</div>

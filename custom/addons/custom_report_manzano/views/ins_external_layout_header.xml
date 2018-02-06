@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="ins_external_layout_header">
+        <!-- Header architecture -->
+        <div class="header">
+            <div class="row">
+                <div class="col-md-12">
+                    <img style="margin-top:40px; width:100%; box-shadow: #ccc 0px 0px 10px 0px;"
+                         src="/custom_report_manzano/static/src/img/header_invoice.jpg"/>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>

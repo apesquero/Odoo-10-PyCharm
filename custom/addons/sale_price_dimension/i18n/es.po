@@ -1,0 +1,245 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_price_dimension
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-02-05 22:31+0000\n"
+"PO-Revision-Date: 2018-02-05 22:31+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_price_dimension
+#: code:addons/sale_price_dimension/models/inherited_sale_order_line.py:71
+#, python-format
+msgid " [ Width:%.2f %s]"
+msgstr " [ Ancho:%.2f %s]"
+
+#. module: sale_price_dimension
+#: code:addons/sale_price_dimension/models/inherited_sale_order_line.py:67
+#, python-format
+msgid " [Width:%.2f %s x Height:%.2f %s]"
+msgstr " [Ancho:%.2f %s x Alto:%.2f %s]"
+
+#. module: sale_price_dimension
+#: selection:product.template,sale_price_type:0
+msgid "1D Table"
+msgstr "Tabla 1D"
+
+#. module: sale_price_dimension
+#: selection:product.template,sale_price_type:0
+msgid "2D Table"
+msgstr "Tabla 2D"
+
+#. module: sale_price_dimension
+#: selection:product.template,sale_price_type:0
+msgid "Area"
+msgstr "Área"
+
+#. module: sale_price_dimension
+#: model:ir.ui.view,arch_db:sale_price_dimension.wizard_mdtable_sale_import_data_form_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_import_price_table_mdtable_create_uid
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_prices_table_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_import_price_table_mdtable_create_date
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_prices_table_create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_import_price_table_mdtable_display_name
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_prices_table_display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_import_price_table_mdtable_file_name
+msgid "File Name"
+msgstr "Nombre del archivo"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_sale_order_line_origin_height
+msgid "Height"
+msgstr "Alto"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_product_height_uom
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_template_height_uom
+msgid "Height UOM"
+msgstr "Alto UOM"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_import_price_table_mdtable_id
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_prices_table_id
+msgid "ID"
+msgstr "ID"
+
+#. module: sale_price_dimension
+#: model:ir.ui.view,arch_db:sale_price_dimension.wizard_mdtable_sale_import_data_form_view
+msgid "Import"
+msgstr "Importar"
+
+#. module: sale_price_dimension
+#: model:ir.ui.view,arch_db:sale_price_dimension.view_product_product_form
+#: model:ir.ui.view,arch_db:sale_price_dimension.view_product_template_form
+msgid "Import Records"
+msgstr "Importar Registros"
+
+#. module: sale_price_dimension
+#: model:ir.actions.act_window,name:sale_price_dimension.launch_wizard_mdtable_sale_import_data
+#: model:ir.ui.view,arch_db:sale_price_dimension.wizard_mdtable_sale_import_data_form_view
+msgid "Import Sale Prices Data"
+msgstr "Importar Datos de Precios de Venta"
+
+#. module: sale_price_dimension
+#: code:addons/sale_price_dimension/models/inherited_sale_order_line.py:54
+#: code:addons/sale_price_dimension/models/inherited_sale_order_line.py:57
+#, python-format
+msgid "Invalid Dimensions!"
+msgstr "!Dimensión Incorrecta!"
+
+#. module: sale_price_dimension
+#: code:addons/sale_price_dimension/wizard/import_price_table.py:23
+#, python-format
+msgid "Invalid file format! (Only accept .xls or .xlsx)"
+msgstr "!Formato de fichero incorrecto! (Solo acepta .xls o .xlsx)"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_import_price_table_mdtable___last_update
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_prices_table___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_import_price_table_mdtable_write_uid
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_prices_table_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_import_price_table_mdtable_write_date
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_prices_table_write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_product_sale_price_area_max_height
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_template_sale_price_area_max_height
+msgid "Max. Height"
+msgstr "Máx. Alto"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_product_sale_price_area_max_width
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_template_sale_price_area_max_width
+msgid "Max. Width"
+msgstr "Máx. Ancho"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_product_sale_price_area_min_height
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_template_sale_price_area_min_height
+msgid "Min. Height"
+msgstr "Mín. Alto"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_product_sale_min_price_area
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_template_sale_min_price_area
+msgid "Min. Price"
+msgstr "Mín. Precio"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_product_sale_price_area_min_width
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_template_sale_price_area_min_width
+msgid "Min. Width"
+msgstr "Mín. Ancho"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_import_price_table_mdtable_prices_table_file
+msgid "Prices Table File"
+msgstr "Archivo Tabla Precios"
+
+#. module: sale_price_dimension
+#: model:ir.model,name:sale_price_dimension.model_product_product
+msgid "Product"
+msgstr "Producto"
+
+#. module: sale_price_dimension
+#: model:ir.model,name:sale_price_dimension.model_product_template
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_prices_table_sale_product_tmpl_id
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: sale_price_dimension
+#: code:addons/sale_price_dimension/models/inherited_sale_order_line.py:35
+#, python-format
+msgid "Product not created!"
+msgstr "!Producto no creado!"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_product_sale_price_type
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_template_sale_price_type
+#: model:ir.model.fields,field_description:sale_price_dimension.field_sale_order_line_product_price_type
+#: model:ir.ui.view,arch_db:sale_price_dimension.view_product_product_form
+#: model:ir.ui.view,arch_db:sale_price_dimension.view_product_template_form
+msgid "Sale Price Type"
+msgstr "Tipo de Precio Venta"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_product_sale_prices_table
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_template_sale_prices_table
+msgid "Sale Prices Table"
+msgstr "Tabla de Precio Venta"
+
+#. module: sale_price_dimension
+#: model:ir.model,name:sale_price_dimension.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido Venta"
+
+#. module: sale_price_dimension
+#: selection:product.template,sale_price_type:0
+msgid "Standard"
+msgstr "Estándar"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_prices_table_value
+msgid "Value"
+msgstr "Valor"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_sale_order_line_origin_width
+msgid "Width"
+msgstr "Ancho"
+
+#. module: sale_price_dimension
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_product_width_uom
+#: model:ir.model.fields,field_description:sale_price_dimension.field_product_template_width_uom
+msgid "Width UOM"
+msgstr "Ancho UOM"
+
+#. module: sale_price_dimension
+#: model:ir.model,name:sale_price_dimension.model_import_price_table_mdtable
+msgid "import_price_table.mdtable"
+msgstr "import_price_table.mdtable"
+
+#. module: sale_price_dimension
+#: model:ir.ui.view,arch_db:sale_price_dimension.wizard_mdtable_sale_import_data_form_view
+msgid "or"
+msgstr "o"
+
+#. module: sale_price_dimension
+#: model:ir.model,name:sale_price_dimension.model_product_prices_table
+msgid "product.prices_table"
+msgstr "product.prices_table"
+

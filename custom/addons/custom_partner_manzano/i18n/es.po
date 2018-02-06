@@ -1,0 +1,67 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* custom_partner_manzano
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-03 19:52+0000\n"
+"PO-Revision-Date: 2018-01-03 19:52+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: custom_partner_manzano
+#: model:ir.model.fields,field_description:custom_partner_manzano.field_res_partner_number_door
+msgid "Door Number"
+msgstr "Número Puerta"
+
+#. module: custom_partner_manzano
+#: model:ir.ui.view,arch_db:custom_partner_manzano.view_partner_form_inherit
+msgid "Door Number..."
+msgstr "Número Puerta..."
+
+#. module: custom_partner_manzano
+#: model:ir.model.fields,field_description:custom_partner_manzano.field_res_partner_doorway
+msgid "Doorway Interior"
+msgstr "Portal Interior"
+
+#. module: custom_partner_manzano
+#: model:ir.ui.view,arch_db:custom_partner_manzano.view_partner_form_inherit
+msgid "Doorway Interior..."
+msgstr "Portal Interior..."
+
+#. module: custom_partner_manzano
+#: model:ir.model.fields,field_description:custom_partner_manzano.field_res_partner_floor
+msgid "Floor"
+msgstr "Planta"
+
+#. module: custom_partner_manzano
+#: model:ir.ui.view,arch_db:custom_partner_manzano.view_partner_form_inherit
+msgid "Floor..."
+msgstr "Planta..."
+
+#. module: custom_partner_manzano
+#: model:ir.model.fields,field_description:custom_partner_manzano.field_res_partner_letter
+msgid "Letter"
+msgstr "Letra"
+
+#. module: custom_partner_manzano
+#: model:ir.ui.view,arch_db:custom_partner_manzano.view_partner_form_inherit
+msgid "Letter..."
+msgstr "Letra..."
+
+#. module: custom_partner_manzano
+#: model:ir.model.fields,field_description:custom_partner_manzano.field_res_partner_mobile2
+msgid "Mobile 2"
+msgstr "Móvil 2"
+
+#. module: custom_partner_manzano
+#: model:ir.model,name:custom_partner_manzano.model_res_partner
+msgid "Partner"
+msgstr "Empresa"
+

@@ -1,0 +1,1 @@
+from . import ins_account_invoice

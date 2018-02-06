@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Vista relacionada con las variantes de producto-->
+    <record id="view_product_product_form" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+
+            <!--Igualamos las opciones a product.product_template_form_view, vista productos-->
+            <xpath expr="//field[@name='lst_price']" position="attributes">
+                <attribute name="attrs">{'invisible':[('sale_price_type', 'not in', ['standard', 'area'])]}</attribute>
+            </xpath>
+
+            <xpath expr="//notebook/page[1]" position="after">
+                <page string="Sale Price Type"
+                      attrs="{'invisible':[('sale_price_type', '=', 'standard')]}">
+                    <group attrs="{'invisible':[('sale_price_type', '!=', 'area')]}">
+                        <group>
+                            <field name="sale_price_area_min_width"/>
+                            <field name="sale_price_area_max_width"/>
+                        </group>
+                        <group>
+                            <field name="sale_price_area_min_height"/>
+                            <field name="sale_price_area_max_height"/>
+                        </group>
+                        <group>
+                            <field name="sale_min_price_area"/>
+                        </group>
+                    </group>
+
+                    <div attrs="{'invisible':[('sale_price_type', 'not in', ['table_1d','table_2d','area'])]}">
+                        <group>
+                            <group>
+                                <field name="height_uom"
+                                       attrs="{'invisible':[('sale_price_type', '=', 'table_1d')],'required':[('sale_price_type', 'in', ['table_2d','area'])]}"/>
+                                <field name="width_uom"
+                                       attrs="{'required':[('sale_price_type', 'in', ['table_1d','table_2d','area'])]}"/>
+                            </group>
+                        </group>
+                        <div>
+                            <field name="sale_prices_table"
+                                   widget="mdtable"
+                                   mode="sale_price_type"
+                                   class="col-md-12"/>
+                        </div>
+                        <div>
+                            <group>
+                                <button name="%(launch_wizard_mdtable_sale_import_data)d"
+                                        string="Import Records"
+                                        type="action"
+                                        class="oe_highlight pull-right"/>
+                            </group>
+                        </div>
+                    </div>
+
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

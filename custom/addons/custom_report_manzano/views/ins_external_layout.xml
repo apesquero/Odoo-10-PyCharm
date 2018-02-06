@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="ins_external_layout">
+        <t t-call="custom_report_manzano.ins_external_layout_header"/>
+        <t t-raw="0"/>
+        <t t-call="custom_report_manzano.ins_external_layout_footer"/>
+    </template>
+</odoo>

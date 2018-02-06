@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="ins_report_invoice" inherit_id="account.report_invoice">
+        <xpath expr="//t[@t-call='report.html_container']" position="replace">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="custom_report_manzano.ins_report_invoice_document" t-lang="doc.partner_id.lang"/>
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>

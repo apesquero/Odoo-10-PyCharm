@@ -1,0 +1,63 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* acepted_order
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-24 19:00+0000\n"
+"PO-Revision-Date: 2018-01-24 19:00+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: acepted_order
+#: model:ir.model.fields,field_description:acepted_order.field_sale_order_acepted
+#: model:ir.ui.view,arch_db:acepted_order.acepted_sale_order_form
+msgid "Acepted"
+msgstr "Aceptado"
+
+#. module: acepted_order
+#: model:ir.ui.view,arch_db:acepted_order.acepted_sale_order_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: acepted_order
+#: model:ir.ui.view,arch_db:acepted_order.acepted_sale_order_form
+msgid "Confirm Sale"
+msgstr "Confirmar venta"
+
+#. module: acepted_order
+#: model:ir.model.fields,field_description:acepted_order.field_sale_order_date_measure
+msgid "Date of measure"
+msgstr "Fecha medición"
+
+#. module: acepted_order
+#: model:ir.model.fields,field_description:acepted_order.field_sale_order_date_signal
+msgid "Date of signal"
+msgstr "Fecha señalizado"
+
+#. module: acepted_order
+#: model:ir.ui.view,arch_db:acepted_order.acepted_sale_order_form
+msgid "Print"
+msgstr "Imprimir"
+
+#. module: acepted_order
+#: model:ir.model.fields,field_description:acepted_order.field_sale_order_review_quotation
+msgid "Review quotation?"
+msgstr "¿Revisado?"
+
+#. module: acepted_order
+#: model:ir.model,name:acepted_order.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: acepted_order
+#: model:ir.ui.view,arch_db:acepted_order.acepted_sale_order_form
+msgid "Send by Email"
+msgstr "Enviar por correo electrónico"
+

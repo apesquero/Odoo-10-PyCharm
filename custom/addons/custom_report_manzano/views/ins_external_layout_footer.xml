@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="ins_external_layout_footer">
+        <div class="footer">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul t-if="not doc.company_id.custom_footer" class="list-inline">
+                    <li t-if="doc.company_id.phone">Phone:
+                        <span t-field="doc.company_id.phone"/>
+                    </li>
+                    <li t-if="doc.company_id.fax and doc.company_id.phone">&amp;bull;</li>
+                    <li t-if="doc.company_id.fax">Fax:
+                        <span t-field="doc.company_id.fax"/>
+                    </li>
+                    <li t-if="doc.company_id.email and doc.company_id.fax or doc.company_id.email and doc.company_id.phone">
+                        &amp;bull;
+                    </li>
+                    <li t-if="doc.company_id.email">Email:
+                        <span t-field="doc.company_id.email"/>
+                    </li>
+                    <li t-if="doc.company_id.website and doc.company_id.email or doc.company_id.website and doc.company_id.fax or doc.company_id.website and doc.company_id.phone">
+                        &amp;bull;
+                    </li>
+                    <li t-if="doc.company_id.website">Website:
+                        <span t-field="doc.company_id.website"/>
+                    </li>
+                </ul>
+
+                <ul t-if="not doc.company_id.custom_footer" class="list-inline" name="financial_infos">
+                    <li t-if="doc.company_id.vat">TIN:
+                        <span t-field="doc.company_id.vat"/>
+                    </li>
+                </ul>
+
+                <t t-if="doc.company_id.custom_footer">
+                    <span t-raw="doc.company_id.rml_footer"/>
+                </t>
+
+                <ul class="list-inline">
+                    <li>Page:</li>
+                    <li>
+                        <span class="page"/>
+                    </li>
+                    <li>/</li>
+                    <li>
+                        <span class="topage"/>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </template>
+</odoo>

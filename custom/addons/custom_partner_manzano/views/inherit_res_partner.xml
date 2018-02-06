@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.custom_partner_manzano</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="mobile" position="after">
+                <field name="mobile2"/>
+            </field>
+            <field name="street" position="after">
+                <div class="o_form_input">
+                    <field name="doorway" style="max-width: 18%%" placeholder="Doorway Interior..."/>
+                    <label attrs="{'invisible': [('doorway','=', False)]}" string="-"
+                           class="oe_inline" style="margin-left: 5px;"/>
+                    <field name="floor" style="max-width: 18%%" placeholder="Floor..."/>
+                    <field name="letter" style="max-width: 18%%" placeholder="Letter..."/>
+                    <label attrs="{'invisible': [('number_door','=', False)]}" string="-"
+                           class="oe_inline" style="margin-left: 5px;"/>
+                    <field name="number_door" style="max-width: 18%%" placeholder="Door Number..."/>
+                    <span attrs="{'invisible': [('number_door','=', False)]}" class="fa fa-bell"/>
+                </div>
+            </field>
+            <field name="street2" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

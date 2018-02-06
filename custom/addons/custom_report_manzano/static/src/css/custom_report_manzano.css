@@ -1,0 +1,62 @@
+.title {
+    font: normal 700 60px 'Open Sans';
+    color: grey;
+
+    margin-bottom: 0px;
+    height: 75px;
+}
+
+#informations {
+    border: 1px solid grey;
+    padding: 0px;
+}
+
+#informations_partner {
+    border: 1px solid grey;
+    border-top: none;
+    padding: 0px;
+}
+
+#informations_partner .text-right {
+    padding-right: 0px;
+}
+
+#informations .text-right {
+    padding-right: 0px;
+}
+
+#column_left {
+    padding: 0 10px 0 0;
+}
+
+#column_middle {
+    padding: 0 10px 0 0;
+}
+
+#column_right {
+    padding: 0 10px 0 0;
+}
+
+.name {
+    font-size: 16px;
+    margin-bottom: 0px;
+}
+
+.email {
+    font-style: oblique;
+    margin: 0px;
+}
+
+.signal {
+    font-size: large;
+    color: #3c763d;
+}
+
+.amount_total {
+    font-size: large;
+    color: #31708f;
+}
+
+.subfooter {
+    page-break-inside: avoid;
+}

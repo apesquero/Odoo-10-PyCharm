@@ -1,0 +1,476 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* price_dimension
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-07 09:44+0000\n"
+"PO-Revision-Date: 2017-08-07 09:44+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: price_dimension
+#: code:addons/price_dimension/models/inherit_purchase_order_line.py:117
+#: code:addons/price_dimension/models/inherit_sale_order_line.py:79
+#, python-format
+msgid " [ Width:%.2f %s]"
+msgstr " [Ancho:%.2f %s]"
+
+#. module: price_dimension
+#: code:addons/price_dimension/models/inherit_purchase_order_line.py:115
+#: code:addons/price_dimension/models/inherit_sale_order_line.py:77
+#, python-format
+msgid " [Width:%.2f %s x Height:%.2f %s]"
+msgstr " [Ancho:%.2f %s x Alto:%.2f %s]"
+
+#. module: price_dimension
+#: selection:product.supplierinfo,price_type:0
+#: selection:product.template,sale_price_type:0
+msgid "1D Table"
+msgstr "Tabla 1D"
+
+#. module: price_dimension
+#: selection:product.supplierinfo,price_type:0
+#: selection:product.template,sale_price_type:0
+msgid "2D Table"
+msgstr "Tabla 2D"
+
+#. module: price_dimension
+#: selection:product.supplierinfo,price_type:0
+#: selection:product.template,sale_price_type:0
+msgid "Area"
+msgstr "Area"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_supplier_attribute_value_attribute
+msgid "Attribute"
+msgstr "Atributo"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_supplierinfo_attribute_value_ids
+msgid "Attribute value ids"
+msgstr "Attribute value ids"
+
+#. module: price_dimension
+#: model:ir.ui.view,arch_db:price_dimension.wizard_mdtable_sale_import_data_form_view
+#: model:ir.ui.view,arch_db:price_dimension.wizard_mdtable_supplier_import_data_form_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_prices_table_create_uid
+#: model:ir.model.fields,field_description:price_dimension.field_supplier_attribute_value_create_uid
+#: model:ir.model.fields,field_description:price_dimension.field_wizard_mdtable_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_prices_table_create_date
+#: model:ir.model.fields,field_description:price_dimension.field_supplier_attribute_value_create_date
+#: model:ir.model.fields,field_description:price_dimension.field_wizard_mdtable_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_product_taxes_id
+msgid "Customer Taxes"
+msgstr "Impuestos Proveedor"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_prices_table_display_name
+#: model:ir.model.fields,field_description:price_dimension.field_supplier_attribute_value_display_name
+#: model:ir.model.fields,field_description:price_dimension.field_wizard_mdtable_display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_product_property_account_expense_id
+msgid "Expense Account"
+msgstr "Cuenta de Gastos"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_procurement_order_origin_height
+#: model:ir.model.fields,field_description:price_dimension.field_purchase_order_line_origin_height
+#: model:ir.model.fields,field_description:price_dimension.field_sale_order_line_origin_height
+#: model:ir.model.fields,field_description:price_dimension.field_stock_move_origin_height
+#: model:ir.model.fields,field_description:price_dimension.field_stock_pack_operation_origin_height
+msgid "Height"
+msgstr "Altura"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_product_height_uom
+#: model:ir.model.fields,field_description:price_dimension.field_product_template_height_uom
+msgid "Height UOM"
+msgstr "Height UOM"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_prices_table_id
+#: model:ir.model.fields,field_description:price_dimension.field_supplier_attribute_value_id
+#: model:ir.model.fields,field_description:price_dimension.field_wizard_mdtable_id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: price_dimension
+#: model:ir.ui.view,arch_db:price_dimension.wizard_mdtable_sale_import_data_form_view
+#: model:ir.ui.view,arch_db:price_dimension.wizard_mdtable_supplier_import_data_form_view
+msgid "Import"
+msgstr "Importar"
+
+#. module: price_dimension
+#: model:ir.ui.view,arch_db:price_dimension.view_product_product_form
+#: model:ir.ui.view,arch_db:price_dimension.view_product_supplier_form
+#: model:ir.ui.view,arch_db:price_dimension.view_product_template_form
+msgid "Import Records"
+msgstr "Importar Registros"
+
+#. module: price_dimension
+#: model:ir.actions.act_window,name:price_dimension.launch_wizard_mdtable_sale_import_data
+#: model:ir.ui.view,arch_db:price_dimension.wizard_mdtable_sale_import_data_form_view
+msgid "Import Sale Prices Data"
+msgstr "Importar Datos de Precios de Venta"
+
+#. module: price_dimension
+#: model:ir.actions.act_window,name:price_dimension.launch_wizard_mdtable_supplier_import_data
+#: model:ir.ui.view,arch_db:price_dimension.wizard_mdtable_supplier_import_data_form_view
+msgid "Import Supplier Prices Data"
+msgstr "Importar Datos de Precios de Compra"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_product_property_account_income_id
+msgid "Income Account"
+msgstr "Cuenta de entrada"
+
+#. module: price_dimension
+#: model:ir.model,name:price_dimension.model_product_supplierinfo
+msgid "Information about a product vendor"
+msgstr "Información sobre el Vendedor"
+
+#. module: price_dimension
+#: code:addons/price_dimension/models/inherit_purchase_order_line.py:95
+#: code:addons/price_dimension/models/inherit_purchase_order_line.py:97
+#: code:addons/price_dimension/models/inherit_sale_order_line.py:69
+#: code:addons/price_dimension/models/inherit_sale_order_line.py:71
+#, python-format
+msgid "Invalid Dimensions!"
+msgstr "Dimensiones Incorrectas"
+
+#. module: price_dimension
+#: code:addons/price_dimension/wizard.py:44
+#: code:addons/price_dimension/wizard.py:68
+#, python-format
+msgid "Invalid file format! (Only accept .xls or .xlsx)"
+msgstr "Formato de archivo incorrecto (Solo se acepta .xls o xlsx)"
+
+#. module: price_dimension
+#: code:addons/price_dimension/models/inherit_purchase_order_line.py:80
+#, python-format
+msgid "Invalid height!"
+msgstr "Altura incorrecta!"
+
+#. module: price_dimension
+#: code:addons/price_dimension/models/inherit_purchase_order_line.py:58
+#, python-format
+msgid "Invalid width!"
+msgstr "Ancho incorrecto!"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_prices_table___last_update
+#: model:ir.model.fields,field_description:price_dimension.field_supplier_attribute_value___last_update
+#: model:ir.model.fields,field_description:price_dimension.field_wizard_mdtable___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_prices_table_write_uid
+#: model:ir.model.fields,field_description:price_dimension.field_supplier_attribute_value_write_uid
+#: model:ir.model.fields,field_description:price_dimension.field_wizard_mdtable_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización de"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_prices_table_write_date
+#: model:ir.model.fields,field_description:price_dimension.field_supplier_attribute_value_write_date
+#: model:ir.model.fields,field_description:price_dimension.field_wizard_mdtable_write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_product_sale_price_area_max_height
+#: model:ir.model.fields,field_description:price_dimension.field_product_supplierinfo_price_area_max_height
+#: model:ir.model.fields,field_description:price_dimension.field_product_template_sale_price_area_max_height
+msgid "Max. Height"
+msgstr "Máx. Altura"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_product_sale_price_area_max_width
+#: model:ir.model.fields,field_description:price_dimension.field_product_supplierinfo_price_area_max_width
+#: model:ir.model.fields,field_description:price_dimension.field_product_template_sale_price_area_max_width
+msgid "Max. Width"
+msgstr "Máx. Ancho"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_product_sale_price_area_min_height
+#: model:ir.model.fields,field_description:price_dimension.field_product_supplierinfo_price_area_min_height
+#: model:ir.model.fields,field_description:price_dimension.field_product_template_sale_price_area_min_height
+msgid "Min. Height"
+msgstr "Mín. Altura"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_product_sale_min_price_area
+#: model:ir.model.fields,field_description:price_dimension.field_product_supplierinfo_min_price_area
+#: model:ir.model.fields,field_description:price_dimension.field_product_template_sale_min_price_area
+msgid "Min. Price"
+msgstr "Mín. Precio"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_product_sale_price_area_min_width
+#: model:ir.model.fields,field_description:price_dimension.field_product_supplierinfo_price_area_min_width
+#: model:ir.model.fields,field_description:price_dimension.field_product_template_sale_price_area_min_width
+msgid "Min. Width"
+msgstr "Mín. Ancho"
+
+#. module: price_dimension
+#: code:addons/price_dimension/models/inherit_procurement_order.py:111
+#, python-format
+msgid "No vendor associated to product %s. Please set one to fix this procurement."
+msgstr "No hay ningún proveedor asociado al producto %s. Profavor, establece uno para poder crear el abastecimiento"
+
+#. module: price_dimension
+#: model:ir.model,name:price_dimension.model_stock_pack_operation
+msgid "Packing Operation"
+msgstr "Operación de empaquetado"
+
+#. module: price_dimension
+#: selection:product.attribute.value,price_extra_type:0
+#: selection:supplier.attribute.value,price_extra_type:0
+msgid "Percentage"
+msgstr "Porcentaje"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_attribute_value_price_extra_type
+#: model:ir.model.fields,field_description:price_dimension.field_supplier_attribute_value_price_extra_type
+msgid "Price Extra Type"
+msgstr "Tipo de Precio Extra"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_wizard_mdtable_prices_table_file
+msgid "Prices Table File"
+msgstr "Archivo de Tabla de Precios"
+
+#. module: price_dimension
+#: model:ir.model,name:price_dimension.model_procurement_order
+msgid "Procurement"
+msgstr "Abastecimiento"
+
+#. module: price_dimension
+#: model:ir.model,name:price_dimension.model_product_product
+msgid "Product"
+msgstr "Producto"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_prices_table_supplier_product_id
+msgid "Product Supplier Info"
+msgstr "Información de Proveedor"
+
+#. module: price_dimension
+#: model:ir.model,name:price_dimension.model_product_template
+#: model:ir.model.fields,field_description:price_dimension.field_product_prices_table_sale_product_tmpl_id
+#: model:ir.model.fields,field_description:price_dimension.field_sale_order_line_product_tmpl_id
+msgid "Product Template"
+msgstr "Plantilla de Producto"
+
+#. module: price_dimension
+#: model:ir.model,name:price_dimension.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Línea de Pedido de Compra"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_product_sale_price_type
+#: model:ir.model.fields,field_description:price_dimension.field_product_template_sale_price_type
+#: model:ir.model.fields,field_description:price_dimension.field_purchase_order_line_product_price_type
+#: model:ir.model.fields,field_description:price_dimension.field_sale_order_line_product_price_type
+#: model:ir.ui.view,arch_db:price_dimension.view_product_product_form
+#: model:ir.ui.view,arch_db:price_dimension.view_product_template_form
+msgid "Sale Price Type"
+msgstr "Tipo de Precio de Venta"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_product_sale_prices_table
+#: model:ir.model.fields,field_description:price_dimension.field_product_template_sale_prices_table
+msgid "Sale Prices Table"
+msgstr "Tabla de Precio de Venta"
+
+#. module: price_dimension
+#: model:ir.model,name:price_dimension.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de Pedido de Venta"
+
+#. module: price_dimension
+#: selection:product.attribute.value,price_extra_type:0
+#: selection:product.supplierinfo,price_type:0
+#: selection:product.template,sale_price_type:0
+#: selection:supplier.attribute.value,price_extra_type:0
+msgid "Standard"
+msgstr "Estándar"
+
+#. module: price_dimension
+#: model:ir.model,name:price_dimension.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de stock"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_supplier_attribute_value_price_extra
+msgid "Supplier Price Extra"
+msgstr "Precio Extra de Proveedor"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_supplierinfo_price_type
+#: model:ir.ui.view,arch_db:price_dimension.view_product_supplier_form
+msgid "Supplier Price Type"
+msgstr "Tipo de Precio de Compra"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_supplierinfo_prices_table
+msgid "Supplier Prices Table"
+msgstr "Tabla de Precio de Compra"
+
+#. module: price_dimension
+#: model:ir.ui.view,arch_db:price_dimension.value_extra_tree_view
+msgid "Supplier Variant Values"
+msgstr "Valores de Variantes de Proveedor"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_supplier_attribute_value_supplierinfo_id
+msgid "Supplierinfo id"
+msgstr "Supplierinfo id"
+
+#. module: price_dimension
+#: code:addons/price_dimension/models/inherit_stock_picking.py:58
+#, python-format
+msgid "The destination location must be the same for all the moves of the picking."
+msgstr "The destination location must be the same for all the moves of the picking."
+
+#. module: price_dimension
+#: code:addons/price_dimension/models/inherit_product_attribute_value.py:38
+#, python-format
+msgid "The operation cannot be completed:\n"
+"You are trying to delete an attribute value with a reference on a product supplier variant."
+msgstr "The operation cannot be completed:\n"
+"You are trying to delete an attribute value with a reference on a product supplier variant."
+
+#. module: price_dimension
+#: code:addons/price_dimension/models/inherit_stock_picking.py:61
+#, python-format
+msgid "The source location must be the same for all the moves of the picking."
+msgstr "The source location must be the same for all the moves of the picking."
+
+#. module: price_dimension
+#: model:ir.model.fields,help:price_dimension.field_product_product_property_account_expense_id
+msgid "This account will be used for invoices instead of the default one to value expenses for the current product."
+msgstr "Esta cuenta se utilizará en facturas, en lugar de la cuenta por defecto, para valorar gastos de este producto."
+
+#. module: price_dimension
+#: model:ir.model.fields,help:price_dimension.field_product_product_property_account_income_id
+msgid "This account will be used for invoices instead of the default one to value sales for the current product."
+msgstr "Esta cuenta se utilizará en facturas, en lugar de la cuenta por defecto, para valorar las ventas de este producto."
+
+#. module: price_dimension
+#: model:ir.model.fields,help:price_dimension.field_product_product_price_extra_perc
+#: model:ir.model.fields,help:price_dimension.field_product_supplierinfo_price_extra_perc
+msgid "This is the percentage of the extra price of all attributes"
+msgstr "Este es el porcentaje del precio extra de los atributos"
+
+#. module: price_dimension
+#: model:ir.model.fields,help:price_dimension.field_product_supplierinfo_price_extra
+msgid "This is the sum of the extra price of all attributes"
+msgstr "Este es la suma del precio extra de los atributos"
+
+#. module: price_dimension
+#: model:ir.model,name:price_dimension.model_stock_picking
+msgid "Transfer"
+msgstr "Transferir"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_prices_table_value
+#: model:ir.model.fields,field_description:price_dimension.field_supplier_attribute_value_value
+msgid "Value"
+msgstr "Valor"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_supplierinfo_price_extra
+msgid "Variant Extra Price"
+msgstr "Precio Extra de Variante"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_product_price_extra_perc
+#: model:ir.model.fields,field_description:price_dimension.field_product_supplierinfo_price_extra_perc
+msgid "Variant Extra Price Percentage"
+msgstr "Precio Extra de Variante Porcentaje"
+
+#. module: price_dimension
+#: model:ir.ui.view,arch_db:price_dimension.view_product_supplier_form
+msgid "Variant Prices"
+msgstr "Previos de Variantes"
+
+#. module: price_dimension
+#: model:ir.actions.act_window,name:price_dimension.supplier_attribute_value_action
+msgid "Variant Values"
+msgstr "Valores de Variantes"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_attribute_value_supplier_ids
+msgid "Variants"
+msgstr "Variantes"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_product_supplier_taxes_id
+msgid "Vendor Taxes"
+msgstr "Impuestos de Proveedor"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_procurement_order_origin_width
+#: model:ir.model.fields,field_description:price_dimension.field_purchase_order_line_origin_width
+#: model:ir.model.fields,field_description:price_dimension.field_sale_order_line_origin_width
+#: model:ir.model.fields,field_description:price_dimension.field_stock_move_origin_width
+#: model:ir.model.fields,field_description:price_dimension.field_stock_pack_operation_origin_width
+msgid "Width"
+msgstr "Ancho"
+
+#. module: price_dimension
+#: model:ir.model.fields,field_description:price_dimension.field_product_product_width_uom
+#: model:ir.model.fields,field_description:price_dimension.field_product_template_width_uom
+msgid "Width UOM"
+msgstr "Width UOM"
+
+#. module: price_dimension
+#: model:ir.ui.view,arch_db:price_dimension.wizard_mdtable_sale_import_data_form_view
+#: model:ir.ui.view,arch_db:price_dimension.wizard_mdtable_supplier_import_data_form_view
+msgid "or"
+msgstr "ó"
+
+#. module: price_dimension
+#: model:ir.model,name:price_dimension.model_product_attribute_value
+msgid "product.attribute.value"
+msgstr "product.attribute.value"
+
+#. module: price_dimension
+#: model:ir.model,name:price_dimension.model_product_prices_table
+msgid "product.prices_table"
+msgstr "product.prices_table"
+
+#. module: price_dimension
+#: model:ir.model,name:price_dimension.model_supplier_attribute_value
+msgid "supplier.attribute.value"
+msgstr "supplier.attribute.value"
+
+#. module: price_dimension
+#: model:ir.model,name:price_dimension.model_wizard_mdtable
+msgid "wizard.mdtable"
+msgstr "wizard.mdtable"
+
