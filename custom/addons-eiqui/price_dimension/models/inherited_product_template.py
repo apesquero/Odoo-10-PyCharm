@@ -50,8 +50,8 @@ class product_template(models.Model):
                                         string="Sale Prices Table")
 
     def get_sale_price(self):
-        origin_width = context and context.get('width') or False
-        origin_height = context and context.get('height') or False
+        origin_width = self._context and self._context.get('width') or False
+        origin_height = self.context and self._context.get('height') or False
 
         result = False
         if origin_width:
@@ -95,7 +95,7 @@ class product_template(models.Model):
             if ptype != 'standard_price':
                 res[product.id] = product.get_sale_price()
             else:
-                company_id = context.get('force_company') or product.env.user.company_id.id
+                company_id = self._context.get('force_company') or product.env.user.company_id.id
                 product = product.with_context(force_company=company_id)
                 res[product.id] = product.sudo()[ptype]
             if ptype == 'list_price' and product._name == "product.product":

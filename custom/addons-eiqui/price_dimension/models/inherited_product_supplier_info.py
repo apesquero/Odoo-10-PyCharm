@@ -174,6 +174,5 @@ class product_supplier_info(models.Model):
         ])
         remove_extra = all_supplierinfo_extra - extra_ds
         remove_extra.unlink()
-        # result = self.product_tmpl_id._get_act_window_dict(
-        #     'price_dimension.supplier_attribute_value_action')
-        # return result
+        action = self.env.ref('price_dimension.supplier_attribute_value_action').read()[0]
+        return action

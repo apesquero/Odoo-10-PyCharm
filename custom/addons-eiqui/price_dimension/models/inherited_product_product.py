@@ -83,6 +83,7 @@ class product_product(models.Model):
     def _compute_product_lst_price(self):
         res = super(product_product, self)._compute_product_lst_price()
         product_uom_obj = self.env['product.uom']
+        to_uom = False
         if 'uom' in self._context:
             to_uom = self.env['product.uom'].browse([self._context['uom']])
         for product in self:

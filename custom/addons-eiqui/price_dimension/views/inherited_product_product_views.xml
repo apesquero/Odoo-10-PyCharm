@@ -1,62 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+
+
     <record id="view_product_product_form" model="ir.ui.view">
         <field name="model">product.product</field>
-        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
         <field name="arch" type="xml">
-
-            <xpath expr="//field[@name='lst_price']" position="attributes">
-                <attribute name="attrs">{'invisible':[('sale_price_type', 'not in', ['standard', 'area'])]}</attribute>
-            </xpath>
-
-            <xpath expr="//notebook/page[1]" position="after">
-                <page string="Sale Price Type" attrs="{'invisible':[('sale_price_type', '=', 'standard')]}">
-                    <group attrs="{'invisible':[('sale_price_type', '!=', 'area')]}">
-                        <group>
-                            <field name="sale_price_area_min_width"/>
-                            <field name="sale_price_area_max_width"/>
-                        </group>
-                        <group>
-                            <field name="sale_price_area_min_height"/>
-                            <field name="sale_price_area_max_height"/>
-                        </group>
-                        <group>
-                            <field name="sale_min_price_area"/>
-                        </group>
+        <xpath expr="//field[@name='lst_price']" position="attributes">
+            <attribute name="attrs">{'invisible':[('sale_price_type', 'not in', ['standard', 'area'])]}</attribute>
+        </xpath>
+        <xpath expr="//notebook/page[1]" position="after">
+        <page string="Sale Price Type" attrs="{'invisible':[('sale_price_type', '=', 'standard')]}">
+                <group attrs="{'invisible':[('sale_price_type', '!=', 'area')]}">
+                    <group>
+                        <field name="sale_price_area_min_width" />
+                        <field name="sale_price_area_max_width" />
                     </group>
-                    <div attrs="{'invisible':[('sale_price_type', 'not in', ['table_1d','table_2d','area'])]}">
+                    <group>
+                        <field name="sale_price_area_min_height" />
+                        <field name="sale_price_area_max_height" />
+                    </group>
+                    <group>
+                        <field name="sale_min_price_area" />
+                    </group>
+                </group>
+                <div attrs="{'invisible':[('sale_price_type', 'not in', ['table_1d','table_2d','area'])]}">
                         <!--group>
-                            <group>
-                                <field name="sale_prices_table_attr_axe_x"
-                                        widget="selection"
-                                        domain="[('product_tmpl_id', '=', active_id)]"
-                                        required="True" />
-                            </group>
-                            <group attrs="{'invisible':[('sale_price_type', '=', 'table_1d')]}">
-                                <field name="sale_prices_table_attr_axe_y"
-                                        widget="selection"
-                                        domain="[('product_tmpl_id', '=', active_id)]"
-                                        required="True" />
-                            </group>
-                        </group-->
-                        <div>
-                            <field name="sale_prices_table"
-                                   widget="mdtable"
-                                   mode="sale_price_type"
-                                   class="col-md-12"/>
-                        </div>
-                        <div>
-                            <group>
-                                <button name="%(launch_wizard_mdtable_sale_import_data)d"
-                                        string="Import Records"
-                                        type="action"
-                                        class="oe_highlight pull-right"/>
-                            </group>
-                        </div>
+                        <group>
+                            <field name="sale_prices_table_attr_axe_x"
+                                    widget="selection"
+                                    domain="[('product_tmpl_id', '=', active_id)]"
+                                    required="True" />
+                        </group>
+                        <group attrs="{'invisible':[('sale_price_type', '=', 'table_1d')]}">
+                            <field name="sale_prices_table_attr_axe_y"
+                                    widget="selection"
+                                    domain="[('product_tmpl_id', '=', active_id)]"
+                                    required="True" />
+                        </group>
+                    </group-->
+                    <div>
+                        <field name="sale_prices_table" widget="mdtable" mode="sale_price_type" />
                     </div>
-                </page>
+                    <div>
+                        <group>
+                            <button name="%(launch_wizard_mdtable_sale_import_data)d" string="Import Records" type="action" class="oe_highlight pull-right" />
+                        </group>
+                    </div>
+                </div>
+            </page>
             </xpath>
 
         </field>
     </record>
+
 </odoo>

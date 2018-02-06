@@ -31,7 +31,7 @@ class stock_move(models.Model):
     def _prepare_procurement_from_move(self):
             res = super(stock_move, self)._prepare_procurement_from_move()
             res.update({
-                'origin_width': context.get('width', 0),
-                'origin_height': context.get('height', 0)
+                'origin_width': self._context.get('width', 0),
+                'origin_height': self._context.get('height', 0)
             })
             return res

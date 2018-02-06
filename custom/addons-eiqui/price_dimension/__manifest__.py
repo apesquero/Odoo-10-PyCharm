@@ -34,6 +34,7 @@
         'purchase',
         'product_variant_configurator',
         'sale_variant_configurator',
+        'purchase_variant_configurator',
     ],
     'external_dependencies': {
         'python': [
