@@ -46,7 +46,6 @@ class purchase_order_line(models.Model):
                 height=self.origin_height
             )
             seller = product._select_seller(
-                product,
                 partner_id=self.partner_id,
                 quantity=self.product_qty,
                 date=self.order_id.date_order and self.order_id.date_order[:10],
@@ -68,7 +67,6 @@ class purchase_order_line(models.Model):
                 height=self.origin_height
             )
             seller = product._select_seller(
-                product,
                 partner_id=self.partner_id,
                 quantity=self.product_qty,
                 date=self.order_id.date_order and self.order_id.date_order[:10],
@@ -161,7 +159,6 @@ class purchase_order_line(models.Model):
         )
 
         seller = product._select_seller(
-            product,
             partner_id=self.partner_id,
             quantity=self.product_qty,
             date=self.order_id.date_order and self.order_id.date_order[:10],

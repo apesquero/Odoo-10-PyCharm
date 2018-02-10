@@ -21,6 +21,7 @@
 ##############################################################################
 
 from odoo import models, fields
+from collections import namedtuple
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -33,7 +34,7 @@ class stock_picking(models.Model):
         """ Prepare pack_operations, returns a list of dict to give at create """
         # TDE CLEANME: oh dear ...
         valid_quants = quants.filtered(lambda quant: quant.qty > 0)
-        _Mapping = namedtuple('Mapping', ('product', 'package', 'owner', 'location', 'location_dst_id'))
+        _Mapping = namedtuple('Mapping', ('product', 'package', 'owner', 'location', 'location_dst_id','reservation'))
 
         all_products = valid_quants.mapped('product_id') | self.env['product.product'].browse(p.id for p in forced_qties.keys()) | self.move_lines.mapped('product_id')
         computed_putaway_locations = dict(

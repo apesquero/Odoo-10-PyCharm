@@ -61,9 +61,8 @@ class procurement_order(models.Model):
             height=self.origin_height
         )
 
-        procurement_uom_po_qty = self.env['product.uom']._compute_qty_obj(self.product_uom, self.product_qty, self.product_id.uom_po_id)
+        procurement_uom_po_qty = self.product_uom._compute_quantity(self.product_qty, self.product_id.uom_po_id)
         seller = product_id._select_seller(
-            product_id,
             partner_id=supplier.name,
             quantity=procurement_uom_po_qty,
             date=po.date_order and po.date_order[:10],
@@ -156,9 +155,8 @@ class procurement_order(models.Model):
                     height=line.origin_height
                 )
                 if line.product_id == product_id and line.product_uom == procurement.product_id.uom_po_id and line.origin_width == procurement.origin_width and line.origin_height == procurement.origin_height:
-                    procurement_uom_po_qty = self.env['product.uom']._compute_qty_obj(procurement.product_uom, procurement.product_qty, product_id.uom_po_id)
+                    procurement_uom_po_qty = procurement.product_uom._compute_quantity(procurement.product_qty, procurement.product_id.uom_po_id)
                     seller = self.product_id._select_seller(
-                        product_id,
                         partner_id=partner,
                         quantity=line.product_qty + procurement_uom_po_qty,
                         date=po.date_order and po.date_order[:10],
