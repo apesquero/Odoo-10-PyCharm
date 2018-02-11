@@ -16,7 +16,7 @@ class Wizard_Multi_Dimension_Table(models.TransientModel):
         try:
             book = xlrd.open_workbook(file_contents=base64.b64decode(self.prices_table_file))
             opers = self._generate_commands_from_xls_book(record_id.price_type, book)
-            record_id.write({'prices_table': [(5, False, False)] + opers})
-        except xlrd.XLRDError as err:
+            record_id.write({'supplier_prices_table': [(5, False, False)] + opers})
+        except xlrd.XLRDError:
             raise UserError(_('Invalid file format! (Only accept .xls or .xlsx)'))
         return {}
