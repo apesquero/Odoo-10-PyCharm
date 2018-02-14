@@ -5,11 +5,11 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="model">sale.order</field>
         <field name="arch" type="xml">
-            <!--<xpath expr="//tree/field[@name='name']" position="after">-->
-                <!--<field name="origin_width" attrs="{'readonly': [('product_price_type', 'not in', ('area','table_2d','table_1d'))]}"/>-->
-                <!--<field name="origin_height" attrs="{'readonly': [('product_price_type', 'not in', ('area','table_2d'))]}"/>-->
-                <!--<field name="product_price_type" invisible="1"/>-->
-            <!--</xpath>-->
+            <xpath expr="//tree/field[@name='name']" position="after">-->
+                <field name="origin_width" attrs="{'readonly': [('product_price_type', 'not in', ('area','table_2d','table_1d'))]}"/>
+                <field name="origin_height" attrs="{'readonly': [('product_price_type', 'not in', ('area','table_2d'))]}"/>
+                <field name="product_price_type" invisible="1"/>
+            </xpath>
             <xpath expr="//form/group/group/field[@name='product_id']" position="after">
                 <field name="origin_width" attrs="{'invisible': [('product_price_type', 'not in', ('area','table_2d','table_1d'))]}"/>
                 <field name="origin_height" attrs="{'invisible': [('product_price_type', 'not in', ('area','table_2d'))]}"/>

@@ -28,5 +28,6 @@ class SaleOrder(models.Model):
 
     @api.multi
     def action_cancel(self):
+        res = super(SaleOrder, self).action_cancel()
         self.update({'acepted': False})
-        return self.write({'state': 'cancel'})
+        return res

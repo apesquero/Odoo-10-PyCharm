@@ -66,7 +66,7 @@ class product_product(models.Model):
             'y': sorted(list(set(result['y'])))
         })
         return result
-    #
+
     @api.model
     def get_sale_price(self):
         origin_width = self._context.get('width', False)

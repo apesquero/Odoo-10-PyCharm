@@ -36,6 +36,7 @@ class stock_pack_operation(models.Model):
     origin_width = fields.Float(string="Width")
     origin_height = fields.Float(string="Height")
 
+
     #~ @api.depends('linked_move_operation_ids.move_id')
     #~ @api.multi
     #~ def _compute_size(self):

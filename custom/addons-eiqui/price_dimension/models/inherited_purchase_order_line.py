@@ -177,16 +177,12 @@ class purchase_order_line(models.Model):
         )
 
         price_unit = self.env['account.tax']._fix_tax_included_price(seller.get_supplier_price(), product.supplier_taxes_id, self.taxes_id) if seller else 0.0
-        _logger.info('S5555555555555')
         _logger.info(price_unit)
         if price_unit and seller and self.order_id.currency_id and seller.currency_id != self.order_id.currency_id:
             price_unit = seller.currency_id.compute(price_unit, self.order_id.currency_id)
-            _logger.info('S666666666')
             _logger.info(price_unit)
         if seller and self.product_uom and seller.product_uom != self.product_uom:
             price_unit = self.env['product.uom']._compute_price(seller.product_uom.id, price_unit, to_uom_id=self.product_uom.id)
-            _logger.info('S77777777')
-            _logger.info(price_unit)
         self.price_unit = price_unit
 
 

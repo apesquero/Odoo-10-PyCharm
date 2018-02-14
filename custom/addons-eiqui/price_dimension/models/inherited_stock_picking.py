@@ -35,7 +35,6 @@ class stock_picking(models.Model):
         # TDE CLEANME: oh dear ...
         valid_quants = quants.filtered(lambda quant: quant.qty > 0)
         _Mapping = namedtuple('Mapping', ('product', 'package', 'owner', 'location', 'location_dst_id','reservation'))
-
         all_products = valid_quants.mapped('product_id') | self.env['product.product'].browse(p.id for p in forced_qties.keys()) | self.move_lines.mapped('product_id')
         computed_putaway_locations = dict(
             (product, self.location_dest_id.get_putaway_strategy(product) or self.location_dest_id.id) for product in all_products)
@@ -81,7 +80,7 @@ class stock_picking(models.Model):
         for product, qty in forced_qties.items():
             if qty <= 0.0:
                 continue
-            key = _Mapping(product, self.env['stock.quant.package'], self.owner_id, self.location_id, computed_putaway_locations[product], self.env['stock.move'])
+            key = _Mapping(product, self.env['stock.quant.package'], self.owner_id, self.location_id, computed_putaway_locations[product], self.env['stock.move'].search([('picking_id', '=', self.id),('product_id','=',product.id)]))
             qtys_grouped.setdefault(key, 0.0)
             qtys_grouped[key] += qty
 

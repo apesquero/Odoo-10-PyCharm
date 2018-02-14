@@ -31,4 +31,3 @@ class product_template(models.Model):
     sale_prices_table = fields.One2many('product.prices_table',
                                         'sale_product_tmpl_id',
                                         string="Sale Prices Table")
-

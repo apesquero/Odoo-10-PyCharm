@@ -29,9 +29,17 @@ class stock_move(models.Model):
     origin_height = fields.Float(string="Height", required=False)
 
     def _prepare_procurement_from_move(self):
-            res = super(stock_move, self)._prepare_procurement_from_move()
-            res.update({
-                'origin_width': self._context.get('width', 0),
-                'origin_height': self._context.get('height', 0)
-            })
-            return res
+        res = super(stock_move, self)._prepare_procurement_from_move()
+        res.update({
+            'origin_width': self._context.get('width', 0),
+            'origin_height': self._context.get('height', 0)
+        })
+        return res
+
+    def create(self, vals):
+        vals.update({
+            'origin_width': self._context.get('width',0),
+            'origin_height': self._context.get('height',0)
+        })
+        vals = super(stock_move, self).create(vals)        
+        return vals
