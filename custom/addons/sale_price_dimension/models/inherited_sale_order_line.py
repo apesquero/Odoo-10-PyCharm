@@ -22,9 +22,14 @@ class sale_order_line(models.Model):
                   'product_attribute_ids.value_id')
     def product_id_change(self):
         super(sale_order_line, self).product_id_change()
-        if not self.product_tmpl_id or (
-            self.product_id and self.product_id.product_tmpl_id.id != self.product_id.product_tmpl_id.id):
+
+        if not self.product_tmpl_id:
             return
+
+        """
+        TODO: crea directamente la variante de producto, 
+                lo suyo sería llamar al modelo _onchange_create_product_variant de product_configurator
+        """
         if self.can_create_product:
             try:
                 with self.env.cr.savepoint():
@@ -35,7 +40,9 @@ class sale_order_line(models.Model):
                     'title': _('Product not created!'),
                     'message': e.name,
                 }}
+
         vals = {}
+
         product = self.product_id.with_context(
             lang=self.order_id.partner_id.lang,
             partner=self.order_id.partner_id.id,
@@ -48,29 +55,39 @@ class sale_order_line(models.Model):
             height=self.origin_height
         )
 
-        if product.sale_price_type in ['table_2d',
-                                       'area'] and self.origin_height != 0 and self.origin_width != 0 and not self.product_id.origin_check_sale_dim_values(
-                self.origin_width, self.origin_height):
+        if product.sale_price_type in ['table_2d', 'area']\
+                and self.origin_height != 0\
+                and self.origin_width != 0\
+                and not self.product_id.origin_check_sale_dim_values(self.origin_width,
+                                                                     self.origin_height):
             raise ValidationError(_("Invalid Dimensions!"))
-        elif product.sale_price_type == 'table_1d' and self.origin_width != 0 and not self.product_id.origin_check_sale_dim_values(
-                self.origin_width, 0):
+
+        elif product.sale_price_type == 'table_1d'\
+                and self.origin_width != 0\
+                and not self.product_id.origin_check_sale_dim_values(self.origin_width, 0):
             raise ValidationError(_("Invalid Dimensions!"))
 
         if self.product_tmpl_id.sale_price_type not in ['table_1d', 'table_2d', 'area']:
             self.origin_height = self.origin_width = 0
+
         name = ''
+
         if self.product_id:
             name = product.name_get()[0][1]
+
         if product.sale_price_type in ['table_2d', 'area']:
             height_uom = product.height_uom.name
             width_uom = product.width_uom.name
             name += _(' [Width:%.2f %s x Height:%.2f %s]') % (
             self.origin_width, width_uom, self.origin_height, height_uom)
+
         elif product.sale_price_type == 'table_1d':
             width_uom = product.width_uom.name
             name += _(' [ Width:%.2f %s]') % (self.origin_width, width_uom)
+
         if product.description_sale:
             name += '\n' + product.description_sale
+
         vals['name'] = name
 
         if self.order_id.pricelist_id and self.order_id.partner_id:
