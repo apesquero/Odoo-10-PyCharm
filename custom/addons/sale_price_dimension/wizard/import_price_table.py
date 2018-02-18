@@ -9,8 +9,11 @@ import xlrd
 class Wizard_Multi_Dimension_Table(models.TransientModel):
     _name = 'import_price_table.mdtable'
 
-    prices_table_file = fields.Binary(string='Prices Table File')
-    file_name = fields.Char(string="File Name")
+    # allow imports to survive for 12h in case user is slow
+    _transient_max_hours = 12.0
+
+    prices_table_file = fields.Binary('Prices Table File')
+    file_name = fields.Char('File Name')
 
     @api.multi
     def import_sale_prices_from_file(self):

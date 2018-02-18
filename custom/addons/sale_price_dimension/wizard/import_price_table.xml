@@ -4,7 +4,7 @@
     <!-- inherit from web assets backend -->
     <template id="assets_backend" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
-            <link rel="stylesheet" href="/sale_price_dimension/static/src/css/mdtable.css" />
+            <link rel="stylesheet" href="/sale_price_dimension/static/src/css/mdtable.css"/>
             <script type="text/javascript" src="/sale_price_dimension/static/src/js/MultiDimensionTable.js"></script>
         </xpath>
     </template>
@@ -22,7 +22,7 @@
                 </group>
                 <footer>
                     <button name="import_sale_prices_from_file" type="object"
-                        string="Import" class="oe_highlight"/>
+                            string="Import" class="oe_highlight"/>
                     or
                     <button special="cancel" string="Cancel"/>
                 </footer>

@@ -18,6 +18,10 @@ class sale_order_line(models.Model):
                                           related='product_tmpl_id.sale_price_type')
 
 
+    """
+    TODO: demasiadas operaciones juntas de onchange, poco eficiente, repite procesos innecesariamente
+    """
+
     @api.onchange('product_id', 'origin_width', 'origin_height', 'product_attribute_ids',
                   'product_attribute_ids.value_id')
     def product_id_change(self):
