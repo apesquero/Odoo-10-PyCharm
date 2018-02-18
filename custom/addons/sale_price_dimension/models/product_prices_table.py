@@ -3,7 +3,6 @@
 from odoo import models, fields, api, _
 import odoo.addons.decimal_precision as dp
 
-
 class product_prices_table(models.Model):
     _name = 'product.prices_table'
 

@@ -10,6 +10,7 @@ class sale_order_line(models.Model):
 
     origin_width = fields.Float(string="Width", required=True)
     origin_height = fields.Float(string="Height", required=True)
+
     product_price_type = fields.Selection([('standard', 'Standard'),
                                            ('table_1d', '1D Table'),
                                            ('table_2d', '2D Table'),
@@ -33,6 +34,8 @@ class sale_order_line(models.Model):
         """
         TODO: crea directamente la variante de producto, 
                 lo suyo sería llamar al modelo _onchange_create_product_variant de product_configurator
+                o crear un módulo que directamente modifique product_configurator para que los cree 
+                automáticamente
         """
         if self.can_create_product:
             try:
@@ -99,29 +102,29 @@ class sale_order_line(models.Model):
                                                                                  self.tax_id)
         self.update(vals)
 
-    # def product_uom_change(self):
-    #     super(sale_order_line, self).product_uom_change()
-    #     if not self.product_uom or not self.product_id:
-    #         self.price_unit = 0.0
-    #         return
-    #     if self.order_id.pricelist_id and self.order_id.partner_id:
-    #         product = self.product_id.with_context(
-    #             lang=self.order_id.partner_id.lang,
-    #             partner=self.order_id.partner_id.id,
-    #             quantity=self.product_uom_qty,
-    #             date_order=self.order_id.date_order,
-    #             pricelist=self.order_id.pricelist_id.id,
-    #             uom=self.product_uom.id,
-    #             fiscal_position=self.env.context.get('fiscal_position'),
-    #
-    #             width=self.origin_width,
-    #             height=self.origin_height
-    #         )
-    #         # self.price_unit = self.env['account.tax']._fix_tax_included_price(product.price, product.taxes_id,
-    #         #                                                                   self.tax_id)
-    #         self.price_unit = self.env['account.tax']._fix_tax_included_price_company(self._get_display_price(product),
-    #                                                                                   product.taxes_id, self.tax_id,
-    #                                                                                   self.company_id)
+    def product_uom_change(self):
+        super(sale_order_line, self).product_uom_change()
+        if not self.product_uom or not self.product_id:
+            self.price_unit = 0.0
+            return
+        if self.order_id.pricelist_id and self.order_id.partner_id:
+            product = self.product_id.with_context(
+                lang=self.order_id.partner_id.lang,
+                partner=self.order_id.partner_id.id,
+                quantity=self.product_uom_qty,
+                date_order=self.order_id.date_order,
+                pricelist=self.order_id.pricelist_id.id,
+                uom=self.product_uom.id,
+                fiscal_position=self.env.context.get('fiscal_position'),
+
+                width=self.origin_width,
+                height=self.origin_height
+            )
+            self.price_unit = self.env['account.tax']._fix_tax_included_price(product.price, product.taxes_id,
+                                                                              self.tax_id)
+            # self.price_unit = self.env['account.tax']._fix_tax_included_price_company(self._get_display_price(product),
+            #                                                                           product.taxes_id, self.tax_id,
+            #                                                                           self.company_id)
 
     @api.multi
     def _prepare_order_line_procurement(self, group_id=False):

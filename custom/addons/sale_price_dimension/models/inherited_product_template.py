@@ -16,6 +16,7 @@ class product_template(models.Model):
     sale_price_area_max_height = fields.Float(string="Max. Height", default=0.0,
                                               digits=dp.get_precision('Product Price'))
     sale_min_price_area = fields.Monetary("Min. Price")
+
     height_uom = fields.Many2one('product.uom', string='Height UOM')
     width_uom = fields.Many2one('product.uom', string='Width UOM')
 
@@ -31,3 +32,7 @@ class product_template(models.Model):
     sale_prices_table = fields.One2many('product.prices_table',
                                         'sale_product_tmpl_id',
                                         string="Sale Prices Table")
+
+    sale_prices_area = fields.One2many('product.prices_area',
+                                       'sale_area_tmpl_id',
+                                       string="Sale Prices Area")
