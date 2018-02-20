@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    
+    <record model="ir.ui.view" id="product_price_template_form_view">
+        <field name="name">product_price_template_form_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            
+            <field name="list_price" position="before">
+                <field name="price_mode" />
+            </field>
+            
+            <field name="list_price" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            
+            <field name="list_price" position="after">
+                <field name="list_price_alias" attrs="{'invisible':[('price_mode', '!=', 'standard')]}" />
+                <field name="price_formula_eval" attrs="{'invisible':[('price_mode', '!=', 'formula')]}" />
+                <field name="possible_range_num_price_attribute" invisible="1" />
+                <field name="table_price_attribute_x"
+                    domain="[('id', 'in', possible_range_num_price_attribute[0][2])]"
+                    options="{'no_create': True}"
+                    attrs="{'invisible':[('price_mode', 'not in', ['table1d', 'table2d'])]}" />
+                <field name="table_price_attribute_y"
+                    domain="[('id', 'in', possible_range_num_price_attribute[0][2])]"
+                    options="{'no_create': True}"
+                    attrs="{'invisible':[('price_mode', '!=', 'table2d')]}" />
+                <field name="table_price_items_len" readonly="1" attrs="{'invisible':[('price_mode', 'not in', ['table2d', 'table1d'])]}" />
+                <button name="%(action_import_file2d)d" type="action"
+                    string="Load File"
+                    class="oe_highlight"
+                    attrs="{'invisible':[('price_mode', '!=', 'table2d')]}" />
+                <button name="%(action_import_file1d)d" type="action"
+                    string="Load File"
+                    class="oe_highlight"
+                    attrs="{'invisible':[('price_mode', '!=', 'table1d')]}" />
+                <p attrs="{'invisible':[('price_mode', '!=', 'area')]}">
+                    (<field name="area_price_attribute_x"
+                        domain="[('id', 'in', possible_range_num_price_attribute[0][2])]"
+                        options="{'no_create': True}"/> * <field name="area_price_x_factor" /> + <field name="area_price_x_sum" />) * (<field
+                    name="area_price_attribute_y"
+                    domain="[('id', 'in', possible_range_num_price_attribute[0][2])]"
+                    options="{'no_create': True}"/> * <field name="area_price_y_factor" /> + <field name="area_price_y_sum" />) * <field name="area_price_factor" />
+                </p>
+                <field name="area_min_price" attrs="{'invisible':[('price_mode', '!=', 'area')]}" />
+            </field>
+            
+        </field>
+    </record>
+    
+    
+</data>
+</openerp>

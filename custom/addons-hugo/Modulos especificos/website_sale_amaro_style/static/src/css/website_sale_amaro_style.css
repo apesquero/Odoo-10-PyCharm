@@ -1,0 +1,11 @@
+li.js_attribute_value > label.control-label.css_not_available{
+    display:none;
+}
+
+li.js_attribute_value.website_attribute_image{
+    display: inline-block;
+}
+
+li.js_attribute_value.website_attribute_image label{
+    display: table;
+}

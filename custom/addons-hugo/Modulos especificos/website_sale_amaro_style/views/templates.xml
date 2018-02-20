@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="website_sale_amaro_style">
+        <xpath expr="." position="inside">
+            <link rel='stylesheet' href='/website_sale_amaro_style/static/src/css/website_sale_amaro_style.css'/>
+        </xpath>
+    </template>
+    
+    
+</data>
+</openerp>

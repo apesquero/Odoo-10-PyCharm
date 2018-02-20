@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    
+    <record model="ir.ui.view" id="product_cost_template_form_view">
+        <field name="name">product_cost_template_form_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//form/header/button" position="after">
+                <button string="Variant Costs" type="object"
+                        name="action_open_cost_extras"
+                        attrs="{'invisible':[('cost_mode', 'not in', ['bom'])]}"/>
+            </xpath>
+            
+        </field>
+    </record>
+    
+    
+</data>
+</openerp>

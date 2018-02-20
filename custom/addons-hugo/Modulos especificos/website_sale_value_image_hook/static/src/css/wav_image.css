@@ -1,0 +1,30 @@
+.website_attribute_image-label {
+    margin: 10px;
+}
+
+.website_attribute_image input{
+    /*position:absolute;
+    z-index:999;*/
+    display:none;
+}
+
+.website_attribute_image-image{
+    background-size:contain;
+    background-repeat:no-repeat;
+    display:inline-block;
+    /*width:100px;height:70px;*/
+    -webkit-transition: all 100ms ease-in;
+       -moz-transition: all 100ms ease-in;
+            transition: all 100ms ease-in;
+}
+.website_attribute_image input:enabled + label:hover{
+    /*-webkit-filter: brightness(1.3) opacity(.9);
+       -moz-filter: brightness(1.3) opacity(.9);
+            filter: brightness(1.3) opacity(.9);*/
+    outline: 5px solid #944097;
+    cursor:pointer;
+}
+.website_attribute_image input:checked + label:hover,
+.website_attribute_image input:checked + label{
+    outline: 5px solid #d58c1f;
+}

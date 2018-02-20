@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    
+    <record model="ir.ui.view" id="product_cost_template_form_view">
+        <field name="name">product_cost_template_form_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//form/header/button" position="after">
+                <button string="Variant Costs" type="object"
+                        name="action_open_cost_extras"
+                        attrs="{'invisible':[('cost_mode', 'not in', ['standard', 'table1d', 'table2d', 'area', 'formula'])]}"/>
+            </xpath>
+            
+            <label for="standard_price" groups="base.group_user" position="before">
+                <field name="cost_mode" />
+            </label>
+            
+            <label for="standard_price" groups="base.group_user" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </label>
+            
+            <xpath expr="//notebook/page/group/group[@name='group_standard_price']/div[@name='standard_price_uom']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            
+            <xpath expr="//notebook/page/group/group[@name='group_standard_price']/div[@name='standard_price_uom']" position="after">
+                <field name="standard_price_alias" attrs="{'invisible':[('cost_mode', '!=', 'standard')]}" />
+                <field name="cost_formula_eval" attrs="{'invisible':[('cost_mode', '!=', 'formula')]}" />
+                <field name="possible_range_num_cost_attribute" invisible="1" />
+                <field name="table_cost_attribute_x"
+                    domain="[('id', 'in', possible_range_num_cost_attribute[0][2])]"
+                    options="{'no_create': True}"
+                    attrs="{'invisible':[('cost_mode', 'not in', ['table1d', 'table2d'])]}" />
+                <field name="table_cost_attribute_y"
+                    domain="[('id', 'in', possible_range_num_cost_attribute[0][2])]"
+                    options="{'no_create': True}"
+                    attrs="{'invisible':[('cost_mode', '!=', 'table2d')]}" />
+                <field name="table_cost_items_len" readonly="1" attrs="{'invisible':[('cost_mode', '!=', 'table2d')]}" />
+                <field name="table_cost_items1d_len" readonly="1" attrs="{'invisible':[('cost_mode', '!=', 'table1d')]}" />
+                <button name="%(action_import_file2d)d" type="action"
+                    string="Load File"
+                    class="oe_highlight"
+                    attrs="{'invisible':[('cost_mode', '!=', 'table2d')]}" />
+                <button name="%(action_import_file1d)d" type="action"
+                    string="Load File"
+                    class="oe_highlight"
+                    attrs="{'invisible':[('cost_mode', '!=', 'table1d')]}" />
+                <p attrs="{'invisible':[('cost_mode', '!=', 'area')]}">
+                    (<field name="area_cost_attribute_x"
+                        domain="[('id', 'in', possible_range_num_cost_attribute[0][2])]"
+                        options="{'no_create': True}"/> * <field name="area_x_factor" /> + <field name="area_x_sum" />) * (<field
+                    name="area_cost_attribute_y"
+                    domain="[('id', 'in', possible_range_num_cost_attribute[0][2])]"
+                    options="{'no_create': True}"/> * <field name="area_y_factor" /> + <field name="area_y_sum" />) * <field name="area_cost_factor" />
+                </p>
+                <field name="area_min_cost" attrs="{'invisible':[('cost_mode', '!=', 'area')]}" />
+            </xpath>
+            
+        </field>
+    </record>
+    
+    <!--<record model="ir.ui.view" id="product_attribute_value_view_tree">
+        <field name="name">product_attribute_value_view_tree</field>
+        <field name="model">product.attribute.value</field>
+        <field name="inherit_id" ref="product.product_attribute_value_view_tree"/>
+        <field name="arch" type="xml">
+            
+            <field name="price_extra" position="after">
+                <field name="cost_extra"/>
+                <field name="cost_percent_extra"/>
+            </field>
+            
+        </field>
+    </record>
+    
+    <record model="ir.ui.view" id="attribute_price_tree_view">
+        <field name="name">attribute_price_tree_view</field>
+        <field name="model">product.attribute.price</field>
+        <field name="inherit_id" ref="product_variants_no_automatic_creation.attribute_price_tree_view"/>
+        <field name="arch" type="xml">
+            
+            <field name="price_extra" position="after">
+                <field name="cost_extra"/>
+                <field name="cost_percent_extra"/>
+            </field>
+            
+        </field>
+    </record>-->
+
+    <record model="ir.ui.view" id="product_cost_extra_tree_view">
+        <field name="name">product_cost_extra_tree_view</field>
+        <field name="model">product.cost.extra</field>
+        <field name="arch" type="xml">
+            
+            <tree string="Variant Values" editable="bottom" nodelete="1" nocreate="1">
+                <field name="attribute" readonly="1" />
+                <field name="value" readonly="1" />
+                <field name="cost_extra" />
+                <field name="cost_percent_extra" />
+            </tree>
+            
+        </field>
+    </record>
+    
+    <record id="product_cost_extra_action" model="ir.actions.act_window">
+        
+        <field name="name">Variant Values</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.cost.extra</field>
+        <field name="view_mode">tree</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="product_cost_extra_tree_view"/> 
+        <field name="domain">[('product_template', '=', active_id)]</field>
+        <field name="context">{'default_product_template': active_id}</field>
+        
+    </record>
+    
+    
+</data>
+</openerp>

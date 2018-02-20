@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_table_cost_item,table_cost_item,model_template_table_cost_item,base.group_user,1,0,0,0
+access_table_cost_item_public,table_cost_item_public,model_template_table_cost_item,base.group_public,1,0,0,0
+access_table_cost_item_sale_manager,table_cost_item_sale_manager,model_template_table_cost_item,base.group_sale_manager,1,1,1,1
+access_table_cost_item_one,table_cost_item_one,model_template_table_cost_item_one,base.group_user,1,0,0,0
+access_table_cost_item_one_public,table_cost_item_one_public,model_template_table_cost_item_one,base.group_public,1,0,0,0
+access_table_cost_item_one_sale_manager,table_cost_item_one_sale_manager,model_template_table_cost_item_one,base.group_sale_manager,1,1,1,1
+access_product_cost_extra,product_cost_extra,model_product_cost_extra,base.group_user,1,0,0,0
+access_product_cost_extra_public,product_cost_extra_public,model_product_cost_extra,base.group_public,1,0,0,0
+access_product_cost_extra_sale_manager,product_cost_extra_sale_manager,model_product_cost_extra,base.group_sale_manager,1,1,1,1
+

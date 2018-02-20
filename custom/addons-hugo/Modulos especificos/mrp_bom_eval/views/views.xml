@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    
+    <record model="ir.ui.view" id="mrp_bom_eval_form_view">
+        <field name="name">mrp.bom.eval.form.view</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view" />
+        <field name="arch" type="xml">
+            
+            <xpath expr="//field[@name='bom_line_ids']/tree/field[@name='product_qty']" position="replace">
+                <field name="qty_eval" />
+            </xpath>
+            
+            <notebook position="inside">
+                <page string="Attributes Formula">
+                    <field name="possible_eval_attributes" invisible="1" />
+                    <field name="attribute_eval_line_ids" widget="one2many_list" context="{'default_bom_id': active_id, 'default_possible_eval_attributes': possible_eval_attributes, }">
+                        <tree string="Formulas" editable="bottom">
+                            <field name='bom_id' invisible="1" />
+                            <field name="possible_eval_attributes" invisible="1" />
+                            <field name="attribute_id" domain="[('id', 'in', possible_eval_attributes[0][2])]" options="{'no_create': True}"/>
+                            <field name="formula_eval" />
+                            <field name="possible_condition_values" invisible="1" />
+                            <field name="condition_value_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+            
+        </field>
+    </record>
+    
+    <record model="ir.ui.view" id="mrp_bom_component_eval_tree_view">
+        <field name="name">mrp.bom.component.eval.tree.view</field>
+        <field name="model">mrp.bom.line</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_component_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='product_qty']" position="replace">
+                <field name="qty_eval" />
+            </xpath>
+        </field>
+    </record>
+    
+    <!--<record model="ir.ui.view" id="mrp_bom_line_eval_form_view">
+        <field name="name">mrp_bom_line_eval_form_view</field>
+        <field name="model">mrp.bom.line</field>
+        <field name="inherit_id" ref="mrp_product_variants.mrp_bom_line_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//form//label[@for='product_qty']" position="replace">
+                <label for="qty_eval" />
+            </xpath>
+            <xpath expr="//form//field[@name='product_qty']" position="replace">
+                <field for="qty_eval" class="oe_inline" />
+            </xpath>
+        </field>
+    </record>-->
+    
+    
+</data>
+</openerp>

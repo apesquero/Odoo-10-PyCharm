@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    
+    <template id="assets_frontend" inherit_id="website_sale_hook.assets_frontend" name="website_sale_attribute_hierarchy">
+        <xpath expr="//script[@type='text/javascript' and @src='/website_sale_hook/static/src/js/website_sale_hook.js']" position="after">
+            <script type="text/javascript" src='/website_sale_range_attribute/static/src/js/website_sale_range_attribute.js'></script>
+        </xpath>
+    </template>
+    
+    <template id="variants" name="Value image" inherit_id="website_sale_hook.variants" >
+        
+        <xpath expr="//t[@t-foreach='attribute_foreach' and @t-as='variant_id']" postion="inside">
+            <li t-if="variant_id.attribute_id.type in ['rangeinput'] and len(variant_id.value_ids) > 0">
+                <strong t-field="variant_id.attribute_id.name"/>
+                <div>
+                    <ul class="list-unstyled js_attribute_value_list" style="display: none;">
+                        <t t-foreach="variant_id.value_ids" t-as="value_id">
+                            <li class="form-group js_attribute_value" style="margin: 0;">
+                                <label class="control-label" style="margin: 0 20px;">
+                                    <input type="radio" class="js_variant_change radio-range"
+                                        t-att-checked="'checked' if value_id.id == selected_values_dict[variant_id.attribute_id.id]['value'] else ''"
+                                        t-att-name="'attribute-%s-%s' % (product.id, variant_id.attribute_id.id)"
+                                        t-att-value="value_id.id"
+                                        t-att-data-min-range="str(value_id.min_range)"
+                                        t-att-data-max-range="str(value_id.max_range)"
+                                        t-att-data-attribute="variant_id.attribute_id.id"/>
+                                </label>
+                            </li>
+                        </t>
+                    </ul>
+                    <div class="css_quantity input-group oe_website_spinner" contenteditable="false">
+                        <a t-attf-href="#" class="mb8 input-group-addon js_add_range_input">
+                            <i class="fa fa-minus"></i>
+                        </a>
+                        <input type="text" class="form-control range-attribute"
+                            t-att-data-range-min="1"
+                            t-att-data-range-max="1"
+                            t-att-value="str(selected_values_dict[variant_id.attribute_id.id]['custom_value'])" />
+                        <a t-attf-href="#" class="mb8 input-group-addon float_left js_add_range_input">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </div>
+                    <span class="out-range-message alert alert-danger" style="display: none;">Out of range</span>
+                </div>
+            </li>
+        </xpath>
+        
+        <xpath expr="//t[@t-set='single_value_attr_condition' and @t-value='len(variant_id.value_ids)==1']" position="replace">
+            <t t-set="single_value_attr_condition" t-value="len(variant_id.value_ids)==1 and variant_id.attribute_id.type != 'rangeinput'"/>
+        </xpath>
+        
+    </template>
+    
+    <template id="product_attributes" inherit_id="website_sale_hook.product_attributes" name="Product Attribute">
+        <xpath expr="//t[@t-if='len(variant_id.value_ids)==1']" position="replace">
+            <t t-if="len(variant_id.value_ids)==1 and variant_id.attribute_id.type != 'rangeinput'">
+                <span t-field="variant_id.attribute_id"/>: <span t-field="variant_id.value_ids[0].name"/><br/>
+            </t>
+        </xpath>
+    </template>
+    
+    
+</data>
+</openerp>

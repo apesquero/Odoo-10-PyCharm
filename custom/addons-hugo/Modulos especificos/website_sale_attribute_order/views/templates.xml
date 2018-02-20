@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    
+    <template id="variants" inherit_id="website_sale_hook.variants">
+        
+        <xpath expr="//t[@t-set='attribute_foreach']" position="replace">
+            
+            <t t-if="product.attribute_order == 'attribute'">
+                <t t-set="attribute_foreach" t-value="product.attribute_line_ids.sorted(key=lambda x: x.attribute_id.sequence)" />
+            </t>
+            <t t-if="product.attribute_order == 'product'">
+                <t t-set="attribute_foreach" t-value="product.attribute_line_ids.sorted(key=lambda x: x.sequence)" />
+            </t>
+            
+        </xpath>
+        
+    </template>
+    
+    
+</data>
+</openerp>
+

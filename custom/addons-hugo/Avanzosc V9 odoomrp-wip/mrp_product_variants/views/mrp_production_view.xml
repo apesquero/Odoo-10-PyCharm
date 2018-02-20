@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="mrp_bom_extended_form_view">
+            <field name="name">mrp.bom.extended.form</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bom_line_ids']//field[@name='product_id']"
+                       position="before">
+                    <field name="product_tmpl_id" />
+                    <field name="possible_values" invisible="1" />
+                    <field name="product_uom_category" invisible="1" />
+                </xpath>
+                <xpath expr="//field[@name='bom_line_ids']//field[@name='product_id']"
+                       position="attributes">
+                    <attribute name="string">Variant</attribute>
+                </xpath>
+                <xpath expr="//field[@name='bom_line_ids']//field[@name='attribute_value_ids']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                    <attribute name="domain"></attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="mrp_bom_line_form_view">
+            <field name="name">mrp.bom.line.form</field>
+            <field name="model">mrp.bom.line</field>
+            <field name="arch" type="xml">
+                <form string="Bill of Material Lines">
+                    <group>
+                        <group>
+                            <field name="sequence" widget="handle" />
+                            <field name="product_tmpl_id" />
+                            <field name="product_id" string="Variant"/>
+                            <field name="product_rounding" />
+                            <field name="product_efficiency" />
+                            <field name="product_uom_category" invisible="1" />
+                            <label for="product_qty" />
+                            <div>
+                                <field name="product_qty" class="oe_inline" />
+                                <field name="product_uom"
+                                       groups="product.group_uom"
+                                       class="oe_inline" />
+                            </div>
+                            <!--<label for="product_uos_qty" groups="product.group_uos" />
+                            <div>
+                                <field name="product_uos_qty"
+                                       groups="product.group_uos"
+                                       class="oe_inline" />
+                                <field name="product_uos"
+                                       groups="product.group_uos"
+                                       class="oe_inline" />
+                            </div>-->
+                        </group>
+                        <group>
+                            <field name="date_start" />
+                            <field name="date_stop" />
+                            <field name="routing_id" />
+                        </group>
+                    </group>
+                    <label for="attribute_value_ids" />
+                    <field name="attribute_value_ids" widget="many2many_tags" />
+                    <label for="property_ids" />
+                    <field name="property_ids" widget="many2many_tags" />
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="mrp_bom_line_extended_tree_form">
+            <field name="name">mrp.bom.line.tree</field>
+            <field name="model">mrp.bom.line</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_line_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="attributes">
+                    <attribute name="string">Variant</attribute>
+                </field>
+                <field name="product_id" position="before">
+                    <field name="product_tmpl_id" />
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="mrp_production_extended_form_view">
+            <field name="name">mrp.production.extended.form</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group/group/field[@name='product_tmpl_id']" position="replace">
+                </xpath>
+                <xpath expr="//sheet/group/group/field[@name='product_id']" position="before">
+                    <field name="product_template_id" />
+                    <div colspan="4">
+                        <field name="product_attributes"
+                               nolabel="1"
+                               attrs="{'invisible':[('product_attributes','=',[])]}"
+                               options="{'no_create': True, 'no_delete': True}">
+                            <tree create="0" delete="0" editable="1">
+                                <field name="product_template_id" invisible="1" />
+                                <field name="attribute" />
+                                <field name="possible_values" invisible="1" />
+                                <field name="value" options="{'no_create': True}" />
+                            </tree>
+                        </field>
+                    </div>
+                </xpath>
+                <xpath expr="//sheet/group/group/field[@name='product_id']" position="attributes">
+                    <attribute name="string">Product Variants</attribute>
+                </xpath>
+                <xpath expr="//sheet/group/group/field[@name='bom_id']" position="attributes">
+                    <attribute name="context">{'default_product_id': product_id, 'default_product_tmpl_id': product_template_id}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="mrp_production_variants_tree_view">
+            <field name="name">mrp.production.variants.tree</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_tree_view" />
+            <field name="arch" type="xml">
+                <field name="product_id" position="before">
+                    <field name="product_template_id" />
+                </field>
+                <field name="product_id" position="attributes">
+                    <attribute name="string">Product Variants</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="mrp_production_variants_kanban_view">
+            <field name="name">mrp.production.variants.kanban</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_kanban_view" />
+            <field name="arch" type="xml">
+                <field name="product_id" position="before">
+                    <field name="product_template_id" />
+                </field>
+                <field name="product_id" position="attributes">
+                    <attribute name="string">Product Variants</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="mrp_production_variants_search_view">
+            <field name="name">mrp.production.variants.search</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.view_mrp_production_filter" />
+            <field name="arch" type="xml">
+                <field name='product_tmpl_id' position="replace">
+                    <field name="product_template_id" />
+                </field>
+                <xpath expr="//group/filter[1]" position="attributes">
+                    <attribute name="string">Product Variants</attribute>
+                </xpath>
+                <xpath expr="//group/filter[1]" position="before">
+                    <filter string="Product" domain="[]" context="{'group_by':'product_template_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="mrp.mrp_production_product_form_view">
+            <field name="name">mrp.production.product.line.form</field>
+            <field name="model">mrp.production.product.line</field>
+            <field name="arch" type="xml">
+                <form string="Scheduled Products">
+                    <group col="4">
+                        <field name="name" />
+                        <field name="product_id" />
+                        <label for="product_qty" />
+                        <div>
+                            <field name="product_qty" class="oe_inline" />
+                            <field name="product_uom"
+                                   options="{'no_open':True,'no_create':True}"
+                                   groups="product.group_uom"
+                                   class="oe_inline" />
+                        </div>
+                        <!--<label for="product_uos_qty" groups="product.group_uos" />
+                        <div groups="product.group_uos">
+                            <field name="product_uos_qty" class="oe_inline" />
+                            <label string="-"
+                                   attrs="{'invisible':[('product_uos','=',False)]}"
+                                   class="oe_inline" />
+                            <field name="product_uos" class="oe_inline" />
+                        </div>-->
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view"
+            id="mrp_production_product_line_extended_form_view">
+            <field name="name">mrp.production.product.line.extended.form</field>
+            <field name="model">mrp.production.product.line</field>
+            <field name="inherit_id" ref="mrp.mrp_production_product_form_view" />
+            <field name="arch" type="xml">
+                <field name="product_id" position="before">
+                    <field name="product_tmpl_id" />
+                    <div colspan="4">
+                        <field name="product_attributes"
+                               nolabel="True"
+                               attrs="{'invisible':[('product_attributes','=',[])]}"
+                               options="{'no_create': True, 'no_delete': True}">
+                            <tree create="0" delete="0" editable="1">
+                                <field name="attribute" />
+                                <field name="value" options="{'no_create': True}" />
+                                <field name="possible_values" invisible="1" />
+                            </tree>
+                        </field>
+                    </div>
+                </field>
+                <field name="product_id" position="attributes">
+                    <attribute name="string">Product Variants</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view"
+            id="mrp_production_product_line_extended_tree_view">
+            <field name="name">mrp.production.product.line.extended.tree</field>
+            <field name="model">mrp.production.product.line</field>
+            <field name="inherit_id" ref="mrp.mrp_production_product_tree_view" />
+            <field name="arch" type="xml">
+                <field name="product_id" position="before">
+                    <field name="product_tmpl_id" />
+                </field>
+                <field name="product_id" position="attributes">
+                    <attribute name="string">Product Variants</attribute>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

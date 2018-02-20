@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    
+    <record model="ir.ui.view" id="product_supplierinfo_form_view">
+        <field name="name">product_supplierinfo_form_view</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/group" position="before">
+                <header>
+                    <button string="Variant Prices" type="object"
+                        name="action_open_value_extras" />
+                </header>
+            </xpath>
+            
+            <label for="price" position="before">
+                <field name="price_mode" />
+            </label>
+            
+            <label for="price" position="attributes">
+                <attribute name="attrs">{'invisible':[('price_mode', '!=', 'standard')]}</attribute>
+            </label>
+            
+            <xpath expr="//group/group/div[field/@name='price']" position="attributes">
+                <attribute name="attrs">{'invisible':[('price_mode', '!=', 'standard')]}</attribute>
+            </xpath>
+            
+            <xpath expr="//group/group/div[field/@name='price']" position="after">
+                <field name="price_formula_eval" attrs="{'invisible':[('price_mode', '!=', 'formula')]}" />
+                <field name="possible_range_num_price_attribute" invisible="1" />
+                <field name="table_price_attribute_x"
+                    domain="[('id', 'in', possible_range_num_price_attribute[0][2])]"
+                    options="{'no_create': True}"
+                    attrs="{'invisible':[('price_mode', 'not in', ['table1d', 'table2d'])]}" />
+                <field name="table_price_attribute_y"
+                    domain="[('id', 'in', possible_range_num_price_attribute[0][2])]"
+                    options="{'no_create': True}"
+                    attrs="{'invisible':[('price_mode', '!=', 'table2d')]}" />
+                <field name="table_price_items_len" readonly="1" attrs="{'invisible':[('price_mode', 'not in', ['table1d', 'table2d'])]}" />
+                <button name="%(action_price_import_file2d)d" type="action"
+                    string="Load File"
+                    class="oe_highlight"
+                    attrs="{'invisible':[('price_mode', '!=', 'table2d')]}" />
+                <button name="%(action_price_import_file1d)d" type="action"
+                    string="Load File"
+                    class="oe_highlight"
+                    attrs="{'invisible':[('price_mode', '!=', 'table1d')]}" />
+                <p attrs="{'invisible':[('price_mode', '!=', 'area')]}">
+                    (<field name="area_price_attribute_x"
+                        domain="[('id', 'in', possible_range_num_price_attribute[0][2])]"
+                        options="{'no_create': True}"/> * <field name="area_x_factor" /> + <field name="area_x_sum" />) * (<field
+                    name="area_price_attribute_y"
+                    domain="[('id', 'in', possible_range_num_price_attribute[0][2])]"
+                    options="{'no_create': True}"/> * <field name="area_y_factor" /> + <field name="area_y_sum" />) * <field name="area_price_factor" />
+                </p>
+                <field name="area_min_price" attrs="{'invisible':[('price_mode', '!=', 'area')]}" />
+            </xpath>
+            
+        </field>
+    </record>
+    
+    <record model="ir.ui.view" id="product_supplierinfo_tree_view">
+        <field name="name">product_supplierinfo_tree_view</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+        <field name="arch" type="xml">
+            
+            <field name="price" position="replace">
+                <field name="price_mode"/>
+            </field>
+            
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="value_extra_tree_view">
+        <field name="name">value_extra_tree_view</field>
+        <field name="model">supplierinfo.value.extra</field>
+        <field name="arch" type="xml">
+            
+            <tree string="Variant Values" editable="bottom" nodelete="1" nocreate="1">
+                <field name="attribute" readonly="1" />
+                <field name="value" readonly="1" />
+                <field name="price_extra" />
+                <field name="price_percent_extra" />
+            </tree>
+            
+        </field>
+    </record>
+    
+    <record id="value_extra_action" model="ir.actions.act_window">
+        
+        <field name="name">Variant Values</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">supplierinfo.value.extra</field>
+        <field name="view_mode">tree</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="value_extra_tree_view"/> 
+        <field name="domain">[('supplierinfo', '=', active_id)]</field>
+        <field name="context">{'default_supplierinfo': active_id}</field>
+        
+    </record>
+    
+    
+</data>
+</openerp>

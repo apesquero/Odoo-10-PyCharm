@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    <!--
+    <template id="assets_frontend" inherit_id="website_sale_hook.assets_frontend" name="website_sale_attribute_hierarchy">
+        <xpath expr="//script[@type='text/javascript' and @src='/website_sale_hook/static/src/js/website_sale_hook.js']" position="after">
+            <script type="text/javascript" src='/website_sale_attribute_hierarchy/static/src/js/website_sale_attribute_hierarchy.js'></script>
+        </xpath>
+    </template>-->
+    
+    
+    <template id="cart_popover" inherit_id="website_sale.cart_popover">
+        <xpath expr="//div[@class='row mb8 cart_line']" position="replace">
+          <div class='row mb8 cart_line' >
+            <div class='col-xs-3'>
+                <span t-field="line.product_id.image_small"
+                    t-field-options='{"widget": "image", "class": "img-rounded"}'/>
+            </div>
+            <div class='col-xs-9'>
+                <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }?loid=#{ line.id }">
+                    <span t-esc="line.product_id.with_context(display_default_code=False).display_name" class="h6"/>
+                </a>
+                <br/><small>Qty: <t t-esc="int(line.product_uom_qty)"/></small>
+            </div>
+          </div>
+        </xpath>
+    </template>
+    
+    
+    <template id="cart_lines" inherit_id="website_sale.cart_lines">
+        <xpath expr="//t[@t-foreach='website_sale_order.website_order_line' and @t-as='line']" position="replace">
+          <t t-foreach="website_sale_order.website_order_line" t-as="line">
+            <!--<tr t-if="line.product_id">-->
+            <tr>
+              <td colspan="2" t-if="not line.product_id.product_tmpl_id"></td>
+              <td align="center" t-if="line.product_id.product_tmpl_id">
+                  <span t-field="line.product_id.image_small"
+                        t-field-options='{"widget": "image", "class": "img-rounded"}'/>
+              </td>
+              <td>
+                  <div>
+                      <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }?loid=#{ line.id }">
+                          <strong t-esc="line.product_id.with_context(display_default_code=False).display_name"/>
+                      </a>
+                  </div>
+                  <div class="text-muted" t-esc="'\n'.join(line.name.splitlines()[1:])"/>
+              </td>
+              <td class="text-center" id="td-qty">
+                  <div class="input-group oe_website_spinner">
+                      <a t-attf-href="#" class="mb8 input-group-addon js_add_cart_json" data-no-instant="">
+                          <i class="fa fa-minus"></i>
+                      </a>
+                      <input type="text" class="js_quantity form-control"
+                          t-att-data-line-id="line.id"
+                          t-att-data-product-id="line.product_id.id"
+                          t-att-value="int(line.product_uom_qty)"/>
+                      <a t-attf-href="#" class="mb8 input-group-addon float_left js_add_cart_json" data-no-instant="">
+                          <i class="fa fa-plus"></i>
+                      </a>
+                  </div>
+              </td>
+              <td class="text-center" id="td-price" name="price">
+                  <del t-attf-class="text-danger #{'' if line.product_id.lst_price &gt; line.discounted_price else 'hidden'}" style="text-decoration: line-through; white-space: nowrap;"
+                    t-field="line.product_id.lst_price" t-field-options='{
+                        "widget": "monetary",
+                        "from_currency": "line.company_id.currency_id",
+                        "display_currency": "website.currency_id"
+                    }'/>
+                <span t-field="line.discounted_price" style="white-space: nowrap;" t-field-options='{
+                     "widget": "monetary",
+                     "display_currency": "website.currency_id"
+                 }'/>
+              </td>
+            </tr>
+            
+            <!--<tr t-if="not line.product_id and line.product_template_id">
+              <td align="center">
+                  <span t-field="line.product_template_id.image_small"
+                        t-field-options='{"widget": "image", "class": "img-rounded"}'/>
+              </td>
+              <td>
+                  <div>
+                      <a t-attf-href="/shop/product/#{ slug(line.product_template_id) }?loid=#{ line.id }">
+                          <strong t-esc="line.product_template_id.with_context(display_default_code=False).display_name"/>
+                          <p>Hoy</p>
+                      </a>
+                  </div>
+                  <div class="text-muted" t-esc="'\n'.join(line.name.splitlines()[1:])"/>
+              </td>
+              <td class="text-center" id="td-qty">
+                  <div class="input-group oe_website_spinner">
+                      <a t-attf-href="#" class="mb8 input-group-addon js_add_cart_json" data-no-instant="">
+                          <i class="fa fa-minus"></i>
+                      </a>
+                      <input type="text" class="js_quantity form-control"
+                          t-att-data-line-id="line.id"
+                          t-att-data-product-template-id="line.product_template_id.id"
+                          t-att-value="int(line.product_uom_qty)"/>
+                      <a t-attf-href="#" class="mb8 input-group-addon float_left js_add_cart_json" data-no-instant="">
+                          <i class="fa fa-plus"></i>
+                      </a>
+                  </div>
+              </td>
+              <td class="text-center" id="td-price" name="price">
+                  <del t-attf-class="text-danger #{'' if line.product_template_id.lst_price &gt; line.discounted_price else 'hidden'}" style="text-decoration: line-through; white-space: nowrap;"
+                    t-field="line.product_template_id.lst_price" t-field-options='{
+                        "widget": "monetary",
+                        "from_currency": "line.company_id.currency_id",
+                        "display_currency": "website.currency_id"
+                    }'/>
+                <span t-field="line.discounted_price" style="white-space: nowrap;" t-field-options='{
+                     "widget": "monetary",
+                     "display_currency": "website.currency_id"
+                 }'/>
+              </td>
+            </tr>-->
+          </t>
+        </xpath>
+    </template>
+    
+</data>
+</openerp>
