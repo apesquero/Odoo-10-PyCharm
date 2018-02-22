@@ -30,6 +30,9 @@
                             <field name="product_tmpl_id" invisible="1"/>
                             <field name="value_id"/>
                             <field name="price_extra" invisible="1"/>
+                            <!--No funciona porque no está metido en depends del manifest price_dimension, creo-->
+                            <!--<field name="price_extra_type" invisible="1"/>-->
+                            <field name="image" widget='image' display="thumbnail" readonly="1"/>
                         </tree>
                     </field>
                 </group>

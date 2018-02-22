@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record model="ir.ui.view" id="view_product_configurator_tree">
-        <field name="model">product.configurator.attribute</field>
-        <field name="inherit_id" ref="product_variant_configurator.view_product_configurator_tree"/>
+    <record id="view_sale_order_form2" model="ir.ui.view">
+        <field name="inherit_id" ref="sale_variant_configurator.view_order_form"/>
+        <field name="model">sale.order</field>
         <field name="arch" type="xml">
-            <xpath expr="//tree/field[@name='value_id']" position="after">
+             <xpath expr="//field[@name='price_extra']" position="after">
                 <field name="image" widget='image' display="thumbnail"/>
             </xpath>
         </field>

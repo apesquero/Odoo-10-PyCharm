@@ -64,13 +64,13 @@ msgstr "Hereda del padre"
 #: code:addons/mrp_product_variants/models/mrp_bom.py:170
 #, python-format
 msgid "Invalid Action! BoM \"%s\" contains a BoM line with a product recursion: \"%s\"."
-msgstr "¡Acción no válida! La LdM "%s" contiene una línea con una recursión de producto: "%s"."
+msgstr "¡Acción no válida! La LdM \"%s\" contiene una línea con una recursión de producto: \"%s\"."
 
 #. module: mrp_product_variants
 #: code:addons/mrp_product_variants/models/mrp_bom.py:244
 #, python-format
 msgid "Invalid Action! BoM \"%s\" contains a phantom BoM line but the product \"%s\" does not have any BoM defined."
-msgstr "¡Acción no válida! La LdM "%s" contiene una línea de LdM fantasma, pero el producto "%s" no tiene una LdM definida."
+msgstr "¡Acción no válida! La LdM \"%s\" contiene una línea de LdM fantasma, pero el producto \"%s\" no tiene una LdM definida."
 
 #. module: mrp_product_variants
 #: field:mrp.production.attribute,write_uid:0

@@ -7,6 +7,8 @@
     'data': [
              'views/inherit_sale_order.xml', ],
     'category': 'Sales',
-    'depends': ['sale', 'sale_variant_configurator'],
+    'depends': ['sale',
+                'sale_variant_configurator',
+                'product_attribute_value_image'],
     'application': True,
 }

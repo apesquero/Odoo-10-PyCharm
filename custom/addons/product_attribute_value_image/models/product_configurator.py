@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from odoo import _, api, exceptions, fields, models
-from odoo.addons import decimal_precision as dp
+from odoo import api, fields, models
 
-class ProductConfigurator(models.AbstractModel):
-    _inherit = 'product.configurator'
+class ProductConfiguratorAttribute(models.Model):
+    _inherit = 'product.configurator.attribute'
 
-    image = fields.Binary(
-        string='Image')
+
+    image = fields.Binary(compute='_compute_image',
+                          readonly=True, string='Image')
+
+    @api.depends('value_id')
+    def _compute_image(self):
+        for record in self:
+            record.image = record.value_id.image
