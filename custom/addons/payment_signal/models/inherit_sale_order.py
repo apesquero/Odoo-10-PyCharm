@@ -14,7 +14,6 @@ class SaleOrder(models.Model):
                                compute='_rest_pay',
                                compute_sudo=False)
 
-    @api.multi
     @api.onchange('amount_total')
     def _pay_signal(self):
         for order in self:
@@ -24,7 +23,6 @@ class SaleOrder(models.Model):
             order.update({'payment_signal': payment_signal,
                           'rest_pay': rest_pay, })
 
-    @api.one
     @api.depends('payment_signal')
     def _rest_pay(self):
         for order in self:
