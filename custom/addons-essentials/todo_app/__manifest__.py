@@ -5,7 +5,8 @@
     'description': 'Manage your personal To-Do task.',
     'author': 'Daniel Reis',
     'depends': ['base'],
-    'data': ['views/todo_menu.xml',
+    'data': ['security/ir.model.access.csv',
+             'views/todo_menu.xml',
              'views/todo_view.xml'],
     'application': True,
 }
