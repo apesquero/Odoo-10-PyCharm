@@ -1,0 +1,7 @@
+"id","name","user_id/id","date_deadline","is_done"
+"todo_task_1","Descripción 01","base.user_root","2018-02-28","False"
+"todo_task_2","Descripción 02","base.user_root","2018-02-28","False"
+"todo_task_3","Descripción 03","base.user_root","2018-02-28","False"
+"todo_task_4","Descripción 04","base.user_root","2018-02-28","False"
+"todo_task_5","Descripción 05","base.user_root","2018-02-28","False"
+"todo_task_6","Descripción 06","base.user_root","2018-02-28","False"
