@@ -6,10 +6,18 @@ class Tag(models.Model):
     _name = 'todo.task.tag'
     _description = 'To-do Tag'
 
+    _parent_name = 'parent_id'
+    _parent_store = True
+
     name = fields.Char('Name', size=40, translate=True)
 
+    parent_id = fields.Many2one('todo.task.tag', 'Parent Tag', ondelete='restrict')
+
+    parent_left = fields.Integer('Parent Left', index=True)
+    parent_right = fields.Integer('Parent Right', index=True)
+
     # Relation fields
-    # tag_ids = fields.Many2many('todo.task')
+    task_ids = fields.Many2many('todo.task', string='Tasks')
 
 class Stage(models.Model):
     _name = 'todo.task.stage'
@@ -38,7 +46,7 @@ class Stage(models.Model):
     image = fields.Binary('Image')
 
     # Relation fields
-    # stage_id = fields.One2many()
+    tasks = fields.One2many('todo.task', 'stage_id', 'Tasks in this stage')
 
 class TodoTask(models.Model):
     _inherit = 'todo.task'
