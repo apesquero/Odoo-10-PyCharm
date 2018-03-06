@@ -16,6 +16,8 @@ class Tag(models.Model):
     parent_left = fields.Integer('Parent Left', index=True)
     parent_right = fields.Integer('Parent Right', index=True)
 
+    child_ids = fields.One2many('todo.task.tag', 'parent_id', 'Child Tags')
+
     # Relation fields
     task_ids = fields.Many2many('todo.task', string='Tasks')
 
@@ -58,3 +60,9 @@ class TodoTask(models.Model):
                                'task_id',           # field for "this" record
                                'tag_id',            # field for "other" record
                                strig='Tags')
+
+    refets_to = fields.Reference([('res.user', 'User'),
+                                  ('res.partner', 'Partner')],
+                                 'Refers to')
+
+
