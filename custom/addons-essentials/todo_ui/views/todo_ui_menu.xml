@@ -4,25 +4,6 @@
     <menuitem id="todo_task.menu_todo_task"
               name="To-Do"/>
 
-    <!-- App menu items -->
-    <menuitem id="menu_todo_task_view"
-              name="Tasks"
-              parent="todo_task.menu_todo_task"
-              sequence="10"
-              action="todo_task.action_todo_task"/>
-
-    <menuitem id="menu_todo_congig"
-              name="Configuration"
-              parent="todo_task.menu_todo_task"
-              sequence="100"
-              groups="base.group_system"/>
-
-    <menuitem id="menu_todo_task_stage"
-              name="Stages"
-              parent="menu_todo_config"
-              sequence="10"
-              action="action_todo_stage"/>
-
     <!-- Actions for the menu items -->
     <act_window id="action_todo_stage"
                 name="To-Do Task Stages"
@@ -46,5 +27,26 @@
                 res_model="todo.task.stage"
                 src_model="todo.task"
                 multi="False"/>  #TODO: pending of try out
+
+    <!-- App menu items -->
+    <menuitem id="menu_todo_task_view"
+              name="Tasks"
+              parent="todo_task.menu_todo_task"
+              sequence="10"
+              action="todo_task.action_todo_task"/>
+
+    <menuitem id="menu_todo_config"
+              name="Configuration"
+              parent="todo_task.menu_todo_task"
+              sequence="100"
+              groups="base.group_system"/>
+
+    <menuitem id="menu_todo_task_stage"
+              name="Stages"
+              parent="menu_todo_config"
+              sequence="10"
+              action="action_todo_stage"/>
+
+
 </odoo>
 
