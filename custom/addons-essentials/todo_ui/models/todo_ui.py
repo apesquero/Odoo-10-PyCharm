@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 class Tag(models.Model):
     _name = 'todo.task.tag'
@@ -53,6 +54,10 @@ class Stage(models.Model):
 class TodoTask(models.Model):
     _inherit = 'todo.task'
 
+    _sql_constraints = [('todo_task_name_uniq',
+                         'UNIQUE (name, active)',
+                         'Task title must be unique!')]
+
     stage_id = fields.Many2one('todo.task.stage', 'Stage')
 
     tag_ids = fields.Many2many('todo.task.tag',     # related model
@@ -65,4 +70,28 @@ class TodoTask(models.Model):
                                   ('res.partner', 'Partner')],
                                  'Refers to')
 
+    stage_fold = fields.Boolean('Stage Folded?',
+                                compute='_compute_stage_fold',
+                                store=False,    #default
+                                search='_search_stage_fold',
+                                inverse='_write_stage_fold')
 
+    stage_state = fields.Selection(related='stage_id.state',
+                                   string='Stage State')
+
+    def _search_stage_fold(self, operator, value):
+        return [('stage_id.fold', operator, value)]
+
+    def _write_stage_fold(self):
+        self.stage_id.fold = self.stage_fold
+
+    @api.depends('stage_id.fold')
+    def _compute_stage_fold(self):
+        for task in self:
+            task.stage_fold = task.stage_id.fold
+
+    @api.constrains('name')
+    def _check_name_size(self):
+        for todo in self:
+            if len(todo.name) < 5:
+                raise ValidationError('Must have 5 chars!')
