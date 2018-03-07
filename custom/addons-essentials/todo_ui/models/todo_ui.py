@@ -58,6 +58,9 @@ class TodoTask(models.Model):
                          'UNIQUE (name, active)',
                          'Task title must be unique!')]
 
+
+    """FIELDS"""
+
     stage_id = fields.Many2one('todo.task.stage', 'Stage')
 
     tag_ids = fields.Many2many('todo.task.tag',     # related model
@@ -66,7 +69,7 @@ class TodoTask(models.Model):
                                'tag_id',            # field for "other" record
                                strig='Tags')
 
-    refets_to = fields.Reference([('res.user', 'User'),
+    refers_to = fields.Reference([('res.user', 'User'),
                                   ('res.partner', 'Partner')],
                                  'Refers to')
 
@@ -79,11 +82,23 @@ class TodoTask(models.Model):
     stage_state = fields.Selection(related='stage_id.state',
                                    string='Stage State')
 
+    image = fields.Binary(related='stage_id.image',
+                          string='Image')
+
+    user_todo_count = fields.Integer('User To-Do Count',
+                                     compute='compute_user_todo_count')
+
+    """DEFINITIONS"""
+
     def _search_stage_fold(self, operator, value):
         return [('stage_id.fold', operator, value)]
 
     def _write_stage_fold(self):
         self.stage_id.fold = self.stage_fold
+
+    def compute_user_todo_count(self):
+        for task in self:
+            task.user_todo_count = task.search_count([('user_id', '=', task.user_id.id)])
 
     @api.depends('stage_id.fold')
     def _compute_stage_fold(self):
