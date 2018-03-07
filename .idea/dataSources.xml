@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://vps407692.ovh.net:5432/PRUEBA01</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="ESSENTIALS" uuid="73dfd1f0-be1d-4b19-88ee-1525a26c354a">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://vps407692.ovh.net:5432/ESSENTIALS</jdbc-url>
+    </data-source>
   </component>
 </project>
