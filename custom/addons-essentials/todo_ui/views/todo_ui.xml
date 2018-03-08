@@ -73,5 +73,21 @@
             </form>
         </field>
     </record>
+
+    <record id="todo_task.view_tree_todo_task"
+            model="ir.ui.view">
+        <field name="model">todo.task</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="is_done"
+                  decoration-bf="state=='open'"
+                  delete="false">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="is_done"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
 </odoo>
 
