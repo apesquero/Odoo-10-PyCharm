@@ -89,5 +89,25 @@
         </field>
     </record>
 
+
+    <record id="todo_task.view_filter_todo_task"
+            model="ir.ui.view">
+        <field name="model">todo.task</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="user_id"/>
+                <filter name="filter_not_done"
+                        string="Not Done"
+                        domain="[('is_done', '!=', False)]"/>
+                <separator/>
+                <filter name="group_user"
+                        string="By User"
+                        context="{'group_by': 'user_id'}"/>
+            </search>
+        </field>
+    </record>
+
+
 </odoo>
 
