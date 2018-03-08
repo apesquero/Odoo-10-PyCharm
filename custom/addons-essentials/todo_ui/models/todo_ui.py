@@ -69,7 +69,7 @@ class TodoTask(models.Model):
                                'tag_id',            # field for "other" record
                                strig='Tags')
 
-    refers_to = fields.Reference([('res.user', 'User'),
+    refers_to = fields.Reference([('res.users', 'User'),
                                   ('res.partner', 'Partner')],
                                  'Refers to')
 
