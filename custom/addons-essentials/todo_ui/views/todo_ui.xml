@@ -79,12 +79,12 @@
         <field name="model">todo.task</field>
         <field name="arch" type="xml">
             <tree decoration-muted="is_done"
-                  decoration-bf="state=='open'"
+                  decoration-bf="stage_state=='open'"
                   delete="false">
                 <field name="name"/>
                 <field name="user_id"/>
                 <field name="is_done"/>
-                <field name="state" invisible="1"/>
+                <field name="stage_state" invisible="1"/>
             </tree>
         </field>
     </record>
