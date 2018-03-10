@@ -17,7 +17,7 @@
     <act_window id="todo_task.action_todo_task"
                 name="To-Do Tasks"
                 res_model="todo.task"
-                view_mode="tree,form"
+                view_mode="tree,form,calendar,graph,pivot"
                 target="current"
                 context="{'search_default_filter_my_tasks': True}"/>
 

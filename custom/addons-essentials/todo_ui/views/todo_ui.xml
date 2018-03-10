@@ -89,7 +89,6 @@
         </field>
     </record>
 
-
     <record id="todo_task.view_filter_todo_task"
             model="ir.ui.view">
         <field name="model">todo.task</field>
@@ -108,6 +107,17 @@
         </field>
     </record>
 
-
+    <record id="view_calendar_todo_task"
+            model="ir.ui.view">
+        <field name="model">todo.task</field>
+        <field name="arch" type="xml">
+            <calendar date_start="date_deadline"
+                      color="user_id"
+                      display="[name], Stage [stage_id]">
+                <field name="name"/>
+                <field name="stage_id"/>
+            </calendar>
+        </field>
+    </record>
 </odoo>
 
