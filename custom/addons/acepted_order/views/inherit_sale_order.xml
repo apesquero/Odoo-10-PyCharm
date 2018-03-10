@@ -64,12 +64,12 @@
 
             <field name="date_order" position="after">
                 <field name="acepted" invisible="1"/>
-                <field name="date_measure" attrs="{'invisible': [('acepted','=', False)],
-                                                   'readonly': [('state','=', 'sale')]}"/>
-                <field name="date_signal" attrs="{'invisible': [('acepted','=', False)],
-                                                  'readonly': [('state','=', 'sale')]}"/>
-                <field name="review_quotation" attrs="{'invisible': [('acepted','=', False)],
-                                                       'readonly': [('state','=', 'sale')]}"/>
+                <field name="date_measure" attrs="{'invisible': [('acepted', '=', False)],
+                                                   'readonly': [('state', '=', 'sale')]}"/>
+                <field name="date_signal" attrs="{'invisible': [('acepted', '=', False)],
+                                                  'readonly': [('state', '=', 'sale')]}"/>
+                <field name="review_quotation" attrs="{'invisible': [('acepted', '=', False)],
+                                                       'readonly': [('state', '=', 'sale')]}"/>
             </field>
         </field>
     </record>
