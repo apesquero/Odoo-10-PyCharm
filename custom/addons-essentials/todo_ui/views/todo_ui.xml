@@ -119,5 +119,18 @@
             </calendar>
         </field>
     </record>
+
+    <record id="view_graph_todo_task"
+            model="ir.ui.view">
+        <field name="model">todo.task</field>
+        <field name="arch" type="xml">
+            <graph type="bar">
+                <field name="stage_id"/>
+                <field name="effort_estimate"
+                       type="measure"/>
+            </graph>
+        </field>
+    </record>
+
 </odoo>
 
