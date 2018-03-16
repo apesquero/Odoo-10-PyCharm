@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!-- App menu items -->
+    <menuitem id="menu_todo_task_wizard_view"
+              name="Wizard"
+              parent="todo_ui.menu_todo_config"
+              sequence="20"
+              action="action_todo_wizard"/>
+</odoo>
