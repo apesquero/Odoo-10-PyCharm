@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="PLEDRA">
+  <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.1">
+    <root id="1"/>
+    <database id="2" parent="1" name="PLEDRA">
+      <ObjectId>73462</ObjectId>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </database>
+    <schema id="3" parent="2" name="public">
+      <ObjectId>2200</ObjectId>
+      <Current>1</Current>
+    </schema>
+    <schema id="4" parent="2" name="pg_catalog">
+      <ObjectId>11</ObjectId>
+    </schema>
+    <schema id="5" parent="2" name="pg_toast">
+      <ObjectId>99</ObjectId>
+    </schema>
+    <schema id="6" parent="2" name="pg_temp_1">
+      <ObjectId>11816</ObjectId>
+    </schema>
+    <schema id="7" parent="2" name="pg_toast_temp_1">
+      <ObjectId>11817</ObjectId>
+    </schema>
+    <schema id="8" parent="2" name="information_schema">
+      <ObjectId>12089</ObjectId>
+    </schema>
+    <schema id="9" parent="2" name="pg_temp_18">
+      <ObjectId>75794</ObjectId>
+    </schema>
+    <schema id="10" parent="2" name="pg_toast_temp_18">
+      <ObjectId>75795</ObjectId>
+    </schema>
+  </database-model>
+</dataSource>

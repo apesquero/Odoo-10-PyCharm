@@ -13,5 +13,23 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://vps407692.ovh.net:5432/ESSENTIALS</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="ADDONS" uuid="1f5c0144-f297-455b-bd9b-d93c85868ba0">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://vps407692.ovh.net:5432/ADDONS</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="EIQUI" uuid="c01cec94-6d5a-4ef4-9772-fba43d141031">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://vps407692.ovh.net:5432/EIQUI</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="PLEDRA" uuid="70ddea1b-294c-4385-bace-a8167823846d">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://vps407692.ovh.net:5432/PLEDRA</jdbc-url>
+    </data-source>
   </component>
 </project>
