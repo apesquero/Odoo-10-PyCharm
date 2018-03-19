@@ -20,12 +20,12 @@
                 <field name="is_done"/>
                 <field name="message_partner_ids"/>
 
-                <tempaltes>
+                <templates>
                     <t t-name="kanban-box">
                         <!-- Set the Kanban Card color: -->
                         <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
                             <div class="o_dropdown_kanban dropdown">
-
+                                Example
                             </div>
                             <div class="oe_kanban_content">
 
@@ -44,10 +44,10 @@
 
                                 <div class="oe_kanban_footer">
                                     <div>
-
+                                        Example
                                     </div>
                                     <div>
-
+                                        Example
                                     </div>
                                 </div>
 
@@ -55,9 +55,7 @@
                             <div class="oe_clear"/>
                         </div>
                     </t>
-                </tempaltes>
-
-
+                </templates>
             </kanban>
         </field>
     </record>
