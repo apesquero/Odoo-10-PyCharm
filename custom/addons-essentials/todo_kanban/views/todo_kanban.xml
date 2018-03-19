@@ -9,7 +9,7 @@
 
     <!-- Add Kanban view -->
     <record id="todo_task_kanban" model="ir.ui.view">
-        <field name="name">todo.task</field>
+        <field name="model">todo.task</field>
         <field name="arch" type="xml">
             <kanban default_group_by="stage_id"
                     class="o_kanban_small_column">
@@ -22,7 +22,38 @@
 
                 <tempaltes>
                     <t t-name="kanban-box">
+                        <!-- Set the Kanban Card color: -->
+                        <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
+                            <div class="o_dropdown_kanban dropdown">
 
+                            </div>
+                            <div class="oe_kanban_content">
+
+                                <div>
+                                    <field name="tag_ids"/>
+                                </div>
+                                <div>
+                                    <strong>
+                                        <a type="open"><field name="name"/></a>
+                                    </strong>
+                                </div>
+                                <ul>
+                                    <li><field name="user_id"/></li>
+                                    <li><field name="date_deadline"/></li>
+                                </ul>
+
+                                <div class="oe_kanban_footer">
+                                    <div>
+
+                                    </div>
+                                    <div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="oe_clear"/>
+                        </div>
                     </t>
                 </tempaltes>
 
