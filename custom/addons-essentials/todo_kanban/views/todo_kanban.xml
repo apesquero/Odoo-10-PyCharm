@@ -25,10 +25,31 @@
                         <!-- Set the Kanban Card color: -->
                         <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
                             <div class="o_dropdown_kanban dropdown">
-                                Example
+                                <!-- Top-right drop down menu here... -->
+                                <a class="dropdown-toggle btn"
+                                   data-toggle="dropdown"
+                                   href="#">
+                                    <span class="fa fa-bars fa-lg"/>
+                                </a>
+                                <ul class="dropdown-menu"
+                                    role="menu"
+                                    aria-labelledby="dLabel">
+                                    <!-- Edit and Delete actions, if available: -->
+                                    <t t-if="widget.editable">
+                                        <li><a type="edit">Edit</a></li>
+                                    </t>
+                                    <t t-if="widget.deletable">
+                                        <li><a type="delete">Delete</a></li>
+                                    </t>
+                                    <t t-if="!record.is_done.value">
+                                        <li><a name="do_toggle_done" type="object">Set as Done</a></li>
+                                    </t>
+                                    <li>
+                                        <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                    </li>
+                                </ul>
                             </div>
                             <div class="oe_kanban_content">
-
                                 <div>
                                     <field name="tag_ids"/>
                                 </div>
@@ -44,10 +65,20 @@
 
                                 <div class="oe_kanban_footer">
                                     <div>
-                                        Example
+                                        <field name="priority" widget="priority"/>
                                     </div>
                                     <div>
-                                        Example
+                                        <field name="kanban_state" widget="kanban_state_selection"/>
+                                        <img t-att-src="kanban_image('res.users',
+                                                                     'image_small',
+                                                                     record.user_id.raw_value)"
+                                             width="34"
+                                             height="34"
+                                             class="oe_kanban_avatar pull-right"/>
+                                        <img t-att-src="kanban_image('res.partner',
+                                                                      'image_small',
+                                                                      record.id.value)"
+                                             class="o_kanban_image pull-right"/>
                                     </div>
                                 </div>
 
