@@ -65,6 +65,10 @@
                                                                        (new Date()))
                                                                        ? 'red' : 'black' }}">
                                         <field name="date_deadline"/>
+                                        <t t-if="record.effort_estimate.raw_value gt 0">
+                                            <li><field name="effort_estimate"/></li>
+                                            <li><t t-raw="record.message_partner_ids.raw_value"/></li>
+                                        </t>
                                     </li>
                                 </ul>
 

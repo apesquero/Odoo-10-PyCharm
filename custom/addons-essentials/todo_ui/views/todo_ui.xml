@@ -59,6 +59,7 @@
                         <group name="group_right">
                             <field name="tag_ids"
                                    widget="many2many_tags"/>
+                            <field name="effort_estimate"/>
                         </group>
                     </group>
                 </sheet>
