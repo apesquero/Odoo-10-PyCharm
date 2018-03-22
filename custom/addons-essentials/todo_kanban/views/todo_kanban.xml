@@ -78,6 +78,8 @@
                                         <img t-att-src="kanban_image('res.users',
                                                                      'image_small',
                                                                      record.user_id.raw_value)"
+                                             t-attf-alt="Imagen {{record.user_id.value}} from task {{record.name.value}}"
+                                             t-att-title="record.user_id.value"
                                              width="44"
                                              height="44"
                                              class="oe_kanban_avatar pull-right"/>
@@ -85,6 +87,14 @@
                                                                       'image_small',
                                                                       record.id.value)"
                                              class="o_kanban_image pull-right"/>
+                                    </div>
+                                    <div>
+                                        <t t-foreach="record.message_partner_ids.raw_value.slice(0,3)" t-as="rec">
+                                            <img t-att-src="kanban_image('res.partner', 'image_small', rec)"
+                                                 class="oe_avatar"
+                                                 width="24"
+                                                 height="24"/>
+                                        </t>
                                     </div>
                                 </div>
 
