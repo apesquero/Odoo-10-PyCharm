@@ -5,7 +5,7 @@ from odoo import models, fields
 class TodoTask(models.Model):
     _inherit = 'todo.task'
 
-    color = fields.Integer('Color Index')
+    color = fields.Integer('Color Index', default='1')
     priority = fields.Selection([('0', 'Low'),
                                  ('1', 'Normal'),
                                  ('2', 'High')],
