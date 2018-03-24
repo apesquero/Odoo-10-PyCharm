@@ -4,5 +4,6 @@
     'description': 'Kanban board for to-do tasks.',
     'author': 'Daniel Reis',
     'depends': ['todo_ui'],
-    'data': ['views/todo_kanban.xml']
+    'data': ['views/todo_kanban.xml',
+             'views/todo_kanban_assets.xml']
 }
