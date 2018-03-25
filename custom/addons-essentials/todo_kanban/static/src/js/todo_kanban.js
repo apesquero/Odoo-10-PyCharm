@@ -19,15 +19,5 @@ odoo.define('todo.kanban', function(require) { // define here
         }
         start: function () {}
     });
-
-    var MagicTicket = Ticket.extend({
-        init: function (values) {
-            this._supper.apply(this, arguments);
-            this.magic = this.init_magic();
-        },
-        init_magic: function () {
-            // do stuff
-        },
-    });
 });
 
