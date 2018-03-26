@@ -114,7 +114,7 @@
                                         <img t-att-src="kanban_image('res.users',
                                                                      'image_small',
                                                                      record.user_id.raw_value)"
-                                             t-attf-alt="Imagen {{record.user_id.value}} from task {{record.name.value}}"
+                                             t-attf-alt="Imagen {{record.user_id.raw_value}} from task {{record.name.value}}"
                                              t-att-title="record.user_id.value"
                                              width="44"
                                              height="44"

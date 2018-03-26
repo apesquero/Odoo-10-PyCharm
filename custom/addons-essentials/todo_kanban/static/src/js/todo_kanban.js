@@ -16,7 +16,7 @@ odoo.define('todo.kanban', function(require) { // define here
         willStart: function () {
             return this._super.apply(this, arguments).then(function () {
             })
-        }
+        },
         start: function () {}
     });
 });
