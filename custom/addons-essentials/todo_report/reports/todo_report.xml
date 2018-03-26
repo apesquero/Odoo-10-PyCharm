@@ -41,9 +41,33 @@
                         </div>
                         <div class="col-xs-3">
                             <!-- Render followers -->
+                            <ul class="media-list">
+                                <t t-foreach="o.message_follower_ids" t-as="f">
+                                    <li t-if="f.partner_id.image_small" class="media-left">
+                                        <img class="media-object"
+                                             t-att-src="'data:image/pan;base64,%s' % f.partner_id.image_small"
+                                             style="max-height: 40px;"/>
+                                        <span class="media-body" t-field="f.partner_id.name"/>
+                                    </li>
+                                </t>
+                            </ul>
                         </div>
                     </div>
                 </t>
+
+                <!-- Totals -->
+                <div class="row">
+                    <div class="col-xs-3">
+                        Count: <t t-esc="len(docs)"/>
+                    </div>
+                    <div class="col-xs-2"/>
+                    <div class="col-xs-1">
+                        Total:
+                        <!--<t t-esc="sum([o.amount_cost for o in docs])"/>-->
+                    </div>
+                    <div class="col-xs-3"/>
+                    <div class="col-xs-3"/>
+                </div>
             </t>
         </t>
     </template>
