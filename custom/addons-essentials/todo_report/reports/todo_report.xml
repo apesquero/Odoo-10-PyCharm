@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<odoo>
+    <report id="action_todo_task_report"
+            string="To-do Tasks"
+            model="todo.task"
+            report_type="qweb-html"
+            name="todo_report.report_todo_task_template"/>
+
+    <template id="report_todo_task_template">
+        <t t-call="report.html_container">
+            <t t-call="report.external_layout">
+                <div class="page">
+                    <!-- Report page content -->
+                    <div class="col-xs-3">
+                        <span class="glyphicon glyphicon-pushpin"/>
+                        What
+                    </div>
+                    <div class="col-xs-2">Who</div>
+                    <div class="col-xs-1">When</div>
+                    <div class="col-xs-3">Where</div>
+                    <div class="col-xs-3">Watchers</div>
+                </div>
+                <t t-foreach="docs" t-as="o">
+                    <div class="row">
+                        <!-- Data Row Content -->
+                        <div class="col-xs-3">
+                            <h4><span t-field="o.name"/></h4>
+                        </div>
+                        <div class="col-xs-2">
+                            <span t-field="o.user_id"/>
+                        </div>
+                        <div class="col-xs-1">
+                            <span t-field="o.date_deadline"/>
+                            <!--<span t-field="o.amount_cost"/>-->
+                        </div>
+                        <div class="col-xs-3">
+                            <div t-field="o.user_id.partner_id"
+                                 t-options="{'widget': 'contact',
+                                                   'fields': ['address', 'name', 'phone', 'fax'],
+                                                   'no_marker': false}"/>
+                        </div>
+                        <div class="col-xs-3">
+                            <!-- Render followers -->
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="ins_report_assets_common" inherit_id="report.assets_common">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        </xpath>
+    </template>
+</odoo>
