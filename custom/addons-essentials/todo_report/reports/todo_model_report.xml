@@ -8,7 +8,7 @@
 
     <template id="report_todo_task_special">
         <t t-call="report.html_container">
-            <t t-call="report.external_layour">
+            <t t-call="report.external_layout">
                 <div class="page">
                     <!-- Report page content -->
                     <table class="table table-striped">

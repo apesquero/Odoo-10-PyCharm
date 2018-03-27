@@ -6,5 +6,6 @@
     'author': 'Daniels Reis',
     'depends': ['todo_kanban'],
     'data': ['reports/todo_report.xml',
-             'reports/todo_report_assets.xml']
+             'reports/todo_report_assets.xml',
+             'reports/todo_model_report.xml']
 }
