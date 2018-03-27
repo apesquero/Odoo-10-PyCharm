@@ -5,4 +5,10 @@
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         </xpath>
     </template>
+
+    <template id="ins_report_layouts" inherit_id="report.assets_pdf">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        </xpath>
+    </template>
 </odoo>
