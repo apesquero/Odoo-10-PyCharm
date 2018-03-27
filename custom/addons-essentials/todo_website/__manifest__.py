@@ -5,5 +5,6 @@
     'description': 'To-Do Tasks Website',
     'author': 'Daniel Rais',
     'depends': ['todo_kanban'],
-    'data': ['views/todo_web.xml']
+    'data': ['views/todo_web.xml',
+             'views/todo_extend.xml']
 }
