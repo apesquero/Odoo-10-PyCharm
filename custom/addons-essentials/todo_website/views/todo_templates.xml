@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="index" name="Todo List">
+        <t t-call="website.layout">
+            <div id="wrap" class="container">
+                <h1>Todo Tasks</h1>
+
+                <!-- List of Tasks -->
+                <t t-foreach="tasks" t-as="task">
+                    <div class="row">
+                        <input type="checkbox"
+                               diable="True"
+                               t-att-checked="'checked' if task.is_done else {}"/>
+                        <a t-attf-hreft="/todo/{{slug(task)}}">
+                            <span t-field="task.name"
+                                  t-att-class="'todo-app-done' if task.is_done else ''"/>
+                        </a>
+                    </div>
+                </t>
+
+                <!-- Add a new Task -->
+                <div class="row">
+                    <a href="/todo/add" class="btn btn_primary btn-lg">
+                        Add
+                    </a>
+                </div>
+
+            </div>
+        </t>
+    </template>
+</odoo>

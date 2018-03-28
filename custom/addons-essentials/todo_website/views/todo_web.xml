@@ -2,6 +2,5 @@
 <odoo>
     <template id="hello" name="Hello Template">
         <h1>Hello World!</h1>
-        Prueba 2
     </template>
 </odoo>

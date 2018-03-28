@@ -5,9 +5,13 @@
               name="Extend Hello World"
               inherit_id="todo_website.hello">
         <xpath expr="//h1" position="replace">
-            <h1>
-                Hello <t t-esc="name or 'Someone'"/>!
-            </h1>
+            <t t-call="website.layout">
+                <h1>
+                    <div class="todo-app-done">
+                        Hello <t t-esc="name or 'Someone'"/>!
+                    </div>
+                </h1>
+            </t>
         </xpath>
     </template>
 </odoo>

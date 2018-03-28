@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="assets_frontend"
+              name="todo_website_assets"
+              inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/css"
+                  href="/todo_website/static/src/css/index.css"/>
+        </xpath>
+    </template>
+</odoo>
