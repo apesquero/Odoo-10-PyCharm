@@ -25,4 +25,4 @@ class Todo(http.Controller):
 
     @http.route('/todo/<model("todo.task"):task>', website=True)
     def detail(self, task, **kwargs):
-        return http.request.render('todo_website.detail' {'task': task})
+        return http.request.render('todo_website.detail', {'task': task})
