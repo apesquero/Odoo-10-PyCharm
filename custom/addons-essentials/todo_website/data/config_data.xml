@@ -5,14 +5,23 @@
             <field name="website_form_access">True</field>
         </record>
 
-        <funcition model="ir.model.fields" name="formbuilder_whitelist">
+        <function model="ir.model.fields" name="formbuilder_whitelist">
             <value>todo.task</value>
             <value eval="[
             'name',
             'user_id',
             'date_deadline'
             ]"/>
-        </funcition>
+        </function>
+    </data>
+
+    <data noupdate="1">
+        <record id="menu_todo" model="website.menu">
+            <field name="name">Todo</field>
+            <field name="url">/todo</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">50</field>
+        </record>
     </data>
 </odoo>
 
