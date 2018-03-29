@@ -26,3 +26,8 @@ class Todo(http.Controller):
     @http.route('/todo/<model("todo.task"):task>', website=True)
     def detail(self, task, **kwargs):
         return http.request.render('todo_website.detail', {'task': task})
+
+    @http.route('/todo/add', website=True)
+    def add(self, **kwargs):
+        users = request.env['res.users'].search([])
+        return request.render('todo_website.add', {'users': users})

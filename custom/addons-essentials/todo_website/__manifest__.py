@@ -9,5 +9,6 @@
     'data': ['views/todo_web.xml',
              'views/todo_extend.xml',
              'views/todo_website_assets.xml',
-             'views/todo_templates.xml']
+             'views/todo_templates.xml',
+             'data/config_data.xml']
 }
