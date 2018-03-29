@@ -22,3 +22,7 @@ class Todo(http.Controller):
         TodoTask = request.env['todo.task']
         tasks = TodoTask.search([])
         return request.render('todo_website.index', {'tasks': tasks})
+
+    @http.route('/todo/<model("todo.task"):task>', website=True)
+    def detail(self, task, **kwargs):
+        return http.request.render('todo_website.detail' {'task': task})
