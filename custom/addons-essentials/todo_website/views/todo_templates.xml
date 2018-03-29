@@ -8,13 +8,15 @@
                 <!-- List of Tasks -->
                 <t t-foreach="tasks" t-as="task">
                     <div class="row">
-                        <input type="checkbox"
-                               diable="True"
-                               t-att-checked="'checked' if task.is_done else {}"/>
-                        <a t-attf-hreft="/todo/{{slug(task)}}">
-                            <span t-field="task.name"
-                                  t-att-class="'todo-app-done' if task.is_done else ''"/>
-                        </a>
+                        <div class="col-md-12">
+                            <input type="checkbox"
+                                   diable="True"
+                                   t-att-checked="'checked' if task.is_done else {}"/>
+                            <a t-attf-href="/todo/{{slug(task)}}">
+                                <span t-field="task.name"
+                                      t-att-class="'todo-app-done' if task.is_done else ''"/>
+                            </a>
+                        </div>
                     </div>
                 </t>
 
