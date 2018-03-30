@@ -354,7 +354,7 @@
                                     <td class="text-right">
                                         <span class="signal"
                                               t-field="doc.payment_signal"
-                                              t-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
+                                              t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
                                     </td>
                                 </tr>
                                 <tr class="border-black">
@@ -363,7 +363,7 @@
                                     </td>
                                     <td class="text-right">
                                         <span t-field="doc.rest_pay"
-                                              t-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
+                                              t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
                                     </td>
                                 </tr>
                             </table>
