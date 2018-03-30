@@ -165,7 +165,7 @@
                             </div>
                             <div class="col-xs-9 text-left">
                                 <div t-field="doc.partner_id"
-                                     t-field-options='{"widget": "contact", "fields": ["phone", "mobile", "mobile2", "fax"], "no_marker": true, "phone_icons": true}'/>
+                                     t-options='{"widget": "contact", "fields": ["phone", "mobile", "mobile2", "fax"], "no_marker": true, "phone_icons": true}'/>
                             </div>
                         </div>
                         <div class="row">
