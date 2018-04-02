@@ -22,10 +22,8 @@
 
 from odoo import models, fields, api
 import odoo.addons.decimal_precision as dp
-from .consts import EXTRA_PRICE_TYPES
 
-
-class supplier_attribute_value(models.Model):
+class SupplierAttributeValue(models.Model):
     _name = 'supplier.attribute.value'
 
     supplierinfo_id = fields.Many2one(comodel_name='product.supplierinfo')
@@ -40,7 +38,8 @@ class supplier_attribute_value(models.Model):
         digits=dp.get_precision('Product Price'),
         default=0.0)
 
-    price_extra_type = fields.Selection(EXTRA_PRICE_TYPES,
+    price_extra_type = fields.Selection([('standard', 'Standard'),
+                                        ('percentage', 'Percentage')],
                                         string='Price Extra Type',
                                         equired=True,
                                         default='standard')

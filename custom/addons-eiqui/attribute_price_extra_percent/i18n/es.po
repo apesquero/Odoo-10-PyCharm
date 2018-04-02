@@ -1,0 +1,213 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* attribute_price_extra_percent
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-01 10:06+0000\n"
+"PO-Revision-Date: 2018-04-01 12:20+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_supplier_attribute_value_attribute
+msgid "Attribute"
+msgstr "Atributo"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_product_supplierinfo_attribute_value_ids
+msgid "Attribute value ids"
+msgstr ""
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_supplier_attribute_value_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_supplier_attribute_value_create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_supplier_attribute_value_display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_product_configurator_attribute_price_extra_type
+msgid "Extra Price Type"
+msgstr "Tipo Precio Extra"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_supplier_attribute_value_id
+msgid "ID"
+msgstr "ID"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model,name:attribute_price_extra_percent.model_product_supplierinfo
+msgid "Information about a product vendor"
+msgstr "Información acerca del proveedor de un producto"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_supplier_attribute_value___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_supplier_attribute_value_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_supplier_attribute_value_write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: attribute_price_extra_percent
+#: code:addons/attribute_price_extra_percent/models/inherited_procurement_order.py:82
+#, python-format
+msgid "No vendor associated to                     product %s. Please set one to fix this procurement."
+msgstr "No hay vendedor asociado al                   producto %s. Por favor, establece un para arreglar el abastecimiento."
+
+#. module: attribute_price_extra_percent
+#: selection:product.attribute.value,price_extra_type:0
+#: selection:supplier.attribute.value,price_extra_type:0
+msgid "Percentage"
+msgstr "Percentaje"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_product_attribute_price_price_extra_type
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_product_attribute_value_price_extra_type
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_supplier_attribute_value_price_extra_type
+msgid "Price Extra Type"
+msgstr "Tipo de Precio Extra"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model,name:attribute_price_extra_percent.model_procurement_order
+msgid "Procurement"
+msgstr "Abastecimiento"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model,name:attribute_price_extra_percent.model_product_product
+msgid "Product"
+msgstr "Producto"
+
+#. module: attribute_price_extra_percent
+#: code:addons/attribute_price_extra_percent/models/inherited_purchase_order_line.py:44
+#: code:addons/attribute_price_extra_percent/models/inherited_sale_order_line.py:46
+#, python-format
+msgid "Product not created!"
+msgstr "Producto no creado!"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model,name:attribute_price_extra_percent.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Línea pedido de compra"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model,name:attribute_price_extra_percent.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: attribute_price_extra_percent
+#: selection:product.attribute.value,price_extra_type:0
+#: selection:supplier.attribute.value,price_extra_type:0
+msgid "Standard"
+msgstr "Estándar"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_supplier_attribute_value_price_extra
+msgid "Supplier Price Extra"
+msgstr "Precio Extra de Proveedor"
+
+#. module: attribute_price_extra_percent
+#: model:ir.ui.view,arch_db:attribute_price_extra_percent.value_extra_tree_view
+msgid "Supplier Variant Values"
+msgstr "Valores de Variante de Proveedor"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_supplier_attribute_value_supplierinfo_id
+msgid "Supplierinfo id"
+msgstr "Supplierinfo id"
+
+#. module: attribute_price_extra_percent
+#: code:addons/attribute_price_extra_percent/models/inherited_product_attribute_value.py:38
+#, python-format
+msgid ""
+"The operation cannot be completed:\n"
+"                 You are trying to delete an attribute value with a                 reference on a product supplier variant."
+msgstr ""
+"La operación no puede ser completada:\n"
+"                 Tu estas intentando borrar un atributo con                 referencia a una variante de producto de proveedor."
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,help:attribute_price_extra_percent.field_product_product_price_extra_perc
+#: model:ir.model.fields,help:attribute_price_extra_percent.field_product_supplierinfo_price_extra_perc
+msgid "This is the percentage of the extra price of all attributes"
+msgstr "Este es el porcentaje del precio extra de los atributos"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,help:attribute_price_extra_percent.field_product_supplierinfo_price_extra
+msgid "This is the sum of the extra price of all attributes"
+msgstr "Ésta es la suma de los precios extra de todos los atributos"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_supplier_attribute_value_value
+msgid "Value"
+msgstr "Valor"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_product_supplierinfo_price_extra
+msgid "Variant Extra Price"
+msgstr "Variant Extra Price"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_product_product_price_extra_perc
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_product_supplierinfo_price_extra_perc
+msgid "Variant Extra Price Percentage"
+msgstr "Precio extra porcentaje de variante"
+
+#. module: attribute_price_extra_percent
+#: model:ir.ui.view,arch_db:attribute_price_extra_percent.view_product_supplier_form
+msgid "Variant Prices"
+msgstr "Precios de las variantes"
+
+#. module: attribute_price_extra_percent
+#: model:ir.actions.act_window,name:attribute_price_extra_percent.supplier_attribute_value_action
+msgid "Variant Values"
+msgstr "Valores de variante"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_product_attribute_price_supplier_ids
+#: model:ir.model.fields,field_description:attribute_price_extra_percent.field_product_attribute_value_supplier_ids
+msgid "Variants"
+msgstr "Variantes"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model,name:attribute_price_extra_percent.model_product_attribute_price
+msgid "product.attribute.price"
+msgstr "product.attribute.price"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model,name:attribute_price_extra_percent.model_product_attribute_value
+msgid "product.attribute.value"
+msgstr "product.attribute.value"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model,name:attribute_price_extra_percent.model_product_configurator_attribute
+msgid "product.configurator.attribute"
+msgstr "product.configurator.attribute"
+
+#. module: attribute_price_extra_percent
+#: model:ir.model,name:attribute_price_extra_percent.model_supplier_attribute_value
+msgid "supplier.attribute.value"
+msgstr "supplier.attribute.value"

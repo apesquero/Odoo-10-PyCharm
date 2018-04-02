@@ -32,9 +32,6 @@
         'sale',
         'stock',
         'purchase',
-        'product_variant_configurator',
-        'sale_variant_configurator',
-        'purchase_variant_configurator',
     ],
     'external_dependencies': {
         'python': [
@@ -43,12 +40,9 @@
     },
     'data': [
         'views/general.xml',
-        'views/supplier_attribute_value_views.xml',
         'views/inherited_product_template_views.xml',
         'views/inherited_product_product_views.xml',
         'views/inherited_product_supplier_info_views.xml',
-        'views/inherited_product_attribute_value_views.xml',
-        'views/inherited_product_attribute_price_views.xml',
         'views/inherited_sale_order_views.xml',
         'views/inherited_purchase_order_views.xml',
         'views/inherited_stock_move_views.xml',

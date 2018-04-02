@@ -22,14 +22,14 @@
 
 from odoo import models, fields
 
-class stock_move(models.Model):
+class StockMove(models.Model):
     _inherit = 'stock.move'
 
     origin_width = fields.Float(string="Width", required=False)
     origin_height = fields.Float(string="Height", required=False)
 
     def _prepare_procurement_from_move(self):
-        res = super(stock_move, self)._prepare_procurement_from_move()
+        res = super(StockMove, self)._prepare_procurement_from_move()
         res.update({
             'origin_width': self._context.get('width', 0),
             'origin_height': self._context.get('height', 0)
@@ -41,5 +41,5 @@ class stock_move(models.Model):
             'origin_width': self._context.get('width',0),
             'origin_height': self._context.get('height',0)
         })
-        vals = super(stock_move, self).create(vals)        
+        vals = super(StockMove, self).create(vals)        
         return vals

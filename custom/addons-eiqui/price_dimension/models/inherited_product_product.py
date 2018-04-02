@@ -23,25 +23,10 @@
 import odoo
 from odoo import models, fields, api, tools, SUPERUSER_ID
 import odoo.addons.decimal_precision as dp
-import logging
-_logger = logging.getLogger(__name__)
 
 
-class product_product(models.Model):
+class ProductProduct(models.Model):
     _inherit = 'product.product'
-
-    @api.depends('attribute_value_ids.price_ids.price_extra', 'attribute_value_ids.price_ids.product_tmpl_id')
-    def _compute_product_price_extra(self):
-        super(product_product, self)._compute_product_price_extra()
-        for product in self:
-            price_extra = 0.0
-            for variant_id in product.attribute_value_ids:
-                if variant_id.price_extra_type != 'standard':
-                    continue
-                for price_id in variant_id.price_ids:
-                    if price_id.product_tmpl_id.id == product.product_tmpl_id.id:
-                        price_extra += price_id.price_extra
-            product.price_extra = price_extra
 
     @api.model
     def origin_check_sale_dim_values(self, width, height):
@@ -50,15 +35,20 @@ class product_product(models.Model):
             norm_width = self.origin_normalize_sale_width_value(width)
             if self.sale_price_type == 'table_2d':
                 norm_height = self.origin_normalize_sale_height_value(height)
-                return product_prices_table_obj.search_count([('sale_product_tmpl_id', '=', self.product_tmpl_id.id),
-                                                              ('pos_x', '=', norm_width),
-                                                              ('pos_y', '=', norm_height),
-                                                              ('value', '!=', 0)]) > 0
-            return product_prices_table_obj.search_count([('sale_product_tmpl_id', '=', self.product_tmpl_id.id),
-                                                          ('pos_x', '=', norm_width),
-                                                          ('value', '!=', 0)]) > 0
+                return product_prices_table_obj.search_count([
+                    ('sale_product_tmpl_id', '=', self.product_tmpl_id.id),
+                    ('pos_x', '=', norm_width),
+                    ('pos_y', '=', norm_height),
+                    ('value', '!=', 0)]) > 0
+            return product_prices_table_obj.search_count([
+                ('sale_product_tmpl_id', '=', self.product_tmpl_id.id),
+                ('pos_x', '=', norm_width),
+                ('value', '!=', 0)]) > 0
         elif self.sale_price_type == 'area':
-            return width >= self.sale_price_area_min_width and width <= self.sale_price_area_max_width and height >= self.sale_price_area_min_height and height <= self.sale_price_area_max_height
+            return width >= self.sale_price_area_min_width and \
+                width <= self.sale_price_area_max_width and \
+                height >= self.sale_price_area_min_height and \
+                height <= self.sale_price_area_max_height
         return True
 
     @api.model
@@ -66,7 +56,8 @@ class product_product(models.Model):
         headers = self.get_sale_price_table_headers()
         norm_val = width
         for index in range(len(headers['x'])-1):
-            if width > headers['x'][index] and width <= headers['x'][index+1]:
+            if width > headers['x'][index] and \
+                    width <= headers['x'][index+1]:
                 norm_val = headers['x'][index+1]
         return norm_val
 
@@ -75,37 +66,10 @@ class product_product(models.Model):
         headers = self.get_sale_price_table_headers()
         norm_val = height
         for index in range(len(headers['y'])-1):
-            if height > headers['y'][index] and height <= headers['y'][index+1]:
+            if height > headers['y'][index] and \
+                    height <= headers['y'][index+1]:
                 norm_val = headers['y'][index+1]
         return norm_val
-
-    @api.depends('list_price', 'price_extra')
-    def _compute_product_lst_price(self):
-        res = super(product_product, self)._compute_product_lst_price()
-        product_uom_obj = self.env['product.uom']
-        to_uom = False
-        if 'uom' in self._context:
-            to_uom = self.env['product.uom'].browse([self._context['uom']])
-        for product in self:
-            if to_uom:
-                price = product.uom_id._compute_price(product.get_sale_price(), to_uom)
-            else:
-                price = product.list_price
-            price += (price * product.price_extra_perc) / 100.0
-            price += product.price_extra
-            product.lst_price = price
-
-    def _set_product_lst_price(self):
-        super(product_product, self)._set_product_lst_price()
-        product_uom_obj = self.pool.get('product.uom')
-        for product in self:
-            if self._context.get('uom'):
-                value = product_uom_obj.browse(self._context['uom'])._compute_price(product.lst_price, product.uom_id)
-            else:
-                value = product.lst_price
-            value -= (product.get_sale_price() * product.price_extra_perc) / 100.0
-            value -= product.price_extra
-            product.write({'list_price': value})
 
     @api.model
     def get_sale_price_table_headers(self):
@@ -149,15 +113,16 @@ class product_product(models.Model):
             result = self.list_price
         return result
 
-    def _compute_price_extra_percentage(self):
+    @api.depends('list_price', 'price_extra')
+    def _compute_product_lst_price(self):
+        res = super(ProductProduct, self)._compute_product_lst_price()
+        product_uom_obj = self.env['product.uom']
+        to_uom = False
+        if 'uom' in self._context:
+            to_uom = self.env['product.uom'].browse([self._context['uom']])
         for product in self:
-            price_extra = 0.0
-            for variant_id in product.attribute_value_ids:
-                if variant_id.price_extra_type != 'percentage':
-                    continue
-                for price_id in variant_id.price_ids:
-                    if price_id.product_tmpl_id.id == product.product_tmpl_id.id:
-                        price_extra += price_id.price_extra
-            product.price_extra_perc = price_extra
-
-    price_extra_perc = fields.Float(compute=_compute_price_extra_percentage, string='Variant Extra Price Percentage', help="This is the percentage of the extra price of all attributes", digits=dp.get_precision('Product Price'))
+            if to_uom:
+                price = product.uom_id._compute_price(product.get_sale_price(), to_uom)
+            else:
+                price = product.list_price
+            product.lst_price = price

@@ -20,11 +20,11 @@
 #
 ##############################################################################
 
-from odoo import models, fields, api
+from odoo import models, fields
 import odoo.addons.decimal_precision as dp
 
 
-class product_prices_table(models.Model):
+class ProductPricesTable(models.Model):
     _name = 'product.prices_table'
 
     pos_x = fields.Float(string="X", required=True)
@@ -32,5 +32,4 @@ class product_prices_table(models.Model):
     value = fields.Float(string="Value", digits=dp.get_precision('Product Price'))
 
     sale_product_tmpl_id = fields.Many2one('product.template', 'Product Template')
-#     cost_product_tmpl_id = fields.Many2one('product.template', 'Product Template')
     supplier_product_id = fields.Many2one('product.supplierinfo', 'Product Supplier Info')

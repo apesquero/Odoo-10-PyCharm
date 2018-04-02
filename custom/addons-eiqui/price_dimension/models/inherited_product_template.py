@@ -23,17 +23,23 @@
 from odoo import models, fields, api
 import odoo.addons.decimal_precision as dp
 from .consts import PRICE_TYPES
-import logging
-_logger = logging.getLogger(__name__)
 
 
-class product_template(models.Model):
+class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    sale_price_area_min_width = fields.Float(string="Min. Width", default=0.0, digits=dp.get_precision('Product Price'))
-    sale_price_area_max_width = fields.Float(string="Max. Width", default=0.0, digits=dp.get_precision('Product Price'))
-    sale_price_area_min_height = fields.Float(string="Min. Height", default=0.0, digits=dp.get_precision('Product Price'))
-    sale_price_area_max_height = fields.Float(string="Max. Height", default=0.0, digits=dp.get_precision('Product Price'))
+    sale_price_area_min_width = fields.Float(string="Min. Width",
+                                             default=0.0,
+                                             digits=dp.get_precision('Product Price'))
+    sale_price_area_max_width = fields.Float(string="Max. Width",
+                                             default=0.0,
+                                             digits=dp.get_precision('Product Price'))
+    sale_price_area_min_height = fields.Float(string="Min. Height",
+                                              default=0.0,
+                                              digits=dp.get_precision('Product Price'))
+    sale_price_area_max_height = fields.Float(string="Max. Height",
+                                              default=0.0,
+                                              digits=dp.get_precision('Product Price'))
     sale_min_price_area = fields.Monetary("Min. Price")
     height_uom = fields.Many2one('product.uom',string='Height UOM')
     width_uom = fields.Many2one('product.uom',string='Width UOM')
@@ -83,10 +89,8 @@ class product_template(models.Model):
         if context is None:
             context = {}
 
-        res = super(product_template, self)._price_get(products,
+        res = super(ProductTemplate, self)._price_get(products,
                                                        ptype=ptype)
-        _logger.info("OASA KKK")
-        _logger.info(res)
         product_uom_obj = self.env['product.uom']
         for product in products:
             # standard_price field can only be seen by users in base.group_user
@@ -95,12 +99,14 @@ class product_template(models.Model):
             if ptype != 'standard_price':
                 res[product.id] = product.get_sale_price()
             else:
-                company_id = self._context.get('force_company') or product.env.user.company_id.id
+                company_id = self._context.get('force_company') or \
+                    product.env.user.company_id.id
                 product = product.with_context(force_company=company_id)
                 res[product.id] = product.sudo()[ptype]
-            if ptype == 'list_price' and product._name == "product.product":
-                res[product.id] += (res[product.id] * product.price_extra_perc) / 100.0
-                res[product.id] += product.price_extra
+#TODO - Revisar para la refactorizacion
+            #~ if ptype == 'list_price' and product._name == "product.product":
+                #~ res[product.id] += (res[product.id] * product.price_extra_perc) / 100.0
+                #~ res[product.id] += product.price_extra
             if 'uom' in context:
                 uom = product.uom_id
                 res[product.id] = product_uom_obj._compute_price(
@@ -121,23 +127,28 @@ class product_template(models.Model):
             norm_width = self.origin_normalize_sale_width_value(width)
             if self.sale_price_type == 'table_2d':
                 norm_height = self.origin_normalize_sale_height_value(height)
-                return product_prices_table_obj.search_count([('sale_product_tmpl_id', '=', self.id),
-                                                                       ('pos_x', '=', norm_width),
-                                                                       ('pos_y', '=', norm_height),
-                                                                       ('value', '!=', 0)]) > 0
-            return product_prices_table_obj.search_count([('sale_product_tmpl_id', '=', self.id),
-                                                                   ('pos_x', '=', norm_width),
-                                                                   ('value', '!=', 0)]) > 0
+                return product_prices_table_obj.search_count([
+                    ('sale_product_tmpl_id', '=', self.id),
+                    ('pos_x', '=', norm_width),
+                    ('pos_y', '=', norm_height),
+                    ('value', '!=', 0)]) > 0
+            return product_prices_table_obj.search_count([
+                ('sale_product_tmpl_id', '=', self.id),
+                ('pos_x', '=', norm_width),
+                ('value', '!=', 0)]) > 0
         elif self.sale_price_type == 'area':
-            return width >= self.sale_price_area_min_width and width <= self.sale_price_area_max_width and height >= self.sale_price_area_min_height and height <= self.sale_price_area_max_height
+            return width >= self.sale_price_area_min_width and \
+                width <= self.sale_price_area_max_width and \
+                height >= self.sale_price_area_min_height and \
+                height <= self.sale_price_area_max_height
         return True
 
     def origin_normalize_sale_width_value(self, width):
         headers = self.get_sale_price_table_headers()
         norm_val = width
-        _logger.info(headers)
         for index in range(len(headers[self.id]['x'])-1):
-            if width > headers[self.id]['x'][index] and width <= headers[self.id]['x'][index+1]:
+            if width > headers[self.id]['x'][index] and \
+                width <= headers[self.id]['x'][index+1]:
                 norm_val = headers[self.id]['x'][index+1]
         return norm_val
 
@@ -145,7 +156,8 @@ class product_template(models.Model):
         headers = self.get_sale_price_table_headers()
         norm_val = height
         for index in range(len(headers[self.id]['y'])-1):
-            if height > headers[self.id]['y'][index] and height <= headers[self.id]['y'][index+1]:
+            if height > headers[self.id]['y'][index] and \
+                    height <= headers[self.id]['y'][index+1]:
                 norm_val = headers[self.id]['y'][index+1]
         return norm_val
 

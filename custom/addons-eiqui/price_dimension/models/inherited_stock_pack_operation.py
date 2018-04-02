@@ -19,35 +19,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-from psycopg2 import OperationalError
-from datetime import datetime
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from odoo.tools.translate import _
-from odoo import models, fields, api, SUPERUSER_ID
-from odoo.exceptions import ValidationError
-import logging
-_logger = logging.getLogger(__name__)
-
+from odoo import models, fields
 
 class stock_pack_operation(models.Model):
     _inherit = 'stock.pack.operation'
 
     origin_width = fields.Float(string="Width")
     origin_height = fields.Float(string="Height")
-
-
-    #~ @api.depends('linked_move_operation_ids.move_id')
-    #~ @api.multi
-    #~ def _compute_size(self):
-        #~ for r in self:
-            #~ _logger.info(r.id)
-            #~ _logger.info("-----------------")
-            #~ for move in r.linked_move_operation_ids:
-                #~ _logger.info(r.id)
-                #~ _logger.info(move.display_name)
-                #~ _logger.info(move.move_id.id)
-                #~ _logger.info(move.move_id.origin_height)
-                #~ _logger.info(move.move_id.origin_width)
-                #~ r.origin_height = move.move_id.origin_height
-                #~ r.origin_width = move.move_id.origin_width

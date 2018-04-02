@@ -24,42 +24,45 @@ from odoo import models, fields, api, exceptions
 from odoo.exceptions import ValidationError
 from odoo.tools import float_is_zero, float_compare, DEFAULT_SERVER_DATETIME_FORMAT
 from odoo.tools.translate import _
-import logging
-_logger = logging.getLogger(__name__)
 
 from .consts import PRICE_TYPES
 
-class sale_order_line(models.Model):
+class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     origin_width = fields.Float(string="Width", required=False)
     origin_height = fields.Float(string="Height", required=False)
-    product_price_type = fields.Selection(PRICE_TYPES,string='Sale Price Type',related='product_tmpl_id.sale_price_type')
+    product_price_type = fields.Selection(PRICE_TYPES,
+        string='Sale Price Type',
+        related='product_tmpl_id.sale_price_type')
 
     @api.constrains('origin_width')
     def _check_origin_width(self):
         for record in self:
-            if not record.product_id.origin_check_sale_dim_values(record.origin_width, record.origin_height):
+            if not record.product_id.origin_check_sale_dim_values(
+                    record.origin_width, record.origin_height):
                 raise ValidationError("Invalid width!")
 
     @api.constrains('origin_height')
     def _check_origin_height(self):
         for record in self:
-            if not record.product_id.origin_check_sale_dim_values(record.origin_width, record.origin_height):
+            if not record.product_id.origin_check_sale_dim_values(
+                    record.origin_width, record.origin_height):
                 raise ValidationError("Invalid height!")
 
-    @api.onchange('product_id', 'origin_width', 'origin_height','product_attribute_ids', 'product_attribute_ids.value_id')
+    @api.onchange('product_id', 'origin_width', 'origin_height')
     def product_id_change(self):
-        super(sale_order_line, self).product_id_change()
+        super(SaleOrderLine, self).product_id_change()
         product_tmp = False
-        if not self.product_tmpl_id or (self.product_id and self.product_id.product_tmpl_id.id != self.product_id.product_tmpl_id.id):
+        if not self.product_tmpl_id or (self.product_id and \
+                self.product_id.product_tmpl_id.id != \
+                self.product_id.product_tmpl_id.id):
             return
         if self.can_create_product:
             try:
                 with self.env.cr.savepoint():
                     product_tmp = self.product_id = self.create_variant_if_needed()
             except exceptions.ValidationError as e:
-                _logger.exception('Product not created!')
                 return {'warning': {
                     'title': _('Product not created!'),
                     'message': e.name,
@@ -77,9 +80,13 @@ class sale_order_line(models.Model):
             height=self.origin_height
         )
 
-        if product.sale_price_type in ['table_2d', 'area'] and self.origin_height != 0 and self.origin_width != 0 and not self.product_id.origin_check_sale_dim_values(self.origin_width, self.origin_height):
+        if product.sale_price_type in ['table_2d', 'area'] and \
+                self.origin_height != 0 and self.origin_width != 0 and \
+                not self.product_id.origin_check_sale_dim_values(
+                self.origin_width, self.origin_height):
             raise ValidationError(_("Invalid Dimensions!"))
-        elif product.sale_price_type == 'table_1d' and self.origin_width != 0 and not self.product_id.origin_check_sale_dim_values(self.origin_width, 0):
+        elif product.sale_price_type == 'table_1d' and self.origin_width != 0 and \
+                not self.product_id.origin_check_sale_dim_values(self.origin_width, 0):
             raise ValidationError(_("Invalid Dimensions!"))
 
         if self.product_tmpl_id.sale_price_type not in ['table_1d','table_2d', 'area']:
@@ -90,7 +97,8 @@ class sale_order_line(models.Model):
         if product.sale_price_type in ['table_2d', 'area']:
             height_uom = product.height_uom.name
             width_uom = product.width_uom.name
-            name += _(' [Width:%.2f %s x Height:%.2f %s]') % (self.origin_width, width_uom, self.origin_height, height_uom)
+            name += _(' [Width:%.2f %s x Height:%.2f %s]') % \
+                (self.origin_width, width_uom, self.origin_height, height_uom)
         elif product.sale_price_type == 'table_1d':
             width_uom = product.width_uom.name
             name += _(' [ Width:%.2f %s]') % (self.origin_width, width_uom)
@@ -99,7 +107,8 @@ class sale_order_line(models.Model):
         vals['name'] = name
 
         if self.order_id.pricelist_id and self.order_id.partner_id:
-            vals['price_unit'] = self.env['account.tax']._fix_tax_included_price(product.lst_price, product.taxes_id, self.tax_id)
+            vals['price_unit'] = self.env['account.tax']._fix_tax_included_price(
+                product.lst_price, product.taxes_id, self.tax_id)
 
         #~ if product_tmp:
             #~ self.product_id = False
@@ -108,7 +117,7 @@ class sale_order_line(models.Model):
 
 
     def product_uom_change(self):
-        super(sale_order_line, self).product_uom_change()
+        super(SaleOrderLine, self).product_uom_change()
         if not self.product_uom:
             self.price_unit = 0.0
             return
@@ -125,12 +134,14 @@ class sale_order_line(models.Model):
                 width=self.origin_width,
                 height=self.origin_height
             )
-            self.price_unit = self.env['account.tax']._fix_tax_included_price(product.price, product.taxes_id, self.tax_id)
+            import wdb; wdb.set_trace()
+            self.price_unit = self.env['account.tax']._fix_tax_included_price(
+                product.price, product.taxes_id, self.tax_id)
 
     @api.multi
     def _prepare_order_line_procurement(self, group_id=False):
         self.ensure_one()
-        vals = super(sale_order_line, self)._prepare_order_line_procurement(group_id=group_id)
+        vals = super(SaleOrderLine, self)._prepare_order_line_procurement(group_id=group_id)
         vals.update({
             'origin_width': self.origin_width,
             'origin_height': self.origin_height

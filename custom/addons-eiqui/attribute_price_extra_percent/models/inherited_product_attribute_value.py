@@ -24,21 +24,30 @@ import odoo
 from odoo import models, fields, api, tools, SUPERUSER_ID
 from odoo.exceptions import UserError
 from odoo.tools.translate import _
-from .consts import EXTRA_PRICE_TYPES
 
 
-class product_attribute_value(models.Model):
+class ProductAttributeValue(models.Model):
     _inherit = "product.attribute.value"
 
     @api.multi
     def unlink(self):
-        product_ids = self.env['product.supplierinfo'].with_context(active_test=False).search([('attribute_value_ids', 'in', self.ids)])
+        product_ids = self.env['product.supplierinfo'].with_context(
+            active_test=False).search([
+            ('attribute_value_ids', 'in', self.ids)])
         if product_ids:
-            raise UserError(_('The operation cannot be completed:\nYou are trying to delete an attribute value with a reference on a product supplier variant.'))
-        return super(product_attribute_value, self).unlink()
+            raise UserError(_('The operation cannot be completed:\n \
+                You are trying to delete an attribute value with a \
+                reference on a product supplier variant.'))
+        return super(ProductAttributeValue, self).unlink()
 
-    price_extra_type = fields.Selection(EXTRA_PRICE_TYPES,
-                                        string='Price Extra Type',
-                                        required=True,
-                                        default='standard')
-    supplier_ids = fields.Many2many('product.supplierinfo', id1='att_id', id2='prod_id', string='Variants', readonly=True)
+    price_extra_type = fields.Selection([('standard', 'Standard'),
+                                         ('percentage', 'Percentage')],
+                                         string='Price Extra Type',
+                                         required=True,
+                                         default='standard')
+                                         
+    supplier_ids = fields.Many2many('product.supplierinfo',
+                                    id1='att_id',
+                                    id2='prod_id',
+                                    string='Variants',
+                                    readonly=True)

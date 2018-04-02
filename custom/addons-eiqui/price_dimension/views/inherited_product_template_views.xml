@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="view_product_template_form_price_type" model="ir.ui.view">
+    <record id="product_template_form_view" model="ir.ui.view">
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_form_view" />
         <field name="arch" type="xml">
@@ -40,20 +40,6 @@
                         </group>
                     </group>
                     <div attrs="{'invisible':[('sale_price_type', 'not in', ['table_1d','table_2d','area'])]}">
-                        <!--group>
-                            <group>
-                                <field name="sale_prices_table_attr_axe_x"
-                                        widget="selection"
-                                        domain="[('product_tmpl_id', '=', active_id)]"
-                                        required="True" />
-                            </group>
-                            <group attrs="{'invisible':[('sale_price_type', '=', 'table_1d')]}">
-                                <field name="sale_prices_table_attr_axe_y"
-                                        widget="selection"
-                                        domain="[('product_tmpl_id', '=', active_id)]"
-                                        required="True" />
-                            </group>
-                        </group-->
                         <group>
                             <group>
                                 <field name="height_uom" attrs="{'invisible':[('sale_price_type', '=', 'table_1d')],'required':[('sale_price_type', 'in', ['table_2d','area'])]}"/>

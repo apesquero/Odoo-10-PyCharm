@@ -25,6 +25,3 @@ PRICE_TYPES = [('standard', 'Standard'),
                ('table_1d', '1D Table'),
                ('table_2d', '2D Table'),
                ('area', 'Area')]
-
-EXTRA_PRICE_TYPES = [('standard', 'Standard'),
-                     ('percentage', 'Percentage')]

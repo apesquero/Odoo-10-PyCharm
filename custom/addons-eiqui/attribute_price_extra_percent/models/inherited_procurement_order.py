@@ -31,34 +31,13 @@ from odoo.exceptions import ValidationError
 class ProcurementOrder(models.Model):
     _inherit = 'procurement.order'
 
-    origin_width = fields.Float(string="Width", required=False)
-    origin_height = fields.Float(string="Height", required=False)
-
-    @api.model
-    def _run_move_create(self, procurement):
-        res = super(ProcurementOrder, self)._run_move_create(procurement)
-        width = 0
-        height = 0
-        if procurement.origin_width:
-            width = procurement.origin_width
-        if procurement.origin_height:
-            height = procurement.origin_height
-        res.update({
-            'origin_width': width,
-            'origin_height': height
-        })
-        return res
-
     @api.multi
     def _prepare_purchase_order_line(self, po, supplier):
         self.ensure_one()
         res = super(ProcurementOrder, self)._prepare_purchase_order_line(
             po=po, supplier=supplier)
 
-        product_id = self.product_id.with_context(
-            width=self.origin_width,
-            height=self.origin_height
-        )
+        product_id = self.product_id
 
         procurement_uom_po_qty = self.product_uom._compute_quantity(
             self.product_qty, self.product_id.uom_po_id)
@@ -70,8 +49,6 @@ class ProcurementOrder(models.Model):
 
         if seller:
             seller = seller.with_context(
-                width=self.origin_width,
-                height=self.origin_height,
                 product_id=product_id
             )
 
@@ -81,12 +58,7 @@ class ProcurementOrder(models.Model):
         if taxes_id:
             taxes_id = taxes_id.filtered(lambda x: x.company_id.id == self.company_id.id)
 
-        name = res['name']
-        if product_id.sale_price_type in ['table_2d', 'area']:
-            name += ' [Width:%.2f cms x Height:%.2f cms]' % (self.origin_width, self.origin_height)
-        elif product_id.sale_price_type == 'table_1d':
-            name += ' [ Width:%.2f cms]' % (self.origin_width)
-
+            
         price_unit = self.env['account.tax']._fix_tax_included_price(
             seller.get_supplier_price(), product_id.supplier_taxes_id, taxes_id) \
             if seller else 0.0
@@ -94,10 +66,7 @@ class ProcurementOrder(models.Model):
             price_unit = seller.currency_id.compute(price_unit, po.currency_id)
 
         res.update({
-            'name': name,
             'price_unit': price_unit,
-            'origin_width': self.origin_width,
-            'origin_height': self.origin_height
         })
 
         return res
@@ -155,14 +124,9 @@ class ProcurementOrder(models.Model):
             # Create Line
             po_line = False
             for line in po.order_line:
-                product_id = procurement.product_id.with_context(
-                    width=line.origin_width,
-                    height=line.origin_height
-                )
+                product_id = procurement.product_id
                 if line.product_id == product_id and line.product_uom == \
-                        procurement.product_id.uom_po_id and \
-                        line.origin_width == procurement.origin_width and \
-                        line.origin_height == procurement.origin_height:
+                        procurement.product_id.uom_po_id:
                     procurement_uom_po_qty = procurement.product_uom._compute_quantity(
                         procurement.product_qty, procurement.product_id.uom_po_id)
                     seller = self.product_id._select_seller(
@@ -173,8 +137,6 @@ class ProcurementOrder(models.Model):
 
                     if seller:
                         seller = seller.with_context(
-                            width=line.origin_width,
-                            height=line.origin_height,
                             product_id=product_id
                         )
 

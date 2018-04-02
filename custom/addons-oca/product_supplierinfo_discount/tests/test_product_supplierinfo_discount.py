@@ -3,11 +3,11 @@
 #        Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>
 # © 2016 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-import odoo.tests.common as common
+from odoo.tests.common import TransactionCase
 from odoo import fields
 
 
-class TestProductSupplierinfoDiscount(common.TransactionCase):
+class TestProductSupplierinfoDiscount(TransactionCase):
 
     def setUp(self):
         super(TestProductSupplierinfoDiscount, self).setUp()
@@ -114,3 +114,31 @@ class TestProductSupplierinfoDiscount(common.TransactionCase):
         self.assertEquals(
             supplierinfo.discount, 15, "Incorrect discount for supplierinfo "
             " after changing partner that has default discount defined.")
+
+    def test_006_supplierinfo_from_purchaseorder(self):
+        """ Include discount when creating new sellers for a product """
+        partner = self.env.ref('base.res_partner_3')
+        product = self.env.ref('product.product_product_8')
+        self.assertFalse(
+            self.env['product.supplierinfo'].search([
+                ('name', '=', partner.id),
+                ('product_tmpl_id', '=', product.product_tmpl_id.id)]))
+        order = self.env['purchase.order'].create({
+            'partner_id': partner.id,
+        })
+        self.env['purchase.order.line'].create({
+            'date_planned': fields.Datetime.now(),
+            'discount': 40,
+            'name': product.name,
+            'price_unit': 10.0,
+            'product_id': product.id,
+            'product_qty': 1.0,
+            'product_uom': product.uom_po_id.id,
+            'order_id': order.id,
+        })
+        order.button_confirm()
+        seller = self.env['product.supplierinfo'].search([
+            ('name', '=', partner.id),
+            ('product_tmpl_id', '=', product.product_tmpl_id.id)])
+        self.assertTrue(seller)
+        self.assertEqual(seller.discount, 40)

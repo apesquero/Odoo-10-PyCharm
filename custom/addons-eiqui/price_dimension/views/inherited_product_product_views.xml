@@ -26,20 +26,6 @@
                     </group>
                 </group>
                 <div attrs="{'invisible':[('sale_price_type', 'not in', ['table_1d','table_2d','area'])]}">
-                        <!--group>
-                        <group>
-                            <field name="sale_prices_table_attr_axe_x"
-                                    widget="selection"
-                                    domain="[('product_tmpl_id', '=', active_id)]"
-                                    required="True" />
-                        </group>
-                        <group attrs="{'invisible':[('sale_price_type', '=', 'table_1d')]}">
-                            <field name="sale_prices_table_attr_axe_y"
-                                    widget="selection"
-                                    domain="[('product_tmpl_id', '=', active_id)]"
-                                    required="True" />
-                        </group>
-                    </group-->
                     <div>
                         <field name="sale_prices_table" widget="mdtable" mode="sale_price_type" />
                     </div>
