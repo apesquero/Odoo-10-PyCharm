@@ -37,6 +37,7 @@ class TestPaymentSignal(TransactionCase):
 
         payment_signal = self.env['sale.order'].create({
             'partner_id': partner.id,
+            # 'payment_signal': 100.0,
         })
 
         payment_signal._pay_signal()
