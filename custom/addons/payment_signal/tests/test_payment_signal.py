@@ -52,23 +52,6 @@ class TestPaymentSignal(TransactionCase):
         })
         order.onchange_partner_id()
         order.pricelist_id = sale_pricelist
-        # order.lines_ids[0].onchange_product()
 
-        order._amount_all()
+        order._pay_signal()
 
-        payment_signal = self.env['sale.order'].create({
-            'partner_id': partner.id,
-        })
-
-        payment_signal._pay_signal()
-
-        # compute_rest_pay = self.env['sale.order'].create({
-        #     'payment_signal': -10.0,
-        # })
-        #
-        # compute_rest_pay._compute_rest_pay()
-
-        # pay_signal._pay_signal()
-        # self.assertEqual(pay_signal.payment_signal, 20)
-        #
-        # self.assertEqual(sale_pricelist.)
