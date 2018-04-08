@@ -3,7 +3,7 @@
 from odoo import models, fields, api, _
 
 
-class product_product(models.Model):
+class ProductProduct(models.Model):
     _inherit = 'product.product'
 
     @api.model
@@ -13,15 +13,20 @@ class product_product(models.Model):
             norm_width = self.origin_normalize_sale_width_value(width)
             if self.sale_price_type == 'table_2d':
                 norm_height = self.origin_normalize_sale_height_value(height)
-                return product_prices_table_obj.search_count([('sale_product_tmpl_id', '=', self.product_tmpl_id.id),
-                                                              ('pos_x', '=', norm_width),
-                                                              ('pos_y', '=', norm_height),
-                                                              ('value', '!=', 0)]) > 0
-            return product_prices_table_obj.search_count([('sale_product_tmpl_id', '=', self.product_tmpl_id.id),
-                                                          ('pos_x', '=', norm_width),
-                                                          ('value', '!=', 0)]) > 0
+                return product_prices_table_obj.search_count([
+                    ('sale_product_tmpl_id', '=', self.product_tmpl_id.id),
+                    ('pos_x', '=', norm_width),
+                    ('pos_y', '=', norm_height),
+                    ('value', '!=', 0)]) > 0
+            return product_prices_table_obj.search_count([
+                ('sale_product_tmpl_id', '=', self.product_tmpl_id.id),
+                ('pos_x', '=', norm_width),
+                ('value', '!=', 0)]) > 0
         elif self.sale_price_type == 'area':
-            return width >= self.sale_price_area_min_width and width <= self.sale_price_area_max_width and height >= self.sale_price_area_min_height and height <= self.sale_price_area_max_height
+            return width >= self.sale_price_area_min_width and \
+                   width <= self.sale_price_area_max_width and \
+                   height >= self.sale_price_area_min_height and \
+                   height <= self.sale_price_area_max_height
         return True
 
     @api.model
@@ -29,7 +34,8 @@ class product_product(models.Model):
         headers = self.get_sale_price_table_headers()
         norm_val = width
         for index in range(len(headers['x']) - 1):
-            if width > headers['x'][index] and width <= headers['x'][index + 1]:
+            if width > headers['x'][index] and \
+                            width <= headers['x'][index + 1]:
                 norm_val = headers['x'][index + 1]
         return norm_val
 
@@ -38,22 +44,10 @@ class product_product(models.Model):
         headers = self.get_sale_price_table_headers()
         norm_val = height
         for index in range(len(headers['y']) - 1):
-            if height > headers['y'][index] and height <= headers['y'][index + 1]:
+            if height > headers['y'][index] and \
+                            height <= headers['y'][index + 1]:
                 norm_val = headers['y'][index + 1]
         return norm_val
-
-    @api.depends('list_price', 'price_extra')
-    def _compute_product_lst_price(self):
-        to_uom = False
-        if 'uom' in self._context:
-            to_uom = self.env['product.uom'].browse([self._context['uom']])
-        for product in self:
-            if to_uom:
-                list_price = product.uom_id._compute_price(product.get_sale_price(), to_uom)
-            else:
-                list_price = product.list_price
-            list_price += product.price_extra
-            product.lst_price = list_price
 
     @api.model
     def get_sale_price_table_headers(self):
@@ -96,3 +90,16 @@ class product_product(models.Model):
         if not result:
             result = self.list_price
         return result
+
+    @api.depends('list_price', 'price_extra')
+    def _compute_product_lst_price(self):
+        to_uom = False
+        if 'uom' in self._context:
+            to_uom = self.env['product.uom'].browse([self._context['uom']])
+        for product in self:
+            if to_uom:
+                list_price = product.uom_id._compute_price(product.get_sale_price(), to_uom)
+            else:
+                list_price = product.list_price
+            list_price += product.price_extra
+            product.lst_price = list_price

@@ -31,5 +31,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://vps407692.ovh.net:5432/PLEDRA</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="SALE_PRICE_DIMENSION" uuid="dbc76b2d-0f71-4c0b-b848-ca791a02eee8">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://vps407692.ovh.net:5432/SALE_PRICE_DIMENSION</jdbc-url>
+    </data-source>
   </component>
 </project>
