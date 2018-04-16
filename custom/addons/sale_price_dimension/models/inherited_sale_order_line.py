@@ -22,7 +22,7 @@ class SaleOrderLine(models.Model):
     TODO: demasiadas operaciones juntas de onchange, poco eficiente, repite procesos innecesariamente
     """
 
-    @api.onchange('product_id', 'origin_width', 'origin_height')
+    @api.onchange('product_id', 'origin_width', 'origin_height', 'product_attribute_ids', 'product_attribute_ids.value_id')
     def product_id_change(self):
         super(SaleOrderLine, self).product_id_change()
 
@@ -41,7 +41,7 @@ class SaleOrderLine(models.Model):
             try:
                 with self.env.cr.savepoint():
                     self.product_id = self.create_variant_if_needed()
-            except exceptions.ValidationError as e:
+            except ValidationError as e:
                 return {'warning': {
                     'title': _('Product not created!'),
                     'message': e.name,

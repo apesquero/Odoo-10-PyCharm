@@ -12,6 +12,7 @@
               'views/inherited_product_template_views.xml',
               'views/inherited_sale_order_views.xml',
             ],
+    'demo': ['data/product.template.csv'],
     'external_dependencies': {'python': ['xlrd',]},
     'qweb': ['static/src/xml/*.xml'],
     'category': 'Sales',
