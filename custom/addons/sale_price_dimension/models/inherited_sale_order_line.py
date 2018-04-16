@@ -22,7 +22,7 @@ class SaleOrderLine(models.Model):
     TODO: demasiadas operaciones juntas de onchange, poco eficiente, repite procesos innecesariamente
     """
 
-    @api.onchange('product_id', 'origin_width', 'origin_height', 'product_attribute_ids', 'product_attribute_ids.value_id')
+    @api.onchange('product_id', 'origin_width', 'origin_height', 'product_attribute_ids')
     def product_id_change(self):
         super(SaleOrderLine, self).product_id_change()
 
