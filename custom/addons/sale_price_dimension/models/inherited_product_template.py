@@ -4,7 +4,7 @@ from odoo import models, fields, api, _
 import odoo.addons.decimal_precision as dp
 
 
-class product_template(models.Model):
+class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     sale_price_area_min_width = fields.Float(string="Min. Width", default=0.0,

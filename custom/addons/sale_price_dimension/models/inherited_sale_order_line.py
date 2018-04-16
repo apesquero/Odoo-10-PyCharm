@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
-
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from odoo.tools import float_is_zero, float_compare, DEFAULT_SERVER_DATETIME_FORMAT
 
 
-class sale_order_line(models.Model):
+class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     origin_width = fields.Float(string="Width", required=True)
@@ -23,12 +22,13 @@ class sale_order_line(models.Model):
     TODO: demasiadas operaciones juntas de onchange, poco eficiente, repite procesos innecesariamente
     """
 
-    @api.onchange('product_id', 'origin_width', 'origin_height', 'product_attribute_ids',
-                  'product_attribute_ids.value_id')
+    @api.onchange('product_id', 'origin_width', 'origin_height')
     def product_id_change(self):
-        super(sale_order_line, self).product_id_change()
+        super(SaleOrderLine, self).product_id_change()
 
-        if not self.product_tmpl_id:
+        if not self.product_tmpl_id or (self.product_id and \
+                self.product_id.product_tmpl_id.id != \
+                self.product_id.product_tmpl_id.id):
             return
 
         """
@@ -42,7 +42,6 @@ class sale_order_line(models.Model):
                 with self.env.cr.savepoint():
                     self.product_id = self.create_variant_if_needed()
             except exceptions.ValidationError as e:
-                _logger.exception('Product not created!')
                 return {'warning': {
                     'title': _('Product not created!'),
                     'message': e.name,
@@ -103,7 +102,7 @@ class sale_order_line(models.Model):
         self.update(vals)
 
     def product_uom_change(self):
-        super(sale_order_line, self).product_uom_change()
+        super(SaleOrderLine, self).product_uom_change()
         if not self.product_uom or not self.product_id:
             self.price_unit = 0.0
             return
@@ -129,7 +128,7 @@ class sale_order_line(models.Model):
     @api.multi
     def _prepare_order_line_procurement(self, group_id=False):
         self.ensure_one()
-        vals = super(sale_order_line, self)._prepare_order_line_procurement(group_id=group_id)
+        vals = super(SaleOrderLine, self)._prepare_order_line_procurement(group_id=group_id)
         vals.update({
             'origin_width': self.origin_width,
             'origin_height': self.origin_height
@@ -159,7 +158,9 @@ class sale_order_line(models.Model):
 
             vals = line._prepare_order_line_procurement(
                 group_id=line.order_id.procurement_group_id.id)
+
             vals['product_qty'] = line.product_uom_qty - qty
+
             new_proc = self.env["procurement.order"].with_context(
                 procurement_autorun_defer=True,
             ).create(vals)

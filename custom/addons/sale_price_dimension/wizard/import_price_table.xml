@@ -13,7 +13,7 @@
     <!-- WIZARD SALE PRICES -->
     <record model="ir.ui.view" id="wizard_mdtable_sale_import_data_form_view">
         <field name="name">import_price_table.form</field>
-        <field name="model">import_price_table.mdtable</field>
+        <field name="model">wizard.mdtable</field>
         <field name="arch" type="xml">
             <form string="Import Sale Prices Data">
                 <group>
@@ -32,7 +32,7 @@
 
     <act_window id="launch_wizard_mdtable_sale_import_data"
                 name="Import Sale Prices Data"
-                res_model="import_price_table.mdtable"
+                res_model="wizard.mdtable"
                 view_mode="form"
                 view_id="sale_price_dimension.wizard_mdtable_sale_import_data_form_view"
                 target="new"

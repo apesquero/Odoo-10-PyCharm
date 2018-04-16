@@ -3,7 +3,8 @@
 from odoo import models, fields, api, _
 import odoo.addons.decimal_precision as dp
 
-class product_prices_area(models.Model):
+
+class ProductPricesArea(models.Model):
     _name = 'product.prices_area'
 
     min_width = fields.Float(string="Min. Width", default=0.0,

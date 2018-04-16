@@ -6,8 +6,8 @@ import base64
 import xlrd
 
 
-class Wizard_Multi_Dimension_Table(models.TransientModel):
-    _name = 'import_price_table.mdtable'
+class WizardMultiDimensionTable(models.TransientModel):
+    _name = 'wizard.mdtable'
 
     # allow imports to survive for 12h in case user is slow
     _transient_max_hours = 12.0
