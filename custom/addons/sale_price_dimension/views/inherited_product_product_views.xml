@@ -14,6 +14,11 @@
             <xpath expr="//notebook/page[1]" position="after">
                 <page string="Sale Price Type"
                       attrs="{'invisible':[('sale_price_type', '=', 'standard')]}">
+                    <group>
+                        <field name="width_uom"/>
+                        <field name="height_uom"
+                               attrs="{'invisible':[('sale_price_type', '=', 'table_1d')],'required':[('sale_price_type', 'in', ['table_2d','area'])]}"/>
+                    </group>
                     <group attrs="{'invisible':[('sale_price_type', '!=', 'area')]}">
                         <group>
                             <field name="sale_price_area_min_width"/>
@@ -26,30 +31,24 @@
                         <group>
                             <field name="sale_min_price_area"/>
                         </group>
+                        <group>
+                            <field name="sale_prices_area" widget="one2many_list"/>
+                        </group>
                     </group>
 
-                    <div attrs="{'invisible':[('sale_price_type', 'not in', ['table_1d','table_2d','area'])]}">
-                        <group>
-                            <group>
-                                <field name="height_uom"
-                                       attrs="{'invisible':[('sale_price_type', '=', 'table_1d')],'required':[('sale_price_type', 'in', ['table_2d','area'])]}"/>
-                                <field name="width_uom"
-                                       attrs="{'required':[('sale_price_type', 'in', ['table_1d','table_2d','area'])]}"/>
-                            </group>
-                        </group>
+                    <div attrs="{'invisible':[('sale_price_type', 'not in', ['table_1d','table_2d'])]}">
                         <div>
-                            <field name="sale_prices_table"
+                            <field class="col-md-12"
+                                   name="sale_prices_table"
                                    widget="mdtable"
                                    mode="sale_price_type"
-                                   class="col-md-12"/>
-                        </div>
-                        <div>
-                            <group>
+                                   nolabel="1"/>
+                            <div class="o_td_label">
                                 <button name="%(launch_wizard_mdtable_sale_import_data)d"
                                         string="Import Records"
                                         type="action"
                                         class="oe_highlight pull-right"/>
-                            </group>
+                            </div>
                         </div>
                     </div>
 

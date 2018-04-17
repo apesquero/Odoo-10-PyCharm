@@ -28,6 +28,11 @@
             <xpath expr="//notebook/page[1]" position="after">
                 <page string="Sale Price Type"
                       attrs="{'invisible':[('sale_price_type', '=', 'standard')]}">
+                    <group>
+                        <field name="width_uom"/>
+                        <field name="height_uom"
+                               attrs="{'invisible':[('sale_price_type', '=', 'table_1d')],'required':[('sale_price_type', 'in', ['table_2d','area'])]}"/>
+                    </group>
                     <group attrs="{'invisible':[('sale_price_type', '!=', 'area')]}">
                         <group>
                             <field name="sale_price_area_min_width"/>
@@ -45,16 +50,8 @@
                         </group>
                     </group>
 
-                    <div attrs="{'invisible':[('sale_price_type', 'not in', ['table_1d','table_2d','area'])]}">
-                        <group>
-                            <group>
-                                <field name="height_uom"
-                                       attrs="{'invisible':[('sale_price_type', '=', 'table_1d')],'required':[('sale_price_type', 'in', ['table_2d','area'])]}"/>
-                                <field name="width_uom"
-                                       attrs="{'required':[('sale_price_type', 'in', ['table_1d','table_2d','area'])]}"/>
-                            </group>
-                        </group>
-                        <div attrs="{'invisible':[('sale_price_type', '=', 'area')]}">
+                    <div attrs="{'invisible':[('sale_price_type', 'not in', ['table_1d','table_2d'])]}">
+                        <div>
                             <field class="col-md-12"
                                    name="sale_prices_table"
                                    widget="mdtable"
