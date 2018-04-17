@@ -6,7 +6,7 @@
     'version': '10.0.1.0',
     'author': 'Amaro Pesquero',
     'application': True,
-    'data': [
+    'data': [ 'security/ir.model.access.csv',
               'wizard/import_price_table.xml',
               'views/inherited_product_product_views.xml',
               'views/inherited_product_template_views.xml',

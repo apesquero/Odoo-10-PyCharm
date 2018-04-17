@@ -1,5 +1,5 @@
 "id","name","image","sale_ok","purchase_ok","sale_price_type","width_uom/id","height_uom/id","sale_prices_table/pos_x","sale_prices_table/pos_y","sale_prices_table/value","no_create_variants","attribute_line_ids/attribute_id/id","attribute_line_ids/required","attribute_line_ids/value_ids/id"
-"__export__.product_template_44","Enrollable Rhin Ø43 - Gredos (2D Table)","/9j/4AAQSkZJRgABAQAAAQABAAD//gA7Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcg
+"","Enrollable Rhin Ø43 - Gredos (2D Table)","/9j/4AAQSkZJRgABAQAAAQABAAD//gA7Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcg
 SlBFRyB2NjIpLCBxdWFsaXR5ID0gOTAK/9sAQwADAgIDAgIDAwMDBAMDBAUIBQUEBAUKBwcGCAwK
 DAwLCgsLDQ4SEA0OEQ4LCxAWEBETFBUVFQwPFxgWFBgSFBUU/9sAQwEDBAQFBAUJBQUJFA0LDRQU
 FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU/8AAEQgBCQEJ
@@ -322,7 +322,7 @@ xrq/2Xf+TnPhB/2OGj/+lsNa36nO4pH9FtFFFaGQUUUUAFFFFAH/2Q==
 "","","","","","","","","240.0","280.0","0.0","","","",""
 "","","","","","","","","240.0","300.0","0.0","","","",""
 "","","","","","","","","","","","","product.product_attribute_1","True","product.product_attribute_value_1,product.product_attribute_value_2"
-"__export__.product_template_43","Galería Eco con solapa 8 cms (1D table)","/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAAeAAD/4QMraHR0cDov
+"","Galería Eco con solapa 8 cms (1D table)","/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAAeAAD/4QMraHR0cDov
 L25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENl
 aGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4
 OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjMtYzAxMSA2Ni4xNDU2NjEsIDIwMTIvMDIvMDYtMTQ6

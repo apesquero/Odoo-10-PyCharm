@@ -7,8 +7,8 @@ from odoo.tools import float_is_zero, float_compare, DEFAULT_SERVER_DATETIME_FOR
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    origin_width = fields.Float(string="Width", required=True)
-    origin_height = fields.Float(string="Height", required=True)
+    origin_width = fields.Float(string="Width", required=True, default=0.0)
+    origin_height = fields.Float(string="Height", required=True, default=0.0)
 
     product_price_type = fields.Selection([('standard', 'Standard'),
                                            ('table_1d', '1D Table'),

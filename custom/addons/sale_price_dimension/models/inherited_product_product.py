@@ -101,5 +101,5 @@ class ProductProduct(models.Model):
                 list_price = product.uom_id._compute_price(product.get_sale_price(), to_uom)
             else:
                 list_price = product.list_price
-            # list_price += product.price_extra
+            list_price += product.price_extra
             product.lst_price = list_price
