@@ -35,3 +35,10 @@ class ProductTemplate(models.Model):
     sale_prices_area = fields.One2many('product.prices_area',
                                        'sale_area_tmpl_id',
                                        string="Sale Prices Area")
+
+    min_width = fields.Float(related='sale_prices_area.min_width')
+    max_width = fields.Float(related='sale_prices_area.max_width')
+    min_height = fields.Float(related='sale_prices_area.min_height')
+    max_height = fields.Float(related='sale_prices_area.max_height')
+
+    min_price = fields.Float(related='sale_prices_area.min_price')
