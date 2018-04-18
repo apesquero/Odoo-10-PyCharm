@@ -47,6 +47,11 @@
                         <group>
                             <field name="min_price"/>
                         </group>
+                        <group>
+                            <field name="sale_prices_area"
+                                   widget="one2many_list"
+                                   context="{'show_attribute': False}"/>
+                        </group>
                     </group>
 
                     <div attrs="{'invisible':[('sale_price_type', 'not in', ['table_1d','table_2d'])]}">
