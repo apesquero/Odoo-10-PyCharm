@@ -42,3 +42,9 @@ class ProductTemplate(models.Model):
     max_height = fields.Float(related='sale_prices_area.max_height')
 
     min_price = fields.Float(related='sale_prices_area.min_price')
+
+    @api.onchange('sale_price_type')
+    def create_relation(self):
+        self.ensure_one()
+        if self.sale_price_type == 'area':
+            pass
