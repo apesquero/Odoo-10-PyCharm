@@ -19,10 +19,7 @@ var utils = require('web.utils');
 var _t = core._t;
 var QWeb = core.qweb;
 
-var AttrHierarchy = common.FormWidget.extend({
-    template: '',
-    
-)};
+var AttrHierarchy = common.FormWidget.extend({template: ''});
 
 core.form_widget_registry
     .add('attrhierarchy', AttrHierarchy)
