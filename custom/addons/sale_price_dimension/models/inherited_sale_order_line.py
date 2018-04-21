@@ -26,6 +26,8 @@ class SaleOrderLine(models.Model):
     def product_id_change(self):
         super(SaleOrderLine, self).product_id_change()
 
+        """TODO: este condicional """
+
         if not self.product_tmpl_id or (self.product_id and \
                 self.product_id.product_tmpl_id.id != \
                 self.product_id.product_tmpl_id.id):

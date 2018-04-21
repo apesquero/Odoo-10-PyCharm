@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
 import odoo.addons.decimal_precision as dp
+from odoo.exceptions import UserError
+
 
 
 class ProductTemplate(models.Model):
@@ -43,8 +45,21 @@ class ProductTemplate(models.Model):
 
     min_price = fields.Float(related='sale_prices_area.min_price')
 
-    @api.onchange('sale_price_type')
-    def create_relation(self):
-        self.ensure_one()
-        if self.sale_price_type == 'area':
-            pass
+    # @api.onchange('sale_price_type')
+    # def create_relation(self):
+    #     self.ensure_one()
+    #     val1 = {'min_width': 0.0, 'max_width': 0.0, 'min_height': 0.0, 'max_height': 0.0, 'min_price': 0.0}
+    #     if self.sale_price_type == 'area':
+    #         self.env['product.template'].write([(0, None, val1)])
+
+
+    # @api.onchange('sale_price_type')
+    # def create_relation(self):
+    #     if self.sale_price_type == 'area':
+    #         record_id = self.env['product.template'].browse(self._context.get('active_id'))
+    #         val1 = {'min_width': 0.0, 'max_width': 0.0, 'min_height': 0.0, 'max_height': 0.0, 'min_price': 0.0}
+    #         try:
+    #             record_id.write([(4, record_id.sale_prices_area.id, None)])
+    #         except:
+    #             raise UserError(_('Invalid file format!)'))
+    #     return {}
