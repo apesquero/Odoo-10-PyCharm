@@ -14,6 +14,9 @@ class WizardMultiDimensionTable(models.TransientModel):
     prices_table_file = fields.Binary('Prices Table File')
     file_name = fields.Char('File Name')
 
+    """TODO: Cuando se inserta una tabla nueva dentro de un producto que ya tiene una tabla previa, no se borra
+    la anterior quedando datos residuales innecesarios"""
+
     @api.multi
     def import_sale_prices_from_file(self):
         record_id = self.env[self._context.get('active_model')].browse(self._context.get('active_id'))

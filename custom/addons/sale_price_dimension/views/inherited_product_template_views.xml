@@ -48,6 +48,10 @@
                             <field name="min_price"/>
                         </group>
                         <group>
+                            <button name="create_relation" type="object"
+                            string="Create" class="oe_highlight"/>
+                        </group>
+                        <group>
                             <field name="sale_prices_area"
                                    widget="one2many_list"
                                    context="{'show_attribute': False}"/>

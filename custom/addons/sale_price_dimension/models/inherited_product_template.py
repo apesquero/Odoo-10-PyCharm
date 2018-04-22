@@ -45,9 +45,16 @@ class ProductTemplate(models.Model):
 
     min_price = fields.Float(related='sale_prices_area.min_price')
 
-    @api.onchange('sale_price_type')
+    @api.multi
     def create_relation(self):
         self.ensure_one()
+        column = {'min_width': self.min_width,
+                  'max_width': self.max_width,
+                  'min_height': self.min_height,
+                  'max_height': self.max_height,
+                  'min_price': self.min_price
+                  }
         if self.sale_price_type == 'area':
-            self.sale_prices_area.create({'sale_area_tmpl_id': self.ids})
-            pass
+            self.write({'sale_prices_area': [(0, None, column)]})
+        elif self.sale_price_type != 'area':
+            self.write({'sale_prices_area': [(5, False, False)]})
