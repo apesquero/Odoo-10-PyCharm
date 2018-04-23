@@ -22,10 +22,10 @@ class ProductProduct(models.Model):
                 ('pos_x', '=', norm_width),
                 ('value', '!=', 0)]) > 0
         elif self.sale_price_type == 'area':
-            return width >= self.sale_price_area_min_width and \
-                   width <= self.sale_price_area_max_width and \
-                   height >= self.sale_price_area_min_height and \
-                   height <= self.sale_price_area_max_height
+            return width >= self.min_width_area and \
+                   width <= self.max_width_area and \
+                   height >= self.min_height_area and \
+                   height <= self.max_height_area
         return True
 
     @api.model
@@ -85,7 +85,7 @@ class ProductProduct(models.Model):
                 result = res and res.value or False
             elif self.sale_price_type == 'area':
                 result = self.list_price * origin_width * origin_height
-                result = max(self.sale_min_price_area, result)
+                result = max(self.min_price_area, result)
         if not result:
             result = self.list_price
         return result
