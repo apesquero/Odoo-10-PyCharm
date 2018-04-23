@@ -1,22 +1,9 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
-import odoo.addons.decimal_precision as dp
-from odoo.exceptions import UserError
-
 
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
-
-    sale_price_area_min_width = fields.Float(string="Min. Width", default=0.0,
-                                             digits=dp.get_precision('Product Price'))
-    sale_price_area_max_width = fields.Float(string="Max. Width", default=0.0,
-                                             digits=dp.get_precision('Product Price'))
-    sale_price_area_min_height = fields.Float(string="Min. Height", default=0.0,
-                                              digits=dp.get_precision('Product Price'))
-    sale_price_area_max_height = fields.Float(string="Max. Height", default=0.0,
-                                              digits=dp.get_precision('Product Price'))
-    sale_min_price_area = fields.Monetary("Min. Price")
 
     height_uom = fields.Many2one('product.uom', string='Height UOM')
     width_uom = fields.Many2one('product.uom', string='Width UOM')
