@@ -9,8 +9,8 @@
     </database>
     <schema id="3" parent="2" name="public">
       <ObjectId>2200</ObjectId>
-      <IntrospectionTimestamp>2018-04-22.10:20:09.428</IntrospectionTimestamp>
-      <IntrospectionStateNumber>167020</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2018-04-23.20:04:44.143</IntrospectionTimestamp>
+      <IntrospectionStateNumber>169306</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -27195,7 +27195,7 @@ tax_id</ColNames>
       <Comment>Sale Price Type</Comment>
       <DataType>varchar|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>166947</StateNumber>
+      <StateNumber>169306</StateNumber>
     </column>
     <column id="4333" parent="447" name="sale_price_area_max_width">
       <Position>40</Position>

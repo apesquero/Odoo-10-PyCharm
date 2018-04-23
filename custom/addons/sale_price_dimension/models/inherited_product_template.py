@@ -38,23 +38,26 @@ class ProductTemplate(models.Model):
                                        'sale_area_tmpl_id',
                                        string="Sale Prices Area")
 
-    min_width = fields.Float(related='sale_prices_area.min_width')
-    max_width = fields.Float(related='sale_prices_area.max_width')
-    min_height = fields.Float(related='sale_prices_area.min_height')
-    max_height = fields.Float(related='sale_prices_area.max_height')
+    min_width_area = fields.Float(related='sale_prices_area.min_width_area')
+    max_width_area = fields.Float(related='sale_prices_area.max_width_area')
+    min_height_area = fields.Float(related='sale_prices_area.min_height_area')
+    max_height_area = fields.Float(related='sale_prices_area.max_height_area')
 
-    min_price = fields.Float(related='sale_prices_area.min_price')
+    min_price_area = fields.Float(related='sale_prices_area.min_price_area')
 
-    @api.multi
-    def create_relation(self):
+    @api.one
+    @api.constrains('sale_price_type')
+    def _create_relation(self):
         self.ensure_one()
-        column = {'min_width': self.min_width,
-                  'max_width': self.max_width,
-                  'min_height': self.min_height,
-                  'max_height': self.max_height,
-                  'min_price': self.min_price
-                  }
         if self.sale_price_type == 'area':
+            column = {'min_width_area': self.min_width_area,
+                      'max_width_area': self.max_width_area,
+                      'min_height_area': self.min_height_area,
+                      'max_height_area': self.max_height_area,
+                      'min_price_area': self.min_price_area
+                      }
             self.write({'sale_prices_area': [(0, None, column)]})
+            return {}
         elif self.sale_price_type != 'area':
-            self.write({'sale_prices_area': [(5, False, False)]})
+            self.write({'sale_prices_area': [(2, self.sale_prices_area.id, False)]})
+            return {}

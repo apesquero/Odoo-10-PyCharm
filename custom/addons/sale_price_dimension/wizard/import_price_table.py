@@ -15,7 +15,10 @@ class WizardMultiDimensionTable(models.TransientModel):
     file_name = fields.Char('File Name')
 
     """TODO: Cuando se inserta una tabla nueva dentro de un producto que ya tiene una tabla previa, no se borra
-    la anterior quedando datos residuales innecesarios"""
+    la anterior quedando datos residuales innecesarios
+    Esto hay que aplicarlo a cada registro relacionado que se encuentre...
+    record_id.write({'sale_prices_table': [(2, record_id.sale_prices_table.id, False)] + opers})
+    """
 
     @api.multi
     def import_sale_prices_from_file(self):
