@@ -23,15 +23,15 @@
                     </group>
                     <group attrs="{'invisible':[('sale_price_type', '!=', 'area')]}">
                         <group>
-                            <field name="min_width"/>
-                            <field name="max_width"/>
+                            <field name="min_width_area"/>
+                            <field name="max_width_area"/>
                         </group>
                         <group>
-                            <field name="min_height"/>
-                            <field name="max_height"/>
+                            <field name="min_height_area"/>
+                            <field name="max_height_area"/>
                         </group>
                         <group>
-                            <field name="min_price"/>
+                            <field name="min_price_area"/>
                         </group>
                     </group>
 
