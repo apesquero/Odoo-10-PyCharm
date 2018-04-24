@@ -9,7 +9,7 @@
     </database>
     <schema id="3" parent="2" name="public">
       <ObjectId>2200</ObjectId>
-      <IntrospectionTimestamp>2018-04-19.22:32:52.758</IntrospectionTimestamp>
+      <IntrospectionTimestamp>2018-04-24.21:46:31.490</IntrospectionTimestamp>
       <IntrospectionStateNumber>109597</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
@@ -36871,7 +36871,7 @@ route_id</ColNames>
     </column>
     <column id="5868" parent="585" name="restrict_partner_id">
       <Position>4</Position>
-      <Comment>Owner </Comment>
+      <Comment>Owner</Comment>
       <DataType>integer|0</DataType>
       <StateNumber>92768</StateNumber>
     </column>
@@ -36910,7 +36910,7 @@ route_id</ColNames>
     </column>
     <column id="5874" parent="585" name="partner_id">
       <Position>10</Position>
-      <Comment>Destination Address </Comment>
+      <Comment>Destination Address</Comment>
       <DataType>integer|0</DataType>
       <StateNumber>92777</StateNumber>
     </column>

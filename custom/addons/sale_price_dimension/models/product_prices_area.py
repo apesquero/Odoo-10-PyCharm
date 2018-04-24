@@ -21,4 +21,6 @@ class ProductPricesArea(models.Model):
     min_price_area = fields.Float(string="Min. Price", default=1.0,
                              digits=dp.get_precision('Product Price'))
 
+    area_uom = fields.Many2one('product.uom', string='Area UOM')
+
     sale_area_tmpl_id = fields.Many2one('product.template', 'Product Template')

@@ -17,6 +17,12 @@
                 <attribute name="attrs">{'invisible':[('sale_price_type', 'not in', ['standard', 'area'])]}</attribute>
             </xpath>
 
+            <xpath expr="//field[@name='list_price']" position="after">
+                <field name="area_uom"
+                       attrs="{'invisible':[('sale_price_type', 'in', ['standard','table_1d','table_2d'])],
+                               'required':[('sale_price_type', 'in', 'area')]}"/>
+            </xpath>
+
         </field>
     </record>
 
