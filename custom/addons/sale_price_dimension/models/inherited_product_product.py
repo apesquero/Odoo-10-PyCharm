@@ -85,7 +85,9 @@ class ProductProduct(models.Model):
                 result = res and res.value or False
             elif self.sale_price_type == 'area':
 
-                """TODO: Crear la relación para que coja la unidad de medida del precio"""
+                """Unit conversion created"""
+                origin_width = (self.area_uom.factor * origin_width) / self.width_uom.factor
+                origin_height = (self.area_uom.factor * origin_height) / self.height_uom.factor
 
                 result = self.list_price * origin_width * origin_height
                 result = max(self.min_price_area, result)
