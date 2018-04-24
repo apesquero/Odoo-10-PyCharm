@@ -51,7 +51,7 @@
                             <field name="max_height_area"/>
                         </group>
                         <group>
-                            <field name="min_price_area"/>
+                            <field name="min_price_area" widget="monetary"/>
                         </group>
                     </group>
 

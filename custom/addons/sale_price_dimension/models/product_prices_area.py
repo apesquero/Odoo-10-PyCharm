@@ -7,13 +7,13 @@ class ProductPricesArea(models.Model):
     _name = 'product.prices_area'
 
     min_width_area = fields.Float(string="Min. Width", default=0.0,
-                             digits=dp.get_precision('Product Price'))
+                             digits=dp.get_precision('Product Unit of Measure'))
     max_width_area = fields.Float(string="Max. Width", default=0.0,
-                             digits=dp.get_precision('Product Price'))
+                             digits=dp.get_precision('Product Unit of Measure'))
     min_height_area = fields.Float(string="Min. Height", default=0.0,
-                              digits=dp.get_precision('Product Price'))
+                              digits=dp.get_precision('Product Unit of Measure'))
     max_height_area = fields.Float(string="Max. Height", default=0.0,
-                              digits=dp.get_precision('Product Price'))
+                              digits=dp.get_precision('Product Unit of Measure'))
 
     """
     TODO: Debería ser Monetary, pero hay que asignarle un valor previo, no sirve default
