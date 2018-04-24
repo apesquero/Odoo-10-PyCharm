@@ -19,7 +19,8 @@ class SaleOrderLine(models.Model):
 
 
     """
-    TODO: demasiadas operaciones juntas de onchange, poco eficiente, repite procesos innecesariamente
+    TODO: demasiadas operaciones juntas de onchange, poco eficiente, 
+    repite procesos innecesariamente
     """
 
     @api.onchange('product_id', 'origin_width', 'origin_height', 'product_attribute_ids')
@@ -102,6 +103,11 @@ class SaleOrderLine(models.Model):
             vals['price_unit'] = self.env['account.tax']._fix_tax_included_price(product.lst_price, product.taxes_id,
                                                                                  self.tax_id)
         self.update(vals)
+
+    """
+    Hay que añadir un @api.constrains de las medidas para evitar 
+    que se introduzca datos fuera de rango
+    """
 
     def product_uom_change(self):
         super(SaleOrderLine, self).product_uom_change()
