@@ -18,28 +18,13 @@ class SaleOrderLine(models.Model):
                                           related='product_tmpl_id.sale_price_type')
 
 
-    """
-    TODO: demasiadas operaciones juntas de onchange, poco eficiente, 
-    repite procesos innecesariamente
-    """
-
-    @api.onchange('product_id', 'origin_width', 'origin_height', 'product_attribute_ids')
-    def product_id_change(self):
-        super(SaleOrderLine, self).product_id_change()
-
-        """TODO: este condicional """
-
+    @api.multi
+    @api.onchange('product_attribute_ids')
+    def _onchange_create_product_variant_id(self):
         if not self.product_tmpl_id or (self.product_id and \
-                self.product_id.product_tmpl_id.id != \
                 self.product_id.product_tmpl_id.id):
             return
 
-        """
-        TODO: crea directamente la variante de producto, 
-                lo suyo sería llamar al modelo _onchange_create_product_variant de product_configurator
-                o crear un módulo que directamente modifique product_configurator para que los cree 
-                automáticamente
-        """
         if self.can_create_product:
             try:
                 with self.env.cr.savepoint():
@@ -49,6 +34,10 @@ class SaleOrderLine(models.Model):
                     'title': _('Product not created!'),
                     'message': e.name,
                 }}
+
+    @api.multi
+    @api.onchange('origin_width', 'origin_height')
+    def _update_description_sale(self):
 
         vals = {}
 
@@ -64,15 +53,15 @@ class SaleOrderLine(models.Model):
             height=self.origin_height
         )
 
-        if product.sale_price_type in ['table_2d', 'area']\
-                and self.origin_height != 0\
-                and self.origin_width != 0\
+        if product.sale_price_type in ['table_2d', 'area'] \
+                and self.origin_height != 0 \
+                and self.origin_width != 0 \
                 and not self.product_id.origin_check_sale_dim_values(self.origin_width,
                                                                      self.origin_height):
             raise ValidationError(_("Invalid Dimensions!"))
 
-        elif product.sale_price_type == 'table_1d'\
-                and self.origin_width != 0\
+        elif product.sale_price_type == 'table_1d' \
+                and self.origin_width != 0 \
                 and not self.product_id.origin_check_sale_dim_values(self.origin_width, 0):
             raise ValidationError(_("Invalid Dimensions!"))
 
@@ -88,7 +77,7 @@ class SaleOrderLine(models.Model):
             height_uom = product.height_uom.name
             width_uom = product.width_uom.name
             name += _(' [Width:%.2f %s x Height:%.2f %s]') % (
-            self.origin_width, width_uom, self.origin_height, height_uom)
+                self.origin_width, width_uom, self.origin_height, height_uom)
 
         elif product.sale_price_type == 'table_1d':
             width_uom = product.width_uom.name
@@ -103,11 +92,6 @@ class SaleOrderLine(models.Model):
             vals['price_unit'] = self.env['account.tax']._fix_tax_included_price(product.lst_price, product.taxes_id,
                                                                                  self.tax_id)
         self.update(vals)
-
-    """
-    Hay que añadir un @api.constrains de las medidas para evitar 
-    que se introduzca datos fuera de rango
-    """
 
     def product_uom_change(self):
         super(SaleOrderLine, self).product_uom_change()
