@@ -17,7 +17,6 @@ class SaleOrderLine(models.Model):
                                           string='Sale Price Type',
                                           related='product_tmpl_id.sale_price_type')
 
-
     @api.multi
     @api.onchange('product_attribute_ids')
     def _onchange_create_product_variant_id(self):
@@ -95,27 +94,6 @@ class SaleOrderLine(models.Model):
 
     def product_uom_change(self):
         super(SaleOrderLine, self).product_uom_change()
-        if not self.product_uom or not self.product_id:
-            self.price_unit = 0.0
-            return
-        if self.order_id.pricelist_id and self.order_id.partner_id:
-            product = self.product_id.with_context(
-                lang=self.order_id.partner_id.lang,
-                partner=self.order_id.partner_id.id,
-                quantity=self.product_uom_qty,
-                date_order=self.order_id.date_order,
-                pricelist=self.order_id.pricelist_id.id,
-                uom=self.product_uom.id,
-                fiscal_position=self.env.context.get('fiscal_position'),
-
-                width=self.origin_width,
-                height=self.origin_height
-            )
-            self.price_unit = self.env['account.tax']._fix_tax_included_price(product.price, product.taxes_id,
-                                                                              self.tax_id)
-            # self.price_unit = self.env['account.tax']._fix_tax_included_price_company(self._get_display_price(product),
-            #                                                                           product.taxes_id, self.tax_id,
-            #                                                                           self.company_id)
 
     @api.multi
     def _prepare_order_line_procurement(self, group_id=False):
