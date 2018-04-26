@@ -32,6 +32,7 @@
         'sale',
         'stock',
         'purchase',
+        # Si no pones sale_variant_configurator, malo, no te va ha funcionar en la vida
     ],
     'external_dependencies': {
         'python': [

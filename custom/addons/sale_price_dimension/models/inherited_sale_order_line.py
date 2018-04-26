@@ -35,6 +35,41 @@ class SaleOrderLine(models.Model):
                 }}
 
     @api.multi
+    def _get_display_price(self, product):
+        res = super(SaleOrderLine, self)._get_display_price(product)
+
+        # product.price = product.lst_price
+        #
+        # return res
+        # TO DO: move me in master/saas-16 on sale.order
+        if self.order_id.pricelist_id.discount_policy == 'with_discount':
+            return product.with_context(pricelist=self.order_id.pricelist_id.id).lst_price
+
+        final_price, rule_id = self.order_id.pricelist_id.get_product_price_rule(self.product_id,
+                                                                                 self.product_uom_qty
+                                                                                 or 1.0,
+                                                                                 self.order_id.partner_id)
+        context_partner = dict(self.env.context,
+                               partner_id=self.order_id.partner_id.id,
+                               date=self.order_id.date_order)
+
+        base_price, currency_id = self.with_context(context_partner).\
+            _get_real_price_currency(self.product_id,
+                                     rule_id,
+                                     self.product_uom_qty,
+                                     self.product_uom,
+                                     self.order_id.pricelist_id.id)
+
+        if currency_id != self.order_id.pricelist_id.currency_id.id:
+            base_price = self.env['res.currency'].browse(currency_id).\
+                with_context(context_partner).compute(base_price,
+                                                      self.order_id.pricelist_id.currency_id)
+
+        # negative discounts (= surcharge) are included in the display price
+
+        return max(base_price, final_price)
+
+    @api.multi
     @api.onchange('origin_width', 'origin_height')
     def _update_description_sale(self):
 
@@ -88,8 +123,14 @@ class SaleOrderLine(models.Model):
         vals['name'] = name
 
         if self.order_id.pricelist_id and self.order_id.partner_id:
-            vals['price_unit'] = self.env['account.tax']._fix_tax_included_price(product.lst_price, product.taxes_id,
-                                                                                 self.tax_id)
+            # vals['price_unit'] = self.env['account.tax']._fix_tax_included_price(product.lst_price, product.taxes_id,
+            #                                                                      self.tax_id)
+
+            vals['price_unit'] = self.env['account.tax'].\
+                _fix_tax_included_price_company(self._get_display_price(product),
+                                                product.taxes_id,
+                                                self.tax_id,
+                                                self.company_id)
         self.update(vals)
 
     @api.onchange('product_uom', 'product_uom_qty')
@@ -114,10 +155,17 @@ class SaleOrderLine(models.Model):
             )
 
         if self.order_id.pricelist_id and self.order_id.partner_id:
-            vals['price_unit'] = self.env['account.tax']._fix_tax_included_price(product.lst_price, product.taxes_id,
-                                                                                 self.tax_id)
-        self.update(vals)
 
+            # self.price_unit = self.env['account.tax'].\
+            #     _fix_tax_included_price(product.lst_price,
+            #                             product.taxes_id,
+            #                             self.tax_id)
+
+            self.price_unit = self.env['account.tax'].\
+                _fix_tax_included_price_company(self._get_display_price(product),
+                                                product.taxes_id,
+                                                self.tax_id,
+                                                self.company_id)
         return res
 
     @api.multi

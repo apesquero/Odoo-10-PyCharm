@@ -50,6 +50,10 @@ class SaleOrderLine(models.Model):
                     record.origin_width, record.origin_height):
                 raise ValidationError("Invalid height!")
 
+
+    """Si no cargas el 'product_attribute_ids' no te va a funcionar
+        Hay demasiados onchange, se puede separar y optimizar mucho mas"""
+
     @api.onchange('product_id', 'origin_width', 'origin_height')
     def product_id_change(self):
         super(SaleOrderLine, self).product_id_change()
@@ -116,8 +120,15 @@ class SaleOrderLine(models.Model):
         self.update(vals)
 
 
+    """Al eliminar el onchange, esto no se actualiza, lo cual provoca que no se actualice
+    el precio, en principio parece que bien, porque el precio no se fastidia, pero rompe 
+    la estructura de sale.order.line, es mas, se pierde toda la funcionalidad de Sale Price 
+    - Advanced priccing..."""
+
     def product_uom_change(self):
         super(SaleOrderLine, self).product_uom_change()
+        "Si lo dejas así, que no se debería, sobra todo el resto del código hacia abajo"
+
         if not self.product_uom:
             self.price_unit = 0.0
             return
@@ -134,7 +145,9 @@ class SaleOrderLine(models.Model):
                 width=self.origin_width,
                 height=self.origin_height
             )
+            #esto sobra por completo si tienes un buen IDE
             import wdb; wdb.set_trace()
+
             self.price_unit = self.env['account.tax']._fix_tax_included_price(
                 product.price, product.taxes_id, self.tax_id)
 
