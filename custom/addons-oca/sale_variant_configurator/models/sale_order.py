@@ -148,5 +148,6 @@ class SaleOrderLine(models.Model):
         """Update price for having into account changes due to qty"""
         res = super(SaleOrderLine, self).product_uom_change()
         if not self.product_id:
+            self._onchange_product_attribute_ids_configurator()
             self._update_price_configurator()
         return res
