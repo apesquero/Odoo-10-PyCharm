@@ -48,7 +48,7 @@ class SuppliferInfo(models.Model):
             if not self.purchase_prices_area:
                 self.write({'purchase_prices_area': [(0, None, column)]})
             return {}
-        elif self.purchase_price_type != 'area' and self.purchase_prices_area.id != False:
+        elif self.purchase_price_type != 'area' and self.purchase_prices_area.id is not False:
             self.write({'purchase_prices_area': [(2, self.purchase_prices_area.id, False)]})
             return {}
 
