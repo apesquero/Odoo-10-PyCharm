@@ -48,10 +48,11 @@ class ProductTemplate(models.Model):
                       'max_height_area': self.max_height_area,
                       'min_price_area': self.min_price_area
                       }
+            # We check that the relationship is not already created
             if not self.sale_prices_area:
                 self.write({'sale_prices_area': [(0, None, column)]})
             return {}
-        elif self.sale_price_type != 'area' and self.sale_prices_area.id != False:
+        elif self.sale_price_type != 'area' and self.sale_prices_area.id is not False:
             self.write({'sale_prices_area': [(2, self.sale_prices_area.id, False)]})
             return {}
 
