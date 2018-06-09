@@ -19,7 +19,7 @@
       <paths name="sftp://odoo10@vps407692.ovh.net:22/usr/bin/python">
         <serverdata>
           <mappings>
-            <mapping deploy="/odoo10" local="$PROJECT_DIR$" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

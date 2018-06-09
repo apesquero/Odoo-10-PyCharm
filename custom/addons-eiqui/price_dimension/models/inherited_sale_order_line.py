@@ -54,7 +54,7 @@ class SaleOrderLine(models.Model):
     """Si no cargas el 'product_attribute_ids' no te va a funcionar
         Hay demasiados onchange, se puede separar y optimizar mucho mas"""
 
-    @api.onchange('product_id', 'origin_width', 'origin_height')
+    @api.onchange('product_id', 'origin_width', 'origin_height', 'product_attribute_ids')
     def product_id_change(self):
         super(SaleOrderLine, self).product_id_change()
         product_tmp = False
@@ -127,8 +127,6 @@ class SaleOrderLine(models.Model):
 
     def product_uom_change(self):
         super(SaleOrderLine, self).product_uom_change()
-        "Si lo dejas así, que no se debería, sobra todo el resto del código hacia abajo"
-
         if not self.product_uom:
             self.price_unit = 0.0
             return

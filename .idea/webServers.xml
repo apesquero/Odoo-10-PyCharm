@@ -2,7 +2,7 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="sftp://odoo10@vps407692.ovh.net:22/usr/bin/python" name="sftp://odoo10@vps407692.ovh.net:22/usr/bin/python" url="http://vps407692.ovh.net">
+      <webServer id="f3161df5-ddb2-497d-84a0-ef3451ff0c1c" name="sftp://odoo10@vps407692.ovh.net:22/usr/bin/python" url="http://vps407692.ovh.net">
         <fileTransfer host="vps407692.ovh.net" port="22" accessType="SFTP">
           <option name="port" value="22" />
         </fileTransfer>

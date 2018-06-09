@@ -13,6 +13,6 @@
             ],
     'external_dependencies': {'python': ['xlrd',]},
     'category': 'Purchase',
-    'depends': ['purchase', 'sale', 'sale_variant_configurator', 'sale_price_dimension'],
+    'depends': ['purchase', 'sale', 'sale_variant_configurator', 'sale_price_dimension', 'purchase_variant_configurator',],
     'application': True,
 }

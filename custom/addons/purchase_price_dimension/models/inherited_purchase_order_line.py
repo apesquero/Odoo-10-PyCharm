@@ -10,7 +10,7 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-class purchase_order_line(models.Model):
+class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
     origin_width = fields.Float(string="Width", required=True)
@@ -66,7 +66,7 @@ class purchase_order_line(models.Model):
     #
     @api.onchange('product_id', 'origin_width', 'origin_height', 'product_attribute_ids', 'product_attribute_ids.value_id')
     def onchange_product_id(self):
-        result = super(purchase_order_line, self).onchange_product_id()
+        result = super(PurchaseOrderLine, self).onchange_product_id()
         if not self.product_tmpl_id:
             return result
 
@@ -132,7 +132,7 @@ class purchase_order_line(models.Model):
 
     @api.onchange('product_qty', 'product_uom')
     def _onchange_quantity(self):
-        super(purchase_order_line, self)._onchange_quantity()
+        super(PurchaseOrderLine, self)._onchange_quantity()
         if not self.product_id:
             return
 
@@ -172,7 +172,7 @@ class purchase_order_line(models.Model):
 
     # @api.multi
     # def _create_stock_moves(self, picking):
-    #     moves = super(purchase_order_line, self)._create_stock_moves(picking)
+    #     moves = super(PurchaseOrderLine, self)._create_stock_moves(picking)
     #     for move in moves:
     #         width = 0
     #         height = 0

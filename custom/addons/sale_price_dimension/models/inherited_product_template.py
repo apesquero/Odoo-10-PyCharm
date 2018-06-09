@@ -48,7 +48,8 @@ class ProductTemplate(models.Model):
                       'max_height_area': self.max_height_area,
                       'min_price_area': self.min_price_area
                       }
-            self.write({'sale_prices_area': [(0, None, column)]})
+            if not self.sale_prices_area:
+                self.write({'sale_prices_area': [(0, None, column)]})
             return {}
         elif self.sale_price_type != 'area' and self.sale_prices_area.id != False:
             self.write({'sale_prices_area': [(2, self.sale_prices_area.id, False)]})
@@ -60,16 +61,18 @@ class ProductTemplate(models.Model):
                     'max_height_area',
                     'min_price_area')
     def _check_area_values(self):
-        if self.min_width_area < 0 or \
-            self.min_height_area < 0 or \
-            self.max_width_area < 0 or \
-            self.max_height_area < 0 or \
-            self.min_price_area < 0:
-            raise ValidationError(_("Error! The values can`t "
-                                    "be negative"))
-        elif self.min_width_area > self.max_width_area:
-            raise ValidationError(_("Error! Min. Width can`t "
-                                    "be less than Max. Width"))
-        elif self.min_height_area > self.max_height_area:
-            raise ValidationError(_("Error! Min. Height can`t "
-                                    "be less than Max. Height"))
+        if self.sale_price_type == 'area':
+            if self.min_width_area <= 0 or \
+                self.min_height_area <= 0 or \
+                self.max_width_area <= 0 or \
+                self.max_height_area <= 0 or \
+                self.min_price_area <= 0:
+                raise ValidationError(_("Error! The values can`t "
+                                        "be negative or cero"))
+            elif self.min_width_area > self.max_width_area:
+                raise ValidationError(_("Error! Min. Width can`t "
+                                        "be greater than Max. Width"))
+            elif self.min_height_area > self.max_height_area:
+                raise ValidationError(_("Error! Min. Height can`t "
+                                        "be greater than Max. Height"))
+        return True

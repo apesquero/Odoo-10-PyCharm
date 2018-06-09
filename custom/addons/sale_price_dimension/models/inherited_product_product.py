@@ -33,9 +33,14 @@ class ProductProduct(models.Model):
         headers = self.get_sale_price_table_headers()
         norm_val = width
         for index in range(len(headers['x']) - 1):
-            if width > headers['x'][index] and \
-                            width <= headers['x'][index + 1]:
-                norm_val = headers['x'][index + 1]
+            if headers['x'][0] == 0 and index == 0:
+                if width >= headers['x'][index + 1] and \
+                                width <= headers['x'][index + 1]:
+                    norm_val = headers['x'][index + 2]
+            else:
+                if width > headers['x'][index] and \
+                                width <= headers['x'][index + 1]:
+                    norm_val = headers['x'][index + 1]
         return norm_val
 
     @api.model
@@ -43,9 +48,14 @@ class ProductProduct(models.Model):
         headers = self.get_sale_price_table_headers()
         norm_val = height
         for index in range(len(headers['y']) - 1):
-            if height > headers['y'][index] and \
+            if headers['y'][0] == 0 and index == 0:
+                if height >= headers['y'][index + 1] and \
+                                height <= headers['y'][index + 1]:
+                    norm_val = headers['y'][index + 2]
+            else:
+                if height > headers['y'][index] and \
                             height <= headers['y'][index + 1]:
-                norm_val = headers['y'][index + 1]
+                    norm_val = headers['y'][index + 1]
         return norm_val
 
     @api.model
@@ -84,8 +94,7 @@ class ProductProduct(models.Model):
                 ], limit=1)
                 result = res and res.value or False
             elif self.sale_price_type == 'area':
-
-                """Unit conversion created"""
+                # Unit conversion created
                 origin_width = (self.area_uom.factor * origin_width) / self.width_uom.factor
                 origin_height = (self.area_uom.factor * origin_height) / self.height_uom.factor
 

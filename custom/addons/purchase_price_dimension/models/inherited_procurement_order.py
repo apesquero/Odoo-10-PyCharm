@@ -1,16 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from psycopg2 import OperationalError
-from datetime import datetime
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
-from odoo.tools.translate import _
-from odoo import models, fields, api, SUPERUSER_ID
-from odoo.exceptions import ValidationError
-import logging
-_logger = logging.getLogger(__name__)
+from odoo import models, fields, api, _
 
 
-class procurement_order(models.Model):
+class ProcurementOrder(models.Model):
     _inherit = 'procurement.order'
 
     origin_width = fields.Float(string="Width", required=False)
@@ -18,7 +11,7 @@ class procurement_order(models.Model):
 
     @api.model
     def _run_move_create(self, procurement):
-        res = super(procurement_order, self)._run_move_create(procurement)
+        res = super(ProcurementOrder, self)._run_move_create(procurement)
         width = 0
         height = 0
         if procurement.origin_width:
@@ -34,7 +27,7 @@ class procurement_order(models.Model):
     @api.multi
     def _prepare_purchase_order_line(self, po, supplier):
         self.ensure_one()
-        res = super(procurement_order, self)._prepare_purchase_order_line(po=po, supplier=supplier)
+        res = super(ProcurementOrder, self)._prepare_purchase_order_line(po=po, supplier=supplier)
 
         product_id = self.product_id.with_context(
             width=self.origin_width,
@@ -67,7 +60,9 @@ class procurement_order(models.Model):
         elif product_id.sale_price_type == 'table_1d':
             name += ' [ Width:%.2f cms]' % (self.origin_width)
 
-        price_unit = self.env['account.tax']._fix_tax_included_price(seller.get_supplier_price(), product_id.supplier_taxes_id, taxes_id) if seller else 0.0
+        price_unit = self.env['account.tax']._fix_tax_included_price(
+            seller.get_supplier_price(), product_id.supplier_taxes_id, taxes_id) \
+            if seller else 0.0
         if price_unit and seller and po.currency_id and seller.currency_id != po.currency_id:
             price_unit = seller.currency_id.compute(price_unit, po.currency_id)
 
@@ -87,7 +82,9 @@ class procurement_order(models.Model):
         for procurement in self:
             suppliers = procurement.product_id.seller_ids.filtered(lambda r: not r.product_id or r.product_id == procurement.product_id)
             if not suppliers:
-                procurement.message_post(body=_('No vendor associated to product %s. Please set one to fix this procurement.') % (procurement.product_id.name))
+                procurement.message_post(body=_('No vendor associated to '
+                    'product %s. Please set one to fix this procurement.') \
+                    % (procurement.product_id.name))
                 continue
             supplier = suppliers[0]
             partner = supplier.name
