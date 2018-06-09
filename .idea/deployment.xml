@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="root" autoUploadExternalChanges="true" showNewOnSourceInSync="false">
+  <component name="PublishConfigData" autoUpload="Always" autoUploadExternalChanges="true" showNewOnSourceInSync="false">
     <serverData>
-      <paths name="odoo10">
+      <paths name="OVH - odoo10">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
-      <paths name="root">
+      <paths name="OVH - root">
         <serverdata>
           <mappings>
             <mapping deploy="/odoo10" local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="sftp://odoo10@vps407692.ovh.net:22/usr/bin/python">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

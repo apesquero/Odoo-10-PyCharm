@@ -32,5 +32,29 @@
     <schema id="10" parent="2" name="pg_toast_temp_18">
       <ObjectId>75795</ObjectId>
     </schema>
+    <schema id="11" parent="2" name="pg_temp_6">
+      <ObjectId>84552</ObjectId>
+    </schema>
+    <schema id="12" parent="2" name="pg_toast_temp_6">
+      <ObjectId>84553</ObjectId>
+    </schema>
+    <schema id="13" parent="2" name="pg_temp_4">
+      <ObjectId>92640</ObjectId>
+    </schema>
+    <schema id="14" parent="2" name="pg_toast_temp_4">
+      <ObjectId>92641</ObjectId>
+    </schema>
+    <schema id="15" parent="2" name="pg_temp_2">
+      <ObjectId>92873</ObjectId>
+    </schema>
+    <schema id="16" parent="2" name="pg_toast_temp_2">
+      <ObjectId>92874</ObjectId>
+    </schema>
+    <schema id="17" parent="2" name="pg_temp_10">
+      <ObjectId>251043</ObjectId>
+    </schema>
+    <schema id="18" parent="2" name="pg_toast_temp_10">
+      <ObjectId>251044</ObjectId>
+    </schema>
   </database-model>
 </dataSource>
