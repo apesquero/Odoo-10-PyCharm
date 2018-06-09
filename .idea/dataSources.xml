@@ -43,5 +43,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://vps407692.ovh.net:5432/PRODUCT_CONFIGURATOR</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="PURCHASE_PRICE_DIMENSION" uuid="91c65db7-ed54-4c2e-8baf-2da34aaba966">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://vps407692.ovh.net:5432/PURCHASE_PRICE_DIMENSION</jdbc-url>
+    </data-source>
   </component>
 </project>

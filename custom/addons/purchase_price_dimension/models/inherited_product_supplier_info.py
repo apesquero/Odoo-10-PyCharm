@@ -11,7 +11,7 @@ class SuppliferInfo(models.Model):
                                related='purchase_prices_area.area_uom')
 
     purchase_prices_area = fields.One2many('purchase.prices_area',
-                                       'purchase_area_id',
+                                       'purchase_area_suppl_id',
                                        string="Purchase Prices Area")
 
     min_width_area = fields.Float(related='purchase_prices_area.min_width_area')
