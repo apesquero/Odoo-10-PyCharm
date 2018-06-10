@@ -38,6 +38,16 @@ class SuppliferInfo(models.Model):
     @api.constrains('purchase_price_type')
     def _create_relation(self):
         self.ensure_one()
+        if self.purchase_price_type == 'area' and self.product_tmpl_id.sale_price_type == 'area':
+            column = {'min_width_area': self.product_tmpl_id.min_width_area,
+                      'max_width_area': self.product_tmpl_id.max_width_area,
+                      'min_height_area': self.product_tmpl_id.min_height_area,
+                      'max_height_area': self.product_tmpl_id.max_height_area,
+                      'min_price_area': self.min_price_area
+                      }
+            if not self.purchase_prices_area:
+                self.write({'purchase_prices_area': [(0, None, column)]})
+            return {}
         if self.purchase_price_type == 'area':
             column = {'min_width_area': self.min_width_area,
                       'max_width_area': self.max_width_area,
@@ -48,7 +58,7 @@ class SuppliferInfo(models.Model):
             if not self.purchase_prices_area:
                 self.write({'purchase_prices_area': [(0, None, column)]})
             return {}
-        elif self.purchase_price_type != 'area' and self.purchase_prices_area.id is not False:
+        if self.purchase_price_type != 'area' and self.purchase_prices_area.id is not False:
             self.write({'purchase_prices_area': [(2, self.purchase_prices_area.id, False)]})
             return {}
 
