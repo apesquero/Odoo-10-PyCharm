@@ -8,7 +8,7 @@
 
 			<xpath expr="//form//label[@for='date_start']" position="before">
 				<field name="area_uom"
-					   string="Area UOM"
+					   string="Area2 UOM"
 					   class="oe_inline"
 					   attrs="{'invisible':[('purchase_price_type', '!=', 'area')]}"/>
             </xpath>
