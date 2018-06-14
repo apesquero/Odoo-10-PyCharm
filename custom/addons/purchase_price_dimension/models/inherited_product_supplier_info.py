@@ -30,6 +30,7 @@ class SuppliferInfo(models.Model):
         required=True,
         default='standard',
     )
+
     prices_table = fields.One2many('product.prices_table',
                                    'supplier_product_id',
                                    string="Supplier Prices Table")
