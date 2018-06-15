@@ -66,6 +66,7 @@ class PurchaseOrderLine(models.Model):
     #
     @api.onchange('product_id', 'origin_width', 'origin_height', 'product_attribute_ids')
     def onchange_product_id(self):
+        #comentario de prueba para git
         result = super(PurchaseOrderLine, self).onchange_product_id()
         if not self.product_tmpl_id:
             return result
