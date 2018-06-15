@@ -64,7 +64,7 @@ class PurchaseOrderLine(models.Model):
     #             if not seller.origin_check_dim_values(record.origin_width, record.origin_height):
     #                 raise ValidationError(_("Invalid height!"))
     #
-    @api.onchange('product_id', 'origin_width', 'origin_height', 'product_attribute_ids', 'product_attribute_ids.value_id')
+    @api.onchange('product_id', 'origin_width', 'origin_height', 'product_attribute_ids')
     def onchange_product_id(self):
         result = super(PurchaseOrderLine, self).onchange_product_id()
         if not self.product_tmpl_id:
