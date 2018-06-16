@@ -63,7 +63,7 @@ class PurchaseOrderLine(models.Model):
     #             )
     #             if not seller.origin_check_dim_values(record.origin_width, record.origin_height):
     #                 raise ValidationError(_("Invalid height!"))
-    #
+
     @api.onchange('product_id', 'origin_width', 'origin_height', 'product_attribute_ids')
     def onchange_product_id(self):
         result = super(PurchaseOrderLine, self).onchange_product_id()
@@ -168,7 +168,6 @@ class PurchaseOrderLine(models.Model):
             price_unit = self.env['product.uom']._compute_price(seller.product_uom.id, price_unit, to_uom_id=self.product_uom.id)
             _logger.info(price_unit)
         self.price_unit = price_unit
-
 
     # @api.multi
     # def _create_stock_moves(self, picking):
