@@ -2,7 +2,7 @@
 
 from odoo import models, fields, api, _
 
-#PRUEBA FETCH EN GIT
+
 class ProcurementOrder(models.Model):
     _inherit = 'procurement.order'
 
