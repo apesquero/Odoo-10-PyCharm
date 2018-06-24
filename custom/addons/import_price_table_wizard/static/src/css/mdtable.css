@@ -1,0 +1,33 @@
+.o_mdtable table tbody th, .o_mdtable table thead th {
+	background-color: #babdb6;
+	text-align: center;
+}
+.o_mdtable table tbody th {
+	max-width: 50px;
+}
+
+.o_mdtable table tbody th:first-child {
+	border-top: 1px solid #dfdfdf;
+}
+.o_mdtable table tbody th {
+	border-bottom: 1px solid #dfdfdf;
+}
+
+.o_mdtable table tbody td input {
+	border: 0;
+	border-radius: 0;
+}
+.o_mdtable table tbody td {
+	border: 1px solid #d3d7cf;
+}
+.o_mdtable table tbody td:hover {
+	background-color: #f5f5dc;
+}
+
+.o_mdtable {
+	overflow: auto;
+}
+
+.o_mdtable_item_empty, .o_mdtable_item_empty input {
+	background-color: #deb390;
+}

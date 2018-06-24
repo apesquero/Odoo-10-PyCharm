@@ -1,3 +1,5 @@
+
+
 # Odoo 10 PyCharm
 Personal configuration of own, oca and external modules
 

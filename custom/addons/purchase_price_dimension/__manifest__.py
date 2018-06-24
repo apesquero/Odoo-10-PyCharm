@@ -2,17 +2,23 @@
 
 {
     'name': 'Purchase Price Dimension',
-    'description': 'Módulo que amplia la forma de cálculo del precio en función de dimensiones, para los productos de compra',
+    'description': 'Module that expands the way of calculating the price according to dimensions, for the products of purchase',
     'version': '10.0.1.0',
     'author': 'Amaro Pesquero',
-    'application': True,
     'data': [
-              'wizard/import_price_table.xml',
+              'views/import_price_table.xml',
               'views/inherited_product_supplier_info_views.xml',
               'views/inherited_purchase_order_views.xml',
             ],
-    'external_dependencies': {'python': ['xlrd',]},
     'category': 'Purchase',
-    'depends': ['purchase', 'sale', 'sale_variant_configurator', 'sale_price_dimension', 'purchase_variant_configurator',],
+    'depends': [
+                'purchase',
+                'sale',
+                'import_price_table_wizard',
+                'sale_variant_configurator',
+                'sale_price_dimension',
+                'purchase_variant_configurator',
+               ],
     'application': True,
+    'installable': True,
 }
