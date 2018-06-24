@@ -1,5 +1,3 @@
-[![Tech Doc](http://img.shields.io/badge/10.0-docs-8f8f8f.svg?style=flat)](https://www.pledra.com/odoo-product-configurator/documentation)
-
 # Odoo 10 PyCharm
 Personal configuration of own, oca and external modules
 
