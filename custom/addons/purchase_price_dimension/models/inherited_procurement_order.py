@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-
 from odoo import models, fields, api, _
 
-#example
+
 class ProcurementOrder(models.Model):
     _inherit = 'procurement.order'
 

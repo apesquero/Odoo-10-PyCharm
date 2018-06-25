@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-    <!-- inherit from web assets backend -->
-    <template id="assets_backend" inherit_id="web.assets_backend">
-        <xpath expr="." position="inside">
-            <link rel="stylesheet" href="/sale_price_dimension/static/src/css/mdtable.css"/>
-            <script type="text/javascript" src="/sale_price_dimension/static/src/js/MultiDimensionTable.js"></script>
-        </xpath>
-    </template>
-
     <!-- WIZARD SALE PRICES -->
     <record model="ir.ui.view" id="wizard_mdtable_sale_import_data_form_view">
         <field name="name">import_price_table.form</field>
