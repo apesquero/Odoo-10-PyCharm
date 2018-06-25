@@ -181,3 +181,34 @@ class SaleOrderLine(models.Model):
                                                 product.taxes_id,
                                                 self.tax_id,
                                                 self.company_id)
+
+    def _update_price_configurator(self):
+        """If there are enough data (template, pricelist & partner), check new
+        price and update line if different.
+        """
+        self.ensure_one()
+        if (not self.product_tmpl_id or not self.order_id.pricelist_id or
+                not self.order_id.partner_id):
+            return
+        product_tmpl = self.product_tmpl_id.with_context(
+            lang=self.order_id.partner_id.lang,
+            partner=self.order_id.partner_id.id,
+            quantity=self.product_uom_qty,
+            date_order=self.order_id.date_order,
+            pricelist=self.order_id.pricelist_id.id,
+            uom=self.product_uom.id,
+            fiscal_position=self.env.context.get('fiscal_position'),
+
+            width=self.origin_width,
+            height=self.origin_height
+        )
+        price = self.env['account.tax']._fix_tax_included_price_company(
+            product_tmpl.uom_id._compute_price(
+                self.price_extra,
+                self.env['product.uom'].browse(
+                    product_tmpl._context['uom'])) +
+            self._get_display_price(product_tmpl),
+            product_tmpl.taxes_id,
+            self.tax_id, self.company_id)
+        if self.price_unit != price:
+            self.price_unit = price
