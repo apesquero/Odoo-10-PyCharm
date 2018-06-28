@@ -107,13 +107,14 @@ class ProductProduct(models.Model):
     @api.depends('list_price')
     def _compute_product_lst_price(self):
         super(ProductProduct, self)._compute_product_lst_price()
-        to_uom = False
+        to_uom = None
         if 'uom' in self._context:
             to_uom = self.env['product.uom'].browse([self._context['uom']])
+
         for product in self:
             if to_uom:
                 list_price = product.uom_id._compute_price(product.get_sale_price(), to_uom)
+                price_extra = product.uom_id._compute_price(product.price_extra, to_uom)
             else:
                 list_price = product.list_price
-            list_price += product.price_extra
-            product.lst_price = list_price
+            product.lst_price = list_price + price_extra
