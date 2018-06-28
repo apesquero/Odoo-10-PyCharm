@@ -133,26 +133,6 @@ class SaleOrderLine(models.Model):
             else:
                 raise ValidationError(_("Invalid Combination of Dimensions"))
 
-    @api.multi
-    def _get_display_price(self, product):
-        super(SaleOrderLine, self)._get_display_price(product)
-
-        product = self.product_id.with_context(
-            lang=self.order_id.partner_id.lang,
-            partner=self.order_id.partner_id.id,
-            quantity=self.product_uom_qty,
-            date=self.order_id.date_order,
-            pricelist=self.order_id.pricelist_id.id,
-            uom=self.product_uom.id,
-
-            width=self.origin_width,
-            height=self.origin_height
-        )
-
-        # TO DO: move me in master/saas-16 on sale.order
-        if self.order_id.pricelist_id.discount_policy == 'with_discount':
-            return product.with_context(pricelist=self.order_id.pricelist_id.id).lst_price
-
     @api.onchange('product_uom', 'product_uom_qty')
     def product_uom_change(self):
         super(SaleOrderLine, self).product_uom_change()
