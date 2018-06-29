@@ -7,6 +7,14 @@ from odoo.exceptions import UserError, ValidationError
 class Pricelist(models.Model):
     _inherit = "product.pricelist"
 
+    # @api.multi
+    # def _compute_price_rule(self, products_qty_partner, date=False, uom_id=False):
+    #     res = super(Pricelist, self)._compute_price_rule(products_qty_partner, date, uom_id)
+    #
+    #     products.list_price = product.lst_price
+    #
+    #     return res
+
     @api.multi
     def _compute_price_rule(self, products_qty_partner, date=False, uom_id=False):
         """ Low-level method - Mono pricelist, multi products
@@ -89,7 +97,7 @@ class Pricelist(models.Model):
 
             # if Public user try to access standard price from website sale, need to call price_compute.
             # TDE SURPRISE: product can actually be a template
-            price = product.price_compute('lst_price')[product.id]
+            price = product.price_compute('list_price')[product.id]
 
             price_uom = self.env['product.uom'].browse([qty_uom_id])
             for rule in items:
@@ -151,7 +159,9 @@ class Pricelist(models.Model):
                             price_max_margin = convert_to_price_uom(rule.price_max_margin)
                             price = min(price, price_limit + price_max_margin)
                     suitable_rule = rule
-                break
+                    #odoo/odoo
+                    #[FIX] product: multiple based on other pricelists #21845
+                    break
             # Final price conversion into pricelist currency
             if suitable_rule and suitable_rule.compute_price != 'fixed' and suitable_rule.base != 'pricelist':
                 price = product.currency_id.compute(price, self.currency_id, round=False)

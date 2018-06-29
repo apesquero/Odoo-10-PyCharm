@@ -118,3 +118,4 @@ class ProductProduct(models.Model):
             else:
                 list_price = product.list_price
             product.lst_price = list_price + price_extra
+            product.list_price = product.lst_price
