@@ -104,7 +104,7 @@ class ProductProduct(models.Model):
             result = self.list_price
         return result
 
-    @api.depends('list_price')
+    @api.depends('list_price', 'price_extra')
     def _compute_product_lst_price(self):
         super(ProductProduct, self)._compute_product_lst_price()
         to_uom = None

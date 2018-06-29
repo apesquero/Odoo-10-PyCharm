@@ -135,7 +135,7 @@ class SaleOrderLine(models.Model):
 
     @api.onchange('product_uom', 'product_uom_qty')
     def product_uom_change(self):
-        super(SaleOrderLine, self).product_uom_change()
+        res = super(SaleOrderLine, self).product_uom_change()
 
         if not self.product_uom:
             self.price_unit = 0.0
@@ -161,3 +161,4 @@ class SaleOrderLine(models.Model):
                                                 product.taxes_id,
                                                 self.tax_id,
                                                 self.company_id)
+        return res
