@@ -32,7 +32,9 @@ class SaleOrderLine(models.Model):
         if not self.product_tmpl_id or (self.product_id and \
                                         self.product_id.product_tmpl_id.id != \
                                         self.product_id.product_tmpl_id.id):
-            return
+            return {'domain': {'product_uom': []}}
+
+        # Create a product if it doesn't exist
         if self.can_create_product:
             try:
                 with self.env.cr.savepoint():
@@ -42,7 +44,13 @@ class SaleOrderLine(models.Model):
                     'title': _('Product not created!'),
                     'message': e.name,
                 }}
+
         vals = {}
+        domain = {'product_uom': [('category_id', '=', self.product_id.uom_id.category_id.id)]}
+        if not self.product_uom or (self.product_id.uom_id.id != self.product_uom.id):
+            vals['product_uom'] = self.product_id.uom_id
+            vals['product_uom_qty'] = 1.0
+
         product = self.product_id.with_context(
             lang=self.order_id.partner_id.lang,
             partner=self.order_id.partner_id.id,
@@ -54,6 +62,21 @@ class SaleOrderLine(models.Model):
             width=self.origin_width,
             height=self.origin_height
         )
+
+        result = {'domain': domain}
+
+        title = False
+        message = False
+        warning = {}
+        if product.sale_line_warn != 'no-message':
+            title = _("Warning for %s") % product.name
+            message = product.sale_line_warn_msg
+            warning['title'] = title
+            warning['message'] = message
+            result = {'warning': warning}
+            if product.sale_line_warn == 'block':
+                self.product_id = False
+                return result
 
         if self.product_tmpl_id.sale_price_type not in ['table_1d', 'table_2d', 'area']:
             self.origin_height = self.origin_width = 0
@@ -82,8 +105,9 @@ class SaleOrderLine(models.Model):
                                                 product.taxes_id,
                                                 self.tax_id,
                                                 self.company_id)
-
         self.update(vals)
+
+        return result
 
     @api.onchange('origin_width',
                   'origin_height')
