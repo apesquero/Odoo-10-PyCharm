@@ -110,6 +110,8 @@ class SaleOrderLine(models.Model):
             name += '\n' + product.description_sale
         vals['name'] = name
 
+        """Elimina el _get_display_price(product), anulando la propiedad pricelist"""
+
         if self.order_id.pricelist_id and self.order_id.partner_id:
             vals['price_unit'] = self.env['account.tax']._fix_tax_included_price(
                 product.lst_price, product.taxes_id, self.tax_id)

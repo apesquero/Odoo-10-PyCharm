@@ -97,7 +97,8 @@ class Pricelist(models.Model):
 
             # if Public user try to access standard price from website sale, need to call price_compute.
             # TDE SURPRISE: product can actually be a template
-            price = product.price_compute('list_price')[product.id]
+            # change list_price
+            price = product.price_compute('lst_price')[product.id]
 
             price_uom = self.env['product.uom'].browse([qty_uom_id])
             for rule in items:

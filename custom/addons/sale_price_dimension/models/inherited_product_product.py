@@ -104,9 +104,9 @@ class ProductProduct(models.Model):
             result = self.list_price
         return result
 
-    @api.depends('list_price')
+    @api.depends('list_price', 'price_extra')
     def _compute_product_lst_price(self):
-        super(ProductProduct, self)._compute_product_lst_price()
+        # super(ProductProduct, self)._compute_product_lst_price()
         to_uom = None
         if 'uom' in self._context:
             to_uom = self.env['product.uom'].browse([self._context['uom']])
@@ -119,3 +119,38 @@ class ProductProduct(models.Model):
                 list_price = product.list_price
             product.lst_price = list_price + price_extra
             product.list_price = product.lst_price
+            product.price = product.lst_price
+
+    @api.multi
+    def price_compute(self, price_type, uom=False, currency=False, company=False):
+        # TDE FIXME: delegate to template or not ? fields are reencoded here ...
+        # compatibility about context keys used a bit everywhere in the code
+        if not uom and self._context.get('uom'):
+            uom = self.env['product.uom'].browse(self._context['uom'])
+        if not currency and self._context.get('currency'):
+            currency = self.env['res.currency'].browse(self._context['currency'])
+
+        products = self
+        if price_type == 'standard_price':
+            # standard_price field can only be seen by users in base.group_user
+            # Thus, in order to compute the sale price from the cost for users not in this group
+            # We fetch the standard price as the superuser
+            products = self.with_context(force_company=company and company.id or self._context.get('force_company',
+                                                                                                   self.env.user.company_id.id)).sudo()
+
+        prices = dict.fromkeys(self.ids, 0.0)
+        for product in products:
+            prices[product.id] = product[price_type] or 0.0
+            if price_type == 'list_price':
+                prices[product.id] += product.price_extra
+
+            """Eliminado el condicional, ya que se convierten las unidades en _compute_product_lst_price"""
+            # if uom:
+            #     prices[product.id] = product.uom_id._compute_price(prices[product.id], uom)
+
+            # Convert from current user company currency to asked one
+            # This is right cause a field cannot be in more than one currency
+            if currency:
+                prices[product.id] = product.currency_id.compute(prices[product.id], currency)
+
+        return prices

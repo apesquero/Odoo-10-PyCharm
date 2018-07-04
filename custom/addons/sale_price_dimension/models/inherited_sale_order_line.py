@@ -27,7 +27,7 @@ class SaleOrderLine(models.Model):
                   'origin_height',
                   'product_attribute_ids')
     def product_id_change(self):
-        super(SaleOrderLine, self).product_id_change()
+        # super(SaleOrderLine, self).product_id_change()
         product_tmp = False
         if not self.product_tmpl_id or (self.product_id and \
                                         self.product_id.product_tmpl_id.id != \
