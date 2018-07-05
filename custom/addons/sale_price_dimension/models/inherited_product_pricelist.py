@@ -7,14 +7,6 @@ from odoo.exceptions import UserError, ValidationError
 class Pricelist(models.Model):
     _inherit = "product.pricelist"
 
-    # @api.multi
-    # def _compute_price_rule(self, products_qty_partner, date=False, uom_id=False):
-    #     res = super(Pricelist, self)._compute_price_rule(products_qty_partner, date, uom_id)
-    #
-    #     products.list_price = product.lst_price
-    #
-    #     return res
-
     @api.multi
     def _compute_price_rule(self, products_qty_partner, date=False, uom_id=False):
         """ Low-level method - Mono pricelist, multi products
@@ -56,8 +48,8 @@ class Pricelist(models.Model):
             prod_ids = [p.id for p in
                         list(chain.from_iterable([t.product_variant_ids for t in products]))]
         else:
-            prod_ids = [product.id for product in products]
-            prod_tmpl_ids = [product.product_tmpl_id.id for product in products]
+            prod_ids = [product.id for product in self]
+            prod_tmpl_ids = [product.product_tmpl_id.id for product in self]
 
         # Load all rules
         self._cr.execute(

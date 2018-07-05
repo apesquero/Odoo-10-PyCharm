@@ -111,6 +111,7 @@ class ProductProduct(models.Model):
         if 'uom' in self._context:
             to_uom = self.env['product.uom'].browse([self._context['uom']])
 
+        price_extra = 0.0
         for product in self:
             if to_uom:
                 list_price = product.uom_id._compute_price(product.get_sale_price(), to_uom)
