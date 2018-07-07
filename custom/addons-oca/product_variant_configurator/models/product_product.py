@@ -41,12 +41,6 @@ class ProductProduct(models.Model):
         if product_template:
             domain.append(('product_tmpl_id', '=', product_template.id))
             for attr_line in product_attributes:
-                # We need this hack to trigger the compute function,
-                # otherwise attr_line.price_extra always returns 0.0
-                # here (possible Odoo bug, it seems Odoo does not behave
-                # well with a computed variable on NewID 'child' of another
-                # NewID)
-                attr_line.value_id = attr_line.value_id
                 if isinstance(attr_line, dict):
                     value_id = attr_line.get('value_id')
                 else:
@@ -87,12 +81,9 @@ class ProductProduct(models.Model):
     @api.constrains('product_tmpl_id', 'attribute_value_ids')
     def _check_configuration_validity(self):
         """The method checks that the current selection values are correct.
-
         As default, the validity means that all the attributes
         with the required flag are set.
-
         This can be overridden to set another rules.
-
         :raises: exceptions.ValidationError: If the check is not valid.
         """
         # Creating from template variants attributes are not created at once so
