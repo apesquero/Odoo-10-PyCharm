@@ -191,11 +191,11 @@ class SaleOrderLine(models.Model):
     def _get_display_price(self, product):
         # TO DO: move me in master/saas-16 on sale.order
         if self.order_id.pricelist_id.discount_policy == 'with_discount'\
-                or product._name != 'product.product':
+                or product._name != 'product.product' or self.product_id.id is False:
             return product.with_context(pricelist=self.order_id.pricelist_id.id).price
 
         final_price, rule_id = self.order_id.pricelist_id.\
-            get_product_price_rule(self.product_id,
+            get_product_price_rule(product,
                                    self.product_uom_qty or 1.0,
                                    self.order_id.partner_id)
 
@@ -203,7 +203,7 @@ class SaleOrderLine(models.Model):
                                date=self.order_id.date_order)
 
         base_price, currency_id = self.with_context(context_partner).\
-            _get_real_price_currency(self.product_id, rule_id,
+            _get_real_price_currency(product, rule_id,
                                      self.product_uom_qty,
                                      self.product_uom,
                                      self.order_id.pricelist_id.id)
