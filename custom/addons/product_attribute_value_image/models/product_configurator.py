@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
-
 from odoo import api, fields, models
 
 class ProductConfiguratorAttribute(models.Model):
     _inherit = 'product.configurator.attribute'
-
 
     image = fields.Binary(compute='_compute_image',
                           readonly=True, string='Image')
