@@ -5,8 +5,8 @@ from odoo import api, fields, models, _
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    height_uom = fields.Many2one('product.uom', string='Height UOM')
     width_uom = fields.Many2one('product.uom', string='Width UOM')
+    height_uom = fields.Many2one('product.uom', string='Height UOM')
 
     area_uom = fields.Many2one('product.uom',
                                string='Area UOM',

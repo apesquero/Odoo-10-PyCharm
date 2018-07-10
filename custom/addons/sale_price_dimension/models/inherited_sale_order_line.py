@@ -8,6 +8,13 @@ class SaleOrderLine(models.Model):
     origin_width = fields.Float(string="Width", required=True, default=0.0)
     origin_height = fields.Float(string="Height", required=True, default=0.0)
 
+    width_sale_uom = fields.Many2one('product.uom',
+                                     string='Width UOM',
+                                     related='product_tmpl_id.width_uom')
+    height_sale_uom = fields.Many2one('product.uom',
+                                      string='Height UOM',
+                                      related='product_tmpl_id.height_uom')
+
     product_price_type = fields.Selection([('standard', 'Standard'),
                                            ('table_1d', '1D Table'),
                                            ('table_2d', '2D Table'),
