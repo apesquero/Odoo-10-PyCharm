@@ -53,7 +53,9 @@ class SaleOrderLine(models.Model):
                 }}
 
         vals = {}
-        domain = {'product_uom': [('category_id', '=', self.product_id.uom_id.category_id.id)]}
+        domain = {'product_uom': [('category_id', '=', self.product_id.uom_id.category_id.id)],
+                  'width_sale_uom': [('category_id', '=', self.product_id.width_uom.category_id.id)],
+                  'height_sale_uom': [('category_id', '=', self.product_id.height_uom.category_id.id)]}
         if not self.product_uom or (self.product_id.uom_id.id != self.product_uom.id):
             vals['product_uom'] = self.product_id.uom_id
             vals['product_uom_qty'] = 1.0
