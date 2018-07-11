@@ -8,12 +8,9 @@ class ProductTemplate(models.Model):
     width_uom = fields.Many2one('product.uom', string='Width UOM')
     height_uom = fields.Many2one('product.uom', string='Height UOM')
 
-    area_uom = fields.Many2one('product.uom',
-                               string='Area UOM',
-                               related='sale_prices_area.area_uom')
-
     sale_price_type = fields.Selection([
         ('standard', 'Standard'),
+        ('fabric', 'Fabric'),
         ('table_1d', '1D Table'),
         ('table_2d', '2D Table'),
         ('area', 'Area')],
@@ -21,13 +18,33 @@ class ProductTemplate(models.Model):
         required=True,
         default='standard',
     )
+    """FABRIC"""
+    rapport_uom = fields.Many2one('product.uom',
+                                 string='Rapport UOM',
+                                 related='sale_prices_fabric.rapport_uom')
+    rapport = fields.Float(related='sale_prices_fabric.rapport')
+    height_roll = fields.Float(related='sale_prices_fabric.height_roll')
+    min_price_fabric = fields.Float(related='sale_prices_fabric.min_price_fabric')
+
+    cost_transport_fabric = fields.Float(related='sale_prices_fabric.cost_transport_fabric')
+    sale_prices_fabric = fields.One2many('product.prices_fabric',
+                                         'sale_fabric_tmpl_id',
+                                         string="Sale Prices Fabric")
+
+
+    """TABLE"""
     sale_prices_table = fields.One2many('product.prices_table',
                                         'sale_product_tmpl_id',
                                         string="Sale Prices Table")
 
+    """AREA"""
     sale_prices_area = fields.One2many('product.prices_area',
                                        'sale_area_tmpl_id',
                                        string="Sale Prices Area")
+
+    area_uom = fields.Many2one('product.uom',
+                               string='Area UOM',
+                               related='sale_prices_area.area_uom')
 
     min_width_area = fields.Float(related='sale_prices_area.min_width_area')
     max_width_area = fields.Float(related='sale_prices_area.max_width_area')
@@ -40,6 +57,19 @@ class ProductTemplate(models.Model):
     @api.constrains('sale_price_type')
     def _create_relation(self):
         self.ensure_one()
+        if self.sale_price_type == 'fabric':
+            column = {'rapport': self.rapport,
+                      'min_price_fabric': self.min_price_fabric,
+                      'cost_transport_fabric': self.cost_transport_fabric,
+                      'height_roll': self.height_roll,
+                      }
+            # We check that the relationship is not already created
+            if not self.sale_prices_fabric:
+                self.write({'sale_prices_fabric': [(0, None, column)]})
+            return {}
+        if self.sale_price_type != 'fabric' and self.sale_prices_fabric.id is not False:
+            self.write({'sale_prices_fabric': [(2, self.sale_prices_fabric.id, False)]})
+            return {}
         if self.sale_price_type == 'area':
             column = {'min_width_area': self.min_width_area,
                       'max_width_area': self.max_width_area,
@@ -51,9 +81,10 @@ class ProductTemplate(models.Model):
             if not self.sale_prices_area:
                 self.write({'sale_prices_area': [(0, None, column)]})
             return {}
-        elif self.sale_price_type != 'area' and self.sale_prices_area.id is not False:
+        if self.sale_price_type != 'area' and self.sale_prices_area.id is not False:
             self.write({'sale_prices_area': [(2, self.sale_prices_area.id, False)]})
             return {}
+
 
     @api.constrains('min_width_area',
                     'max_width_area',

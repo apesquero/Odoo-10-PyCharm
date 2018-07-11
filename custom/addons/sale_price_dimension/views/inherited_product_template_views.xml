@@ -14,12 +14,12 @@
             </xpath>
 
             <xpath expr="//field[@name='list_price']" position="attributes">
-                <attribute name="attrs">{'invisible':[('sale_price_type', 'not in', ['standard', 'area'])]}</attribute>
+                <attribute name="attrs">{'invisible':[('sale_price_type', 'not in', ['standard','fabric','area'])]}</attribute>
             </xpath>
 
             <xpath expr="//field[@name='list_price']" position="after">
                 <field name="area_uom"
-                       attrs="{'invisible':[('sale_price_type', 'in', ['standard','table_1d','table_2d'])],
+                       attrs="{'invisible':[('sale_price_type', 'in', ['standard','fabric','table_1d','table_2d'])],
                                'required':[('sale_price_type', 'in', 'area')]}"/>
             </xpath>
 
@@ -34,13 +34,33 @@
             <xpath expr="//notebook/page[1]" position="after">
                 <page string="Sale Price Type"
                       attrs="{'invisible':[('sale_price_type', '=', 'standard')]}">
-                    <group>
+                    <group attrs="{'invisible':[('sale_price_type', '=', 'fabric')]}">
                         <field name="width_uom"
                                attrs="{'required':[('sale_price_type', 'in', ['table_1d','table_2d','area'])]}"/>
                         <field name="height_uom"
-                               attrs="{'invisible':[('sale_price_type', '=', 'table_1d')],
+                               attrs="{'invisible':[('sale_price_type', 'in', ['table_1d'])],
                                        'required':[('sale_price_type', 'in', ['table_2d','area'])]}"/>
                     </group>
+
+                    <group attrs="{'invisible':[('sale_price_type', '!=', 'fabric')]}">
+                        <group>
+                            <label for="rapport" string="Rapport"/>
+                            <div>
+                                <field name="rapport"
+                                       class="oe_inline"
+                                       style="max-width: 48%%; margin-right: 4%;"/>
+                                <field name="rapport_uom"
+                                       options="{'no_create': true, 'no_open': true}"
+                                       class="oe_inline" style="max-width: 48%%"/>
+                            </div>
+                            <field name="height_roll"/>
+                        </group>
+                        <group>
+                            <field name="min_price_fabric" widget="monetary"/>
+                            <field name="cost_transport_fabric" widget="monetary"/>
+                        </group>
+                    </group>
+
                     <group attrs="{'invisible':[('sale_price_type', '!=', 'area')]}">
                         <group>
                             <field name="min_width_area"/>

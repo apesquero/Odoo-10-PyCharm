@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_product_prices_table,access_product_prices_table,model_product_prices_table,,1,0,0,0
 access_product_prices_area,access_product_prices_area,model_product_prices_area,,1,0,0,0
+access_product_prices_fabric,access_product_prices_fabric,model_product_prices_fabric,,1,0,0,0

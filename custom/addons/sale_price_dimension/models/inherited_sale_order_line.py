@@ -24,6 +24,7 @@ class SaleOrderLine(models.Model):
                                       readonly=True)
 
     product_price_type = fields.Selection([('standard', 'Standard'),
+                                           ('fabric', 'Fabric'),
                                            ('table_1d', '1D Table'),
                                            ('table_2d', '2D Table'),
                                            ('area', 'Area')],
