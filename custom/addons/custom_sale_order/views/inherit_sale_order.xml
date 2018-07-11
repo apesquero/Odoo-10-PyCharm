@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 <odoo>
+    <template id="assets_backend" name="web_sheet_full_width" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/custom_sale_order/static/src/css/web_sheet_full_width.less"/>
+        </xpath>
+    </template>
+
     <record id="custom2_sale_order_form" model="ir.ui.view">
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale_variant_configurator.view_order_form"/>
@@ -28,7 +34,7 @@
                             <field name="attribute_id"/>
                             <field name="possible_value_ids" widget="many2many_tags" invisible="1"/>
                             <field name="product_tmpl_id" invisible="1"/>
-                            <field name="value_id"/>
+                            <field name="value_id" options="{'no_create': true, 'no_open': true}"/>
                             <field name="price_extra" invisible="1"/>
                             <!--No funciona porque no está metido en depends del manifest price_dimension, creo-->
                             <!--<field name="price_extra_type" invisible="1"/>-->
