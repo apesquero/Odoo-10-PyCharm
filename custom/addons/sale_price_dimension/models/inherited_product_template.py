@@ -19,18 +19,28 @@ class ProductTemplate(models.Model):
         default='standard',
     )
     """FABRIC"""
-    rapport_uom = fields.Many2one('product.uom',
-                                 string='Rapport UOM',
-                                 related='sale_prices_fabric.rapport_uom')
     rapport = fields.Float(related='sale_prices_fabric.rapport')
-    height_roll = fields.Float(related='sale_prices_fabric.height_roll')
-    min_price_fabric = fields.Float(related='sale_prices_fabric.min_price_fabric')
+    rapport_uom = fields.Many2one('product.uom',
+                                  string='Rapport UOM',
+                                  related='sale_prices_fabric.rapport_uom')
 
+    height_roll = fields.Float(related='sale_prices_fabric.height_roll')
+    roll_uom = fields.Many2one('product.uom',
+                               string='Roll UOM',
+                               related='sale_prices_fabric.roll_uom')
+
+    min_price_fabric = fields.Float(related='sale_prices_fabric.min_price_fabric')
     cost_transport_fabric = fields.Float(related='sale_prices_fabric.cost_transport_fabric')
+
     sale_prices_fabric = fields.One2many('product.prices_fabric',
                                          'sale_fabric_tmpl_id',
                                          string="Sale Prices Fabric")
-
+    rapport_orientation = fields.Selection([
+        ('horizontal', 'Horizontal'),
+        ('vertical', 'Vertical')],
+        string='Rapport Orientation',
+        default='horizontal',
+        related='sale_prices_fabric.rapport_orientation')
 
     """TABLE"""
     sale_prices_table = fields.One2many('product.prices_table',

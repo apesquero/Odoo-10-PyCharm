@@ -14,13 +14,16 @@
             </xpath>
 
             <xpath expr="//field[@name='list_price']" position="attributes">
-                <attribute name="attrs">{'invisible':[('sale_price_type', 'not in', ['standard','fabric','area'])]}</attribute>
+                <attribute name="attrs">{'invisible':[('sale_price_type',
+                                         'not in', ['standard','fabric','area'])]}</attribute>
             </xpath>
 
             <xpath expr="//field[@name='list_price']" position="after">
                 <field name="area_uom"
-                       attrs="{'invisible':[('sale_price_type', 'in', ['standard','fabric','table_1d','table_2d'])],
-                               'required':[('sale_price_type', 'in', 'area')]}"/>
+                       attrs="{'invisible':[('sale_price_type', 'in',
+                              ['standard','fabric','table_1d','table_2d'])],
+                               'required':[('sale_price_type', 'in', 'area')]}"
+                       domain="[('category_id', '=', 4)]"/>
             </xpath>
 
         </field>
@@ -36,10 +39,12 @@
                       attrs="{'invisible':[('sale_price_type', '=', 'standard')]}">
                     <group attrs="{'invisible':[('sale_price_type', '=', 'fabric')]}">
                         <field name="width_uom"
-                               attrs="{'required':[('sale_price_type', 'in', ['table_1d','table_2d','area'])]}"/>
+                               attrs="{'required':[('sale_price_type', 'in', ['table_1d','table_2d','area'])]}"
+                               domain="[('category_id', '=', 4)]"/>
                         <field name="height_uom"
                                attrs="{'invisible':[('sale_price_type', 'in', ['table_1d'])],
-                                       'required':[('sale_price_type', 'in', ['table_2d','area'])]}"/>
+                                       'required':[('sale_price_type', 'in', ['table_2d','area'])]}"
+                               domain="[('category_id', '=', 4)]"/>
                     </group>
 
                     <group attrs="{'invisible':[('sale_price_type', '!=', 'fabric')]}">
@@ -51,9 +56,20 @@
                                        style="max-width: 48%%; margin-right: 4%;"/>
                                 <field name="rapport_uom"
                                        options="{'no_create': true, 'no_open': true}"
+                                       domain="[('category_id', '=', 4)]"
                                        class="oe_inline" style="max-width: 48%%"/>
                             </div>
-                            <field name="height_roll"/>
+                            <label for="height_roll" string="Height Roll"/>
+                            <div>
+                                <field name="height_roll"
+                                       class="oe_inline"
+                                       style="max-width: 48%%; margin-right: 4%;"/>
+                                <field name="roll_uom"
+                                       options="{'no_create': true, 'no_open': true}"
+                                       domain="[('category_id', '=', 4)]"
+                                       class="oe_inline" style="max-width: 48%%"/>
+                            </div>
+                            <field name="rapport_orientation"/>
                         </group>
                         <group>
                             <field name="min_price_fabric" widget="monetary"/>
