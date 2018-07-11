@@ -8,12 +8,20 @@ class SaleOrderLine(models.Model):
     origin_width = fields.Float(string="Width", required=True, default=0.0)
     origin_height = fields.Float(string="Height", required=True, default=0.0)
 
+    """TODO Create the possibility of changing the unit in the sales window, but the possibilities and 
+    complications of usability are not clear
+    
+    Crear la posibilidad de hacer cambio de unidad en la ventana de venta, pero no está
+    claro las posiblilidades y las complicaciones de usabilidad"""
+
     width_sale_uom = fields.Many2one('product.uom',
                                      string='Width UOM',
-                                     related='product_tmpl_id.width_uom')
+                                     related='product_tmpl_id.width_uom',
+                                     readonly=True)
     height_sale_uom = fields.Many2one('product.uom',
                                       string='Height UOM',
-                                      related='product_tmpl_id.height_uom')
+                                      related='product_tmpl_id.height_uom',
+                                      readonly=True)
 
     product_price_type = fields.Selection([('standard', 'Standard'),
                                            ('table_1d', '1D Table'),
