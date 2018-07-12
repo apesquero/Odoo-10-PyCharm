@@ -6,8 +6,14 @@ from odoo.exceptions import ValidationError
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    width_uom = fields.Many2one('product.uom', string='Width UOM')
-    height_uom = fields.Many2one('product.uom', string='Height UOM')
+    width_uom = fields.Many2one('product.uom',
+                                domain="[('category_id', '=', 4)]",
+                                default=lambda self: self.env['product.uom'].search([('name', '=', u'cm')]).id,
+                                string='Width UOM')
+    height_uom = fields.Many2one('product.uom',
+                                 domain="[('category_id', '=', 4)]",
+                                 default=lambda self: self.env['product.uom'].search([('name', '=', u'cm')]).id,
+                                 string='Height UOM')
 
     sale_price_type = fields.Selection([
         ('standard', 'Standard'),
@@ -22,11 +28,15 @@ class ProductTemplate(models.Model):
     """FABRIC"""
     rapport = fields.Float(related='sale_prices_fabric.rapport')
     rapport_uom = fields.Many2one('product.uom',
+                                  domain="[('category_id', '=', 4)]",
+                                  default=lambda self: self.env['product.uom'].search([('name', '=', u'cm')]).id,
                                   string='Rapport UOM',
                                   related='sale_prices_fabric.rapport_uom')
 
     height_roll = fields.Float(related='sale_prices_fabric.height_roll')
     roll_uom = fields.Many2one('product.uom',
+                               domain="[('category_id', '=', 4)]",
+                               default=lambda self: self.env['product.uom'].search([('name', '=', u'cm')]).id,
                                string='Roll UOM',
                                related='sale_prices_fabric.roll_uom')
 
@@ -55,6 +65,8 @@ class ProductTemplate(models.Model):
                                        string="Sale Prices Area")
 
     area_uom = fields.Many2one('product.uom',
+                               domain="[('category_id', '=', 4)]",
+                               default=lambda self: self.env['product.uom'].search([('name', '=', u'm')]).id,
                                string='Area UOM',
                                related='sale_prices_area.area_uom')
 

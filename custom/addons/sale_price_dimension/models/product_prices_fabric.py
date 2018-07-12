@@ -11,7 +11,6 @@ class ProductPricesFabric(models.Model):
                            default=0.0,
                            digits=dp.get_precision('Product Unit of Measure'))
     rapport_uom = fields.Many2one('product.uom',
-                                  domain="[('category_id', '=', 4)]",
                                   string='Rapport UOM')
     height_roll = fields.Float(string="Height Roll",
                                default=0.0,
