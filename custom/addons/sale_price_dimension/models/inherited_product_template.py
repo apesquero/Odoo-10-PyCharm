@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class ProductTemplate(models.Model):
@@ -31,15 +32,16 @@ class ProductTemplate(models.Model):
 
     min_price_fabric = fields.Float(related='sale_prices_fabric.min_price_fabric')
     cost_transport_fabric = fields.Float(related='sale_prices_fabric.cost_transport_fabric')
+    min_transport_fabric = fields.Float(related='sale_prices_fabric.min_transport_fabric')
 
     sale_prices_fabric = fields.One2many('product.prices_fabric',
                                          'sale_fabric_tmpl_id',
                                          string="Sale Prices Fabric")
     rapport_orientation = fields.Selection([
-        ('horizontal', 'Horizontal'),
-        ('vertical', 'Vertical')],
-        string='Rapport Orientation',
-        default='horizontal',
+        ('normal', 'Normal'),
+        ('turned', 'Turned')],
+        string='Orientation',
+        default='normal',
         related='sale_prices_fabric.rapport_orientation')
 
     """TABLE"""
@@ -69,9 +71,10 @@ class ProductTemplate(models.Model):
         self.ensure_one()
         if self.sale_price_type == 'fabric':
             column = {'rapport': self.rapport,
+                      'height_roll': self.height_roll,
                       'min_price_fabric': self.min_price_fabric,
                       'cost_transport_fabric': self.cost_transport_fabric,
-                      'height_roll': self.height_roll,
+                      'min_transport_fabric': self.min_transport_fabric
                       }
             # We check that the relationship is not already created
             if not self.sale_prices_fabric:

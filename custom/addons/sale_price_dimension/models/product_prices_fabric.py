@@ -18,19 +18,21 @@ class ProductPricesFabric(models.Model):
                                string='Roll UOM')
 
     rapport_orientation = fields.Selection([
-        ('horizontal', 'Horizontal'),
-        ('vertical', 'Vertical')],
-        string='Rapport Orientation',
-        default='horizontal')
+        ('normal', 'Normal'),
+        ('turned', 'Turned')],
+        string='Orientation',
+        default='normal')
 
     """
     TODO: Debería ser Monetary, pero hay que asignarle un valor previo, no sirve default
     """
-    min_price_fabric = fields.Float(string="Min. Price",
+    min_price_fabric = fields.Float(string="Min. Sale Price",
                                     default=1.0,
                                     digits=dp.get_precision('Product Price'))
-
-    cost_transport_fabric = fields.Float(string="Price Transport",
+    cost_transport_fabric = fields.Float(string="Sale Price Transport",
+                                         default=1.0,
+                                         digits=dp.get_precision('Product Price'))
+    min_transport_fabric = fields.Float(string="Min Free Transport",
                                          default=1.0,
                                          digits=dp.get_precision('Product Price'))
 

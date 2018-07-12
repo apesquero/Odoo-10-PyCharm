@@ -22,7 +22,7 @@
                 <field name="area_uom"
                        attrs="{'invisible':[('sale_price_type', 'in',
                               ['standard','fabric','table_1d','table_2d'])],
-                               'required':[('sale_price_type', 'in', 'area')]}"
+                               'required':[('sale_price_type', '=', 'area')]}"
                        domain="[('category_id', '=', 4)]"/>
             </xpath>
 
@@ -42,7 +42,7 @@
                                attrs="{'required':[('sale_price_type', 'in', ['table_1d','table_2d','area'])]}"
                                domain="[('category_id', '=', 4)]"/>
                         <field name="height_uom"
-                               attrs="{'invisible':[('sale_price_type', 'in', ['table_1d'])],
+                               attrs="{'invisible':[('sale_price_type', '=', 'table_1d')],
                                        'required':[('sale_price_type', 'in', ['table_2d','area'])]}"
                                domain="[('category_id', '=', 4)]"/>
                     </group>
@@ -55,6 +55,7 @@
                                        class="oe_inline"
                                        style="max-width: 48%%; margin-right: 4%;"/>
                                 <field name="rapport_uom"
+                                       attrs="{'required':[('sale_price_type', '=', 'fabric')]}"
                                        options="{'no_create': true, 'no_open': true}"
                                        domain="[('category_id', '=', 4)]"
                                        class="oe_inline" style="max-width: 48%%"/>
@@ -65,15 +66,18 @@
                                        class="oe_inline"
                                        style="max-width: 48%%; margin-right: 4%;"/>
                                 <field name="roll_uom"
+                                       attrs="{'required':[('sale_price_type', '=', 'fabric')]}"
                                        options="{'no_create': true, 'no_open': true}"
                                        domain="[('category_id', '=', 4)]"
                                        class="oe_inline" style="max-width: 48%%"/>
                             </div>
-                            <field name="rapport_orientation"/>
+                            <field name="rapport_orientation"
+                                   attrs="{'required':[('sale_price_type', '=', 'fabric')]}"/>
                         </group>
                         <group>
                             <field name="min_price_fabric" widget="monetary"/>
                             <field name="cost_transport_fabric" widget="monetary"/>
+                            <field name="min_transport_fabric" widget="monetary"/>
                         </group>
                     </group>
 
