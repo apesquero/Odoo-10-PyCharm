@@ -15,9 +15,20 @@
                            class="oe_inline" style="max-width: 48%%; margin-right: 4%;"/>
                     <field name="width_sale_uom"
                            attrs="{'invisible': [('product_price_type', '=', ('standard'))]}"
-                           options="{'no_create': true, 'no_open': true}"
+                           options="{'no_create': True, 'no_open': True}"
                            class="oe_inline" style="max-width: 48%%"/>
                 </div>
+                <label for="rapport"
+                       string="Rapport"
+                       attrs="{'invisible': [('product_price_type', '!=', ('fabric'))]}"/>
+                <div>
+                    <field name="rapport"
+                           class="oe_inline" style="max-width: 48%%; margin-right: 4%;"/>
+                    <field name="rapport_uom"
+                           options="{'no_create': True, 'no_open': True}"
+                           class="oe_inline" style="max-width: 48%%"/>
+                </div>
+
                 <label for="origin_height"
                        string="Height"
                        attrs="{'invisible': [('product_price_type', 'not in',
@@ -30,7 +41,7 @@
                     <field name="height_sale_uom"
                            attrs="{'invisible': [('product_price_type', 'not in',
                            ('table_2d','area'))]}"
-                           options="{'no_create': true, 'no_open': true}"
+                           options="{'no_create': True, 'no_open': True}"
                            class="oe_inline" style="max-width: 48%%"/>
                 </div>
                 <field name="product_price_type" invisible="1"/>

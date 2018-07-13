@@ -31,6 +31,12 @@ class SaleOrderLine(models.Model):
                                           string='Sale Price Type',
                                           related='product_tmpl_id.sale_price_type')
 
+    rapport = fields.Float(related='product_tmpl_id.rapport')
+    rapport_uom = fields.Many2one('product.uom',
+                                  string='Rapport UOM',
+                                  related='product_tmpl_id.rapport_uom',
+                                  readonly = True)
+
     @api.constrains('origin_width', 'origin_height')
     def _check_origin_dimensions_constrains(self):
         for record in self:
@@ -100,6 +106,9 @@ class SaleOrderLine(models.Model):
 
         if self.product_tmpl_id.sale_price_type not in ['fabric', 'table_1d', 'table_2d', 'area']:
             self.origin_height = self.origin_width = 0
+
+        """TODO:
+        Crear aquí el cambio de unidad con el rapport"""
 
 
         name = ''

@@ -118,7 +118,6 @@ class ProductProduct(models.Model):
 
     @api.depends('list_price', 'price_extra')
     def _compute_product_lst_price(self):
-        # super(ProductProduct, self)._compute_product_lst_price()
         to_uom = None
         if 'uom' in self._context:
             to_uom = self.env['product.uom'].browse([self._context['uom']])
@@ -148,8 +147,9 @@ class ProductProduct(models.Model):
             # standard_price field can only be seen by users in base.group_user
             # Thus, in order to compute the sale price from the cost for users not in this group
             # We fetch the standard price as the superuser
-            products = self.with_context(force_company=company and company.id or self._context.get('force_company',
-                                                                                                   self.env.user.company_id.id)).sudo()
+            products = self.with_context(force_company=company and company.id or
+                                         self._context.get('force_company',
+                                         self.env.user.company_id.id)).sudo()
 
         prices = dict.fromkeys(self.ids, 0.0)
         for product in products:
