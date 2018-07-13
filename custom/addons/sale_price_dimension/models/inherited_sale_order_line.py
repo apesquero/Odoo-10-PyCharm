@@ -98,7 +98,7 @@ class SaleOrderLine(models.Model):
                     self.product_id = False
                     return result
 
-        if self.product_tmpl_id.sale_price_type not in ['table_1d', 'table_2d', 'area']:
+        if self.product_tmpl_id.sale_price_type not in ['fabric', 'table_1d', 'table_2d', 'area']:
             self.origin_height = self.origin_width = 0
 
 
@@ -110,7 +110,7 @@ class SaleOrderLine(models.Model):
             width_uom = product.width_uom.name
             name += _(' [Width:%.2f %s x Height:%.2f %s]') % \
                     (self.origin_width, width_uom, self.origin_height, height_uom)
-        elif product.sale_price_type == 'table_1d':
+        elif product.sale_price_type in ['fabric', 'table_1d']:
             width_uom = product.width_uom.name
             name += _(' [ Width:%.2f %s]') % (self.origin_width, width_uom)
         if product.description_sale:

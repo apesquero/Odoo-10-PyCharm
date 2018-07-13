@@ -6,7 +6,8 @@ import odoo.addons.decimal_precision as dp
 class ProductPricesFabric(models.Model):
     _name = 'product.prices_fabric'
 
-
+    fabric_uom = fields.Many2one('product.uom',
+                                  string='Fabric UOM')
     rapport = fields.Float(string="Rapport",
                            default=0.0,
                            digits=dp.get_precision('Product Unit of Measure'))

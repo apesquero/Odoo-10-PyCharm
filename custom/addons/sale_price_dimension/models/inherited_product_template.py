@@ -26,6 +26,12 @@ class ProductTemplate(models.Model):
         default='standard',
     )
     """FABRIC"""
+    fabric_uom = fields.Many2one('product.uom',
+                                  domain="[('category_id', '=', 4)]",
+                                  default=lambda self: self.env['product.uom'].search([('name', '=', u'm')]).id,
+                                  string='Fabric UOM',
+                                  related='sale_prices_fabric.fabric_uom')
+
     rapport = fields.Float(related='sale_prices_fabric.rapport')
     rapport_uom = fields.Many2one('product.uom',
                                   domain="[('category_id', '=', 4)]",
