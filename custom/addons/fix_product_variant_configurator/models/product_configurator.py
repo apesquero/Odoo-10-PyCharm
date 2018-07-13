@@ -18,7 +18,7 @@ class ProductConfigurator(models.AbstractModel):
 
         if not self.product_tmpl_id.attribute_line_ids:
             # template without attribute, use the unique variant
-            if self.product_tmpl_id.product_variant_ids.id:
+            if self.product_tmpl_id.product_variant_ids[0].id:
                 self.product_id = \
                     self.product_tmpl_id.product_variant_ids[0].id
             else:
