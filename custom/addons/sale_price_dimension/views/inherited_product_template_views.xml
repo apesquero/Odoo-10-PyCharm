@@ -22,8 +22,7 @@
                 <field name="area_uom"
                        attrs="{'invisible':[('sale_price_type', 'in',
                               ['standard','fabric','table_1d','table_2d'])],
-                               'required':[('sale_price_type', '=', 'area')]}"
-                       domain="[('category_id', '=', 4)]"/>
+                               'required':[('sale_price_type', '=', 'area')]}"/>
             </xpath>
 
         </field>
@@ -92,7 +91,8 @@
                         </group>
                     </group>
 
-                    <div attrs="{'invisible':[('sale_price_type', 'not in', ['table_1d','table_2d'])]}">
+                    <div attrs="{'invisible':[('sale_price_type', 'not in',
+                                ['table_1d','table_2d'])]}">
                         <div>
                             <field class="col-md-12"
                                    name="sale_prices_table"
