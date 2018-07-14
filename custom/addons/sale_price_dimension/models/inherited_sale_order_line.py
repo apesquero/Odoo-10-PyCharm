@@ -30,7 +30,7 @@ class SaleOrderLine(models.Model):
     rapport_uom = fields.Many2one('product.uom',
                                   string='Rapport UOM',
                                   related='product_tmpl_id.rapport_uom',
-                                  readonly = True)
+                                  readonly=True)
 
     @api.constrains('origin_width', 'origin_height')
     def _check_origin_dimensions_constrains(self):
@@ -102,13 +102,15 @@ class SaleOrderLine(models.Model):
         if self.product_tmpl_id.sale_price_type not in ['fabric', 'table_1d', 'table_2d', 'area']:
             self.origin_height = self.origin_width = 0
 
+        #rapport calculation
         if self.product_tmpl_id.rapport is not False:
             rapport = (self.width_sale_uom.factor * self.rapport) / self.rapport_uom.factor
             width_uom = self.width_sale_uom.name
             if rapport > 0:
-                result_width = (ceil(self.origin_width / rapport))*rapport
+
+                result_width = (int(ceil(round((self.origin_width / rapport), 2))))*rapport
                 remainder = result_width - self.origin_width
-                if result_width != self.origin_width:
+                if remainder > 0:
                     self.origin_width = result_width
                     product = product.with_context(width=self.origin_width)
 
@@ -124,14 +126,14 @@ class SaleOrderLine(models.Model):
         if product.sale_price_type in ['fabric']:
             width_uom = product.width_uom.name
             name += _(' [Length:%.2f %s]') % (self.origin_width, width_uom)
+        elif product.sale_price_type in ['table_1d']:
+            width_uom = product.width_uom.name
+            name += _(' [Width:%.2f %s]') % (self.origin_width, width_uom)
         elif product.sale_price_type in ['table_2d', 'area']:
             height_uom = product.height_uom.name
             width_uom = product.width_uom.name
             name += _(' [Width:%.2f %s x Height:%.2f %s]') % \
                     (self.origin_width, width_uom, self.origin_height, height_uom)
-        elif product.sale_price_type in ['table_1d']:
-            width_uom = product.width_uom.name
-            name += _(' [Width:%.2f %s]') % (self.origin_width, width_uom)
         if product.description_sale:
             name += '\n' + product.description_sale
         vals['name'] = name
