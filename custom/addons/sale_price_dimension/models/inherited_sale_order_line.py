@@ -110,26 +110,28 @@ class SaleOrderLine(models.Model):
                 remainder = result_width - self.origin_width
                 if result_width != self.origin_width:
                     self.origin_width = result_width
+                    product = product.with_context(width=self.origin_width)
 
-                    """TODO: Crear un mensaje de aviso, que continue con la operación"""
-                    # message = _("The measure is less than the necessary rapport:\n"
-                    #             "The measure has been increased %.2f %s!") % (remainder, width_uom)
-                    # mess = {'title': _("Warning measure"),
-                    #         'message': message}
-                    # return {'warning': mess}
-
+                    message = _("The measure is less than the necessary rapport:\n"
+                                "The measure has been increased %.2f %s!") % (remainder, width_uom)
+                    mess = {'title': _("Warning measure"),
+                            'message': message}
+                    result = {'warning': mess}
 
         name = ''
         if self.product_id:
             name = product.name_get()[0][1]
-        if product.sale_price_type in ['table_2d', 'area']:
+        if product.sale_price_type in ['fabric']:
+            width_uom = product.width_uom.name
+            name += _(' [Length:%.2f %s]') % (self.origin_width, width_uom)
+        elif product.sale_price_type in ['table_2d', 'area']:
             height_uom = product.height_uom.name
             width_uom = product.width_uom.name
             name += _(' [Width:%.2f %s x Height:%.2f %s]') % \
                     (self.origin_width, width_uom, self.origin_height, height_uom)
-        elif product.sale_price_type in ['fabric', 'table_1d']:
+        elif product.sale_price_type in ['table_1d']:
             width_uom = product.width_uom.name
-            name += _(' [ Width:%.2f %s]') % (self.origin_width, width_uom)
+            name += _(' [Width:%.2f %s]') % (self.origin_width, width_uom)
         if product.description_sale:
             name += '\n' + product.description_sale
         vals['name'] = name

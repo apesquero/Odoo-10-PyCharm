@@ -101,10 +101,6 @@ class ProductProduct(models.Model):
                 result = self.list_price * origin_width * origin_height
                 result = max(self.min_price_area, result)
             elif self.sale_price_type == 'fabric':
-                """
-                TODO: Falta todo el proceso de cálculo del rapport, pero es posible que haya que 
-                ponerlo en las unidades en vez de en el precio. Pendiente de revisar
-                """
                 # Unit conversion created
                 origin_width = (self.fabric_uom.factor * origin_width) / self.width_uom.factor
 
