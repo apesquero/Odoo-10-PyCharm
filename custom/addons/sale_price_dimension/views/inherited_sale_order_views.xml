@@ -23,6 +23,7 @@
                        attrs="{'invisible': [('product_price_type', '!=', ('fabric'))]}"/>
                 <div>
                     <field name="rapport"
+                           readonly="1"
                            class="oe_inline" style="max-width: 48%%; margin-right: 4%;"/>
                     <field name="rapport_uom"
                            options="{'no_create': True, 'no_open': True}"

@@ -1,18 +1,13 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+from math import ceil
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     origin_width = fields.Float(string="Width", required=True, default=0.0)
     origin_height = fields.Float(string="Height", required=True, default=0.0)
-
-    """TODO Create the possibility of changing the unit in the sales window, but the possibilities and 
-    complications of usability are not clear
-    
-    Crear la posibilidad de hacer cambio de unidad en la ventana de venta, pero no está
-    claro las posiblilidades y las complicaciones de usabilidad"""
 
     width_sale_uom = fields.Many2one('product.uom',
                                      string='Width UOM',
@@ -107,8 +102,21 @@ class SaleOrderLine(models.Model):
         if self.product_tmpl_id.sale_price_type not in ['fabric', 'table_1d', 'table_2d', 'area']:
             self.origin_height = self.origin_width = 0
 
-        """TODO:
-        Crear aquí el cambio de unidad con el rapport"""
+        if self.product_tmpl_id.rapport is not False:
+            rapport = (self.width_sale_uom.factor * self.rapport) / self.rapport_uom.factor
+            width_uom = self.width_sale_uom.name
+            if rapport > 0:
+                result_width = (ceil(self.origin_width / rapport))*rapport
+                remainder = result_width - self.origin_width
+                if result_width != self.origin_width:
+                    self.origin_width = result_width
+
+                    """TODO: Crear un mensaje de aviso, que continue con la operación"""
+                    # message = _("The measure is less than the necessary rapport:\n"
+                    #             "The measure has been increased %.2f %s!") % (remainder, width_uom)
+                    # mess = {'title': _("Warning measure"),
+                    #         'message': message}
+                    # return {'warning': mess}
 
 
         name = ''
