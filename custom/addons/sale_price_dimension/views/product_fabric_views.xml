@@ -2,7 +2,7 @@
 <odoo>
     <act_window id="sale_price_dimension.composition_fabric"
                 name="Type Composition"
-                res_model="type.composition_fabric"
+                res_model="product.type_composition_fabric"
                 view_mode="tree,form"
                 target="current"/>
 
@@ -26,7 +26,7 @@
 
     <record id="view_tree_type_composition_fabric"
             model="ir.ui.view">
-        <field name="model">type.composition_fabric</field>
+        <field name="model">product.type_composition_fabric</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name_type"/>

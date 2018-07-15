@@ -10,7 +10,7 @@
               'views/inherited_product_product_views.xml',
               'views/inherited_product_template_views.xml',
               'views/inherited_sale_order_views.xml',
-              'views/product_composition_views.xml',
+              'views/product_fabric_views.xml',
             ],
     'demo': ['data/product.template.csv'],
     'category': 'Sales',

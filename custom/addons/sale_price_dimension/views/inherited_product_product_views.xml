@@ -49,11 +49,17 @@
                             </div>
                             <field name="rapport_orientation"
                                    attrs="{'required':[('sale_price_type', '=', 'fabric')]}"/>
-                        </group>
-                        <group>
                             <field name="min_price_fabric" widget="monetary"/>
                             <field name="cost_transport_fabric" widget="monetary"/>
                             <field name="min_transport_fabric" widget="monetary"/>
+                        </group>
+                        <group>
+                            <group>
+                                <label for="composition_fabric" string="Fabric Composition"/>
+                            </group>
+                            <field name="composition_fabric"
+                                   widget="one2many_list"
+                                   nolabel="1"/>
                         </group>
                     </group>
 

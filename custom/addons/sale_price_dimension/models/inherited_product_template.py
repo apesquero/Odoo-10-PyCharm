@@ -64,6 +64,13 @@ class ProductTemplate(models.Model):
     composition_fabric = fields.One2many('product.composition_fabric',
                                          'composition_fabric_id',
                                          string="Fabric Composition")
+    """
+    # fabric_care = fields.Many2many('todo.task.tag',  # related model
+    #                            'todo_task_tag_rel',  # relation table name
+    #                            'task_id',  # field for "this" record
+    #                            'tag_id',  # field for "other" record
+    #                            strig='Tags')
+    """
 
     """TABLE"""
     sale_prices_table = fields.One2many('product.prices_table',
