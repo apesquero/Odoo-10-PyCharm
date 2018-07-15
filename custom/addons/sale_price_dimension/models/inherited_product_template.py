@@ -46,6 +46,13 @@ class ProductTemplate(models.Model):
                                string='Roll UOM',
                                related='sale_prices_fabric.roll_uom')
 
+    rapport_orientation = fields.Selection([
+        ('normal', 'Normal'),
+        ('turned', 'Turned')],
+        string='Orientation',
+        default='normal',
+        related='sale_prices_fabric.rapport_orientation')
+
     min_price_fabric = fields.Float(related='sale_prices_fabric.min_price_fabric')
     cost_transport_fabric = fields.Float(related='sale_prices_fabric.cost_transport_fabric')
     min_transport_fabric = fields.Float(related='sale_prices_fabric.min_transport_fabric')
@@ -53,12 +60,10 @@ class ProductTemplate(models.Model):
     sale_prices_fabric = fields.One2many('product.prices_fabric',
                                          'sale_fabric_tmpl_id',
                                          string="Sale Prices Fabric")
-    rapport_orientation = fields.Selection([
-        ('normal', 'Normal'),
-        ('turned', 'Turned')],
-        string='Orientation',
-        default='normal',
-        related='sale_prices_fabric.rapport_orientation')
+
+    composition_fabric = fields.One2many('product.composition_fabric',
+                                         'composition_fabric_id',
+                                         string="Fabric Composition")
 
     """TABLE"""
     sale_prices_table = fields.One2many('product.prices_table',

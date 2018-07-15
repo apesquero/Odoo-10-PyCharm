@@ -39,3 +39,4 @@ class ProductPricesFabric(models.Model):
                                          digits=dp.get_precision('Product Price'))
 
     sale_fabric_tmpl_id = fields.Many2one('product.template', 'Product Template')
+

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from . import product_prices_fabric
+from . import product_composition_fabric
 from . import product_prices_table
 from . import product_prices_area
 from . import inherited_product_pricelist
