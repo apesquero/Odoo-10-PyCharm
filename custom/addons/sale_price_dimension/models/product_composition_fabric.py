@@ -6,5 +6,5 @@ class CompositionFabric(models.Model):
 
     composition_fabric_id = fields.Many2one('product.template', 'Fabric Composition')
 
-    percent_composition = fields.Float('% Composition', (3,2))
+    percent_composition = fields.Float('% Composition', (3, 2))
     type_composition = fields.Char('Type Composition', size=40, translate=True)
