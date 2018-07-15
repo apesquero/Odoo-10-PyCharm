@@ -21,7 +21,7 @@
                 <label for="rapport"
                        string="Rapport"
                        attrs="{'invisible': [('product_price_type', '!=', ('fabric'))]}"/>
-                <div>
+                <div attrs="{'invisible': [('product_price_type', '!=', ('fabric'))]}">
                     <field name="rapport"
                            readonly="1"
                            class="oe_inline" style="max-width: 48%%; margin-right: 4%;"/>

@@ -103,7 +103,7 @@ class SaleOrderLine(models.Model):
             self.origin_height = self.origin_width = 0
 
         #rapport calculation
-        if self.product_tmpl_id.rapport is not False:
+        if self.product_tmpl_id.sale_price_type in ['fabric']:
             rapport = (self.width_sale_uom.factor * self.rapport) / self.rapport_uom.factor
             width_uom = self.width_sale_uom.name
             if rapport > 0:
