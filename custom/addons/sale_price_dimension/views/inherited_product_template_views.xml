@@ -81,7 +81,9 @@
                             <group>
                                 <label for="composition_fabric" string="Fabric Composition"/>
                             </group>
-                            <field name="composition_fabric" widget="one2many_list" nolabel="1"/>
+                            <field name="composition_fabric"
+                                   widget="one2many_list"
+                                   nolabel="1"/>
                         </group>
                     </group>
 
@@ -118,17 +120,6 @@
                 </page>
             </xpath>
 
-        </field>
-    </record>
-
-    <record id="view_tree_composition_fabric"
-            model="ir.ui.view">
-        <field name="model">product.composition_fabric</field>
-        <field name="arch" type="xml">
-            <tree editable="bottom">
-                <field name="percent_composition" />
-                <field name="type_composition"/>
-            </tree>
         </field>
     </record>
 </odoo>
