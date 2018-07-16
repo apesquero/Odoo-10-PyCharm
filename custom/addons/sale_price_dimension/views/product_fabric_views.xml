@@ -12,6 +12,18 @@
               sequence="10"
               action="sale_price_dimension.composition_fabric"/>
 
+    <act_window id="sale_price_dimension.tag_fabric_care"
+                name="Tag Fabric Care"
+                res_model="product.tag_fabric_care"
+                view_mode="tree,form"
+                target="current"/>
+
+    <menuitem id="menu_tag_fabric_care_view"
+              name="Tag Fabric Care"
+              parent="sale.prod_config_main"
+              sequence="11"
+              action="sale_price_dimension.tag_fabric_care"/>
+
 
     <record id="view_tree_composition_fabric"
             model="ir.ui.view">

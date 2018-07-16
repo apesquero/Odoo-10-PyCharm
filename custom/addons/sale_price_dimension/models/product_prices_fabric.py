@@ -40,6 +40,7 @@ class ProductPricesFabric(models.Model):
 
     sale_fabric_tmpl_id = fields.Many2one('product.template', 'Product Template')
 
+
 class CompositionFabric(models.Model):
     _name = 'product.composition_fabric'
 
@@ -49,8 +50,16 @@ class CompositionFabric(models.Model):
 
     type_composition = fields.Many2one('product.type_composition_fabric', 'Type Composition')
 
+
 class TypeCompositionFabric(models.Model):
     _name = 'product.type_composition_fabric'
     _rec_name = 'name_type'
 
     name_type = fields.Char('Name Type Composition', size=40, translate=True)
+
+
+class TagFabricCare(models.Model):
+    _name = 'product.tag_fabric_care'
+
+    name = fields.Char('Name', size=40, translate=True)
+    image_care = fields.Binary('Imagen Care')
