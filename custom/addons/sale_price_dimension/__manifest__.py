@@ -14,7 +14,11 @@
             ],
     'demo': ['data/product.template.csv'],
     'category': 'Sales',
-    'depends': ['sale', 'sale_variant_configurator', 'import_price_table_wizard',],
+    'depends': ['sale',
+                'sale_variant_configurator',
+                'import_price_table_wizard',
+                'web_tree_image',
+                ],
     'application': True,
     'installable': True,
 }
