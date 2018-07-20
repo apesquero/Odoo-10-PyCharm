@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="inherit_invoice_form" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <!--<xpath expr="//field[@name='invoice_line_ids']"-->
+            <!--position="attributes">-->
+            <!--<attribute name="mode">tree,form,kanban</attribute>-->
+            <!--</xpath>-->
+
+            <xpath expr="//field[@name='invoice_line_ids']/tree"
+                   position="attributes">
+                <!-- force using the form -->
+                <attribute name="editable"/>
+            </xpath>
+
+            <xpath expr="//field[@name='invoice_line_ids']/tree" position="before">
+                <form>
+                    <group>
+                        <!-- HACK: readonly condition is set with an `in` clause instead of a `not in` for allowing on new created lines to be writeable, as
+                             state field is a related one that is not filled until saved -->
+                        <field name="product_tmpl_id"/>
+                        <field name="product_attribute_ids" widget="one2many"
+                               context="{'default_owner_model': 'account.invoice.line'}"
+                               nolabel="1" colspan="2">
+                            <tree create="0" delete="0" editable="1">
+                                <field name="owner_model" invisible="1"/>
+                                <field name="owner_id" invisible="1"/>
+                                <field name="attribute_id"/>
+                                <field name="possible_value_ids" widget="many2many_tags" invisible="1"/>
+                                <field name="product_tmpl_id" invisible="1"/>
+                                <field name="value_id"/>
+                                <field name="price_extra"/>
+                            </tree>
+                        </field>
+                        <field name="can_create_product" invisible="1"/>
+                        <field name="create_product_variant"
+                               attrs="{'invisible':
+                            [('can_create_product', '=', False)]}"/>
+                        <field name="product_id"/>
+                        <field name="origin" invisible="1"/>
+                        <field name="name"/>
+                        <field name="company_id" invisible="1"/>
+                        <field name="account_id"
+                               groups="account.group_account_user"
+                               domain="[('company_id', '=', parent.company_id),
+                                        ('internal_type', '=', 'other')]"/>
+                        <field name="account_analytic_id"
+                               groups="analytic.group_analytic_accounting"
+                               domain="[('company_id', '=', parent.company_id)]"/>
+                        <field name="analytic_tag_ids"
+                               groups="analytic.group_analytic_accounting"
+                               widget="many2many_tags"/>
+                        <field name="quantity"/>
+                        <field name="uom_id"
+                               groups="product.group_uom"/>
+                        <field name="price_unit"/>
+                        <field name="discount"
+                               groups="base.group_no_one"/>
+                        <field name="invoice_line_tax_ids"
+                               widget="many2many_tags"
+                               context="{'type':parent.type}"
+                               domain="[('type_tax_use','=','sale'),
+                                        ('company_id', '=', parent.company_id)]"
+                               options="{'no_create': True}"/>
+                    </group>
+                </form>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
