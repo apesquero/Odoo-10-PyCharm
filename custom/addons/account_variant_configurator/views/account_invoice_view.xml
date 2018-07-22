@@ -4,11 +4,6 @@
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
-            <!--<xpath expr="//field[@name='invoice_line_ids']"-->
-            <!--position="attributes">-->
-            <!--<attribute name="mode">tree,form,kanban</attribute>-->
-            <!--</xpath>-->
-
             <xpath expr="//field[@name='invoice_line_ids']/tree"
                    position="attributes">
                 <!-- force using the form -->
@@ -39,6 +34,7 @@
                                attrs="{'invisible':
                             [('can_create_product', '=', False)]}"/>
                         <field name="product_id"/>
+
                         <field name="origin" invisible="1"/>
                         <field name="name"/>
                         <field name="company_id" invisible="1"/>

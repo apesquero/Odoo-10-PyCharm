@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--COMPOSTION FABRIC-->
+    <record id="view_tree_composition_fabric"
+            model="ir.ui.view">
+        <field name="model">product.composition_fabric</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="percent_composition" />
+                <field name="type_composition" options="{'no_open': True}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_tree_type_composition_fabric"
+            model="ir.ui.view">
+        <field name="model">product.type_composition_fabric</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--TAG FABRIC CARE-->
+    <record id="view_tree_tag_fabric_care"
+            model="ir.ui.view">
+        <field name="model">product.tag_fabric_care</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="image_care" widget='image' display="thumbnail"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_form_tag_fabric_care"
+            model="ir.ui.view">
+        <field name="model">product.tag_fabric_care</field>
+        <field name="arch" type="xml">
+            <form>
+
+                <group>
+                    <!--<label for="name" string="Name Fabric Care"/>-->
+                    <field name="name"/>
+                </group>
+                <group>
+                    <field name="image_care"
+                           widget="image"
+                           display="thumbnail"
+                           style="max-width: 60px;"/>
+                </group>
+
+            </form>
+        </field>
+    </record>
+</odoo>

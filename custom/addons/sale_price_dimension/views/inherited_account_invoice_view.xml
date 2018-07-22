@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="inherit_invoice_form" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account_variant_configurator.inherit_invoice_form"/>
+        <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="before">
+
+                </xpath>
+        </field>
+    </record>
+
+</odoo>

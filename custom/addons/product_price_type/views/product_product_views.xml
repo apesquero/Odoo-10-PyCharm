@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Vista relacionada con las variantes de producto-->
+    <record id="view_product_product_form" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+
+            <!--Igualamos las opciones a product.product_template_form_view, vista productos-->
+            <xpath expr="//field[@name='lst_price']" position="attributes">
+                <attribute name="attrs">{'invisible':[('sale_price_type',
+                                         'not in', ['standard', 'fabric', 'area'])]
+                                        }</attribute>
+            </xpath>
+
+            <xpath expr="//notebook/page[1]" position="after">
+                <page string="Sale Price Type"
+                      attrs="{'invisible':[('sale_price_type', '=', 'standard')]}">
+                    <group attrs="{'invisible':[('sale_price_type', '=', 'fabric')]}">
+                        <field name="width_uom"
+                               attrs="{'required':[('sale_price_type', 'in',
+                                      ['table_1d','table_2d','area'])]}"/>
+                        <field name="height_uom"
+                               attrs="{'invisible':[('sale_price_type', '=', 'table_1d')],
+                                       'required':[('sale_price_type', 'in', ['table_2d','area'])]}"/>
+                    </group>
+
+                    <group attrs="{'invisible':[('sale_price_type', '!=', 'fabric')]}">
+                        <group>
+                            <label for="rapport" string="Rapport"/>
+                            <div>
+                                <field name="rapport"
+                                       class="oe_inline"
+                                       style="max-width: 48%%; margin-right: 4%;"/>
+                                <field name="rapport_uom"
+                                       attrs="{'required':[('sale_price_type', '=', 'fabric')]}"
+                                       options="{'no_create': True, 'no_open': True}"
+                                       class="oe_inline" style="max-width: 48%%"/>
+                            </div>
+                            <label for="height_roll" string="Height Roll"/>
+                            <div>
+                                <field name="height_roll"
+                                       class="oe_inline"
+                                       style="max-width: 48%%; margin-right: 4%;"/>
+                                <field name="roll_uom"
+                                       attrs="{'required':[('sale_price_type', '=', 'fabric')]}"
+                                       options="{'no_create': True, 'no_open': True}"
+                                       class="oe_inline" style="max-width: 48%%"/>
+                            </div>
+                            <field name="rapport_orientation"
+                                   attrs="{'required':[('sale_price_type', '=', 'fabric')]}"/>
+                            <field name="min_price_fabric" widget="monetary"/>
+                            <field name="cost_transport_fabric" widget="monetary"/>
+                            <field name="min_transport_fabric" widget="monetary"/>
+                        </group>
+                        <group>
+                            <group>
+                                <label for="composition_fabric" string="Fabric Composition"/>
+                            </group>
+                            <field name="composition_fabric"
+                                   widget="one2many_list"
+                                   nolabel="1"/>
+                        </group>
+                    </group>
+
+                    <group attrs="{'invisible':[('sale_price_type', '!=', 'area')]}">
+                        <group>
+                            <field name="min_width_area"/>
+                            <field name="max_width_area"/>
+                        </group>
+                        <group>
+                            <field name="min_height_area"/>
+                            <field name="max_height_area"/>
+                        </group>
+                        <group>
+                            <field name="min_price_area" widget="monetary"/>
+                        </group>
+                    </group>
+
+                    <div attrs="{'invisible':[('sale_price_type', 'not in',
+                                ['table_1d','table_2d'])]}">
+                        <div>
+                            <field class="col-md-12"
+                                   name="sale_prices_table"
+                                   widget="mdtable"
+                                   mode="sale_price_type"
+                                   nolabel="1"/>
+                            <div class="o_td_label">
+                                <button name="%(launch_wizard_mdtable_sale_import_data)d"
+                                        string="Import Records"
+                                        type="action"
+                                        class="oe_highlight pull-right"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

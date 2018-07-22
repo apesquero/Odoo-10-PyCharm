@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="product_price_type.MultiDimensionTableView">
+    	<div class="o_mdtable"></div>
+    </t>
+
+</templates>

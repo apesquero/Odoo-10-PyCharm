@@ -1,24 +1,4 @@
-/*****************************************************************************
- *
- *    OpenERP, Open Source Management Solution
- *    Copyright (C) 2017 Solucións Aloxa S.L. <info@aloxa.eu>
- *    						Alexandre Díaz <alex@aloxa.eu>
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Affero General Public License as
- *    published by the Free Software Foundation, either version 3 of the
- *    License, or (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- *****************************************************************************/
-odoo.define('price_dimension.MultiDimensionTableField', function (require) {
+odoo.define('product_price_type.MultiDimensionTableField', function (require) {
 "use strict";
 
 var core = require('web.core');
@@ -31,7 +11,7 @@ var MultiDimensionTable = form_common.AbstractField.extend({
 	_MODE : { TABLE_1D:'table_1d', TABLE_2D:'table_2d' },
 
 	/** WIDGET PARAMS **/
-    template: 'price_dimension.MultiDimensionTableView',
+    template: 'product_price_type.MultiDimensionTableView',
 
     /** INITIALIZE FUNCTIONS **/
     init: function () {
@@ -53,26 +33,26 @@ var MultiDimensionTable = form_common.AbstractField.extend({
         this._on_check_visibility_mode();
         return this._super();
     },
-    
+
+	// TODO: ELIMINADO POR EFICIENCIA, CUANDO SEPA MÁS DE JS, LO ARREGLO
     /** FIELD VALUE MANAGEMENT **/
-    commit_value: function (value_) {
-    	var self = this;
-    	var values = [];
-    	this.$el.find('.o_mdtable_item').each(function(){
-    		var $this = $(this);
-    		var _id = $this.data('id');
-    		var _x = $this.data('x');
-    		var _y = $this.data('y') || false;
-    		var _v = $this.find('input').val();
-
-    		if (self._get_item(_x, _y).value != _v) {
-    			self.model_product_prices_table.call('write', [[_id], {'value': _v}]);
-    			self._set_item(_x, _y, _v);
-    		}
-		});
-
-        return this._super();
-    },
+    // commit_value: function () {
+    // 	var self = this;
+    // 	this.$el.find('.o_mdtable_item').each(function(){
+    // 		var $this = $(this);
+    // 		var _id = $this.data('id');
+    // 		var _x = $this.data('x');
+    // 		var _y = $this.data('y') || false;
+    // 		var _v = $this.find('input').val();
+	//
+    // 		if (self._get_item(_x, _y).value != _v) {
+    // 			self.model_product_prices_table.call('write', [[_id], {'value': _v}]);
+    // 			self._set_item(_x, _y, _v);
+    // 		}
+	// 	});
+    //
+    //  return this._super();
+    // },
     
     read_value: function () {
         var self = this;

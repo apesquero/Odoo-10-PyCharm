@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Vista relacionada con la vista producto-->
+    <record id="view_product_template_form_price_type" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='list_price']" position="before">
+                <label for="sale_price_type"/>
+                <div>
+                    <field name="sale_price_type"/>
+                </div>
+            </xpath>
+
+            <xpath expr="//field[@name='list_price']" position="attributes">
+                <attribute name="attrs">{'invisible':[('sale_price_type',
+                                         'not in', ['standard','fabric','area'])]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='list_price']" position="after">
+                <field name="fabric_uom"
+                       attrs="{'invisible':[('sale_price_type', 'in',
+                              ['standard','table_1d','table_2d','area'])],
+                               'required':[('sale_price_type', '=', 'fabric')]}"/>
+                <field name="area_uom"
+                       attrs="{'invisible':[('sale_price_type', 'in',
+                              ['standard','fabric','table_1d','table_2d'])],
+                               'required':[('sale_price_type', '=', 'area')]}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="view_product_template_form" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//notebook/page[1]" position="after">
+                <page string="Sale Price Type"
+                      attrs="{'invisible':[('sale_price_type', '=', 'standard')]}">
+                    <group>
+                        <field name="width_uom"
+                               attrs="{'required':[('sale_price_type', 'in',
+                                      ['fabric','table_1d','table_2d','area'])]}"/>
+                        <field name="height_uom"
+                               attrs="{'invisible':[('sale_price_type', 'in', ['fabric','table_1d'])],
+                                       'required':[('sale_price_type', 'in', ['table_2d','area'])]}"/>
+                    </group>
+
+                    <group attrs="{'invisible':[('sale_price_type', '!=', 'fabric')]}">
+                        <group>
+                            <label for="rapport" string="Rapport"/>
+                            <div>
+                                <field name="rapport"
+                                       class="oe_inline"
+                                       style="max-width: 48%%; margin-right: 4%;"/>
+                                <field name="rapport_uom"
+                                       attrs="{'required':[('sale_price_type', '=', 'fabric')]}"
+                                       options="{'no_create': True, 'no_open': True}"
+                                       class="oe_inline" style="max-width: 48%%"/>
+                            </div>
+                            <label for="height_roll" string="Height Roll"/>
+                            <div>
+                                <field name="height_roll"
+                                       class="oe_inline"
+                                       style="max-width: 48%%; margin-right: 4%;"/>
+                                <field name="roll_uom"
+                                       attrs="{'required':[('sale_price_type', '=', 'fabric')]}"
+                                       options="{'no_create': True, 'no_open': True}"
+                                       class="oe_inline" style="max-width: 48%%"/>
+                            </div>
+                            <field name="rapport_orientation"
+                                   attrs="{'required':[('sale_price_type', '=', 'fabric')]}"/>
+                            <field name="min_price_fabric" widget="monetary"/>
+                            <field name="cost_transport_fabric" widget="monetary"/>
+                            <field name="min_transport_fabric" widget="monetary"/>
+                        </group>
+                        <group>
+                            <group>
+                                <label for="composition_fabric" string="Fabric Composition"/>
+                            </group>
+                            <field name="composition_fabric"
+                                   widget="one2many_list"
+                                   nolabel="1"/>
+                            <group>
+                               <label for="fabric_care" string="Fabric Care"/>
+                            </group>
+                            <field name="fabric_care"
+                                   widget="many2many_tags"
+                                   nolabel="1"/>
+                        </group>
+                    </group>
+
+                    <group attrs="{'invisible':[('sale_price_type', '!=', 'area')]}">
+                        <group>
+                            <field name="min_width_area"/>
+                            <field name="max_width_area"/>
+                        </group>
+                        <group>
+                            <field name="min_height_area"/>
+                            <field name="max_height_area"/>
+                        </group>
+                        <group>
+                            <field name="min_price_area" widget="monetary"/>
+                        </group>
+                    </group>
+
+                    <div attrs="{'invisible':[('sale_price_type', 'not in',
+                                ['table_1d','table_2d'])]}">
+                        <div>
+                            <field class="col-md-12"
+                                   name="sale_prices_table"
+                                   widget="mdtable"
+                                   mode="sale_price_type"
+                                   nolabel="1"/>
+                            <div class="o_td_label">
+                                <button name="%(launch_wizard_mdtable_sale_import_data)d"
+                                        string="Import Records"
+                                        type="action"
+                                        class="oe_highlight pull-right"/>
+                            </div>
+                        </div>
+                    </div>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

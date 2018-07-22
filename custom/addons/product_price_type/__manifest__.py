@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+
+{
+    'name': 'Product Price Type',
+    'description': 'Module for different types of product prices',
+    'version': '10.0.1.0',
+    'author': 'Amaro Pesquero',
+    'data': ['security/ir.model.access.csv',
+             'wizard/import_price_table.xml',
+             'views/import_price_table.xml',
+             'views/product_product_views.xml',
+             'views/product_template_views.xml',
+             'views/product_fabric_views.xml',
+             ],
+    'demo': ['data/product.template.csv'],
+    'external_dependencies': {'python': ['xlrd']},
+    'qweb': ['static/src/xml/*.xml'],
+    'category': 'Product',
+    'depends': ['product',
+                'product_variant_configurator',
+                'web_tree_image',
+                ],
+    'application': False,
+    'installable': True,
+}
