@@ -4,11 +4,51 @@
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account_variant_configurator.inherit_invoice_form"/>
         <field name="arch" type="xml">
-                <xpath expr="//field[@name='product_id']" position="after">
-                    <field name="origin_width"/>
-                    <field name="origin_height"/>
-                    <field name="width_sale_uom"/>
-                </xpath>
+            <xpath expr="//field[@name='product_id']" position="after">
+                <label for="origin_width"
+                       string="Width"
+                       attrs="{'invisible': [('product_price_type', '=', ('standard'))]}"/>
+                <div>
+                    <field name="origin_width"
+                           attrs="{'invisible': [('product_price_type', '=', ('standard'))]}"
+                           class="oe_inline" style="max-width: 48%%; margin-right: 4%;"/>
+                    <field name="width_sale_uom"
+                           attrs="{'invisible': [('product_price_type', '=', ('standard'))]}"
+                           options="{'no_create': True, 'no_open': True}"
+                           class="oe_inline" style="max-width: 48%%"/>
+                </div>
+                <label for="rapport"
+                       string="Rapport"
+                       attrs="{'invisible': [('product_price_type', '!=', ('fabric'))]}"/>
+                <div attrs="{'invisible': [('product_price_type', '!=', ('fabric'))]}">
+                    <field name="rapport"
+                           readonly="1"
+                           class="oe_inline" style="max-width: 48%%; margin-right: 4%;"/>
+                    <field name="rapport_uom"
+                           options="{'no_create': True, 'no_open': True}"
+                           class="oe_inline" style="max-width: 48%%"/>
+                </div>
+
+                <label for="origin_height"
+                       string="Height"
+                       attrs="{'invisible': [('product_price_type', 'not in',
+                       ('table_2d','area'))]}"/>
+                <div>
+                    <field name="origin_height"
+                           attrs="{'invisible': [('product_price_type', 'not in',
+                           ('area','table_2d'))]}"
+                           class="oe_inline" style="max-width: 48%%; margin-right: 4%;"/>
+                    <field name="height_sale_uom"
+                           attrs="{'invisible': [('product_price_type', 'not in',
+                           ('table_2d','area'))]}"
+                           options="{'no_create': True, 'no_open': True}"
+                           class="oe_inline" style="max-width: 48%%"/>
+                </div>
+                <field name="product_price_type" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='uom_id']" position="attributes">
+                <attribute name="groups"/>
+            </xpath>
         </field>
     </record>
 

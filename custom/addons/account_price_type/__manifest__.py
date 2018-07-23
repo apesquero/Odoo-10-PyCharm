@@ -11,6 +11,7 @@
     'category': 'Accounting',
     'depends': ['account',
                 'account_variant_configurator',
+                'product',
                 'product_price_type',
                 ],
     'application': True,
