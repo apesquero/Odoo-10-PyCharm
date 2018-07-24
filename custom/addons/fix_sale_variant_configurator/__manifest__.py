@@ -7,6 +7,9 @@
     "summary": "Fixed product variants in sale management",
     "version": "10.0.1.0.0",
     "license": "AGPL-3",
+    "data": [
+             'views/sale_view.xml',
+             ],
     "depends": [
         "sale_variant_configurator",
     ],

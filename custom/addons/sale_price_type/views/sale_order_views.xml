@@ -8,10 +8,10 @@
             <xpath expr="//form/group/group/field[@name='product_id']" position="after">
                 <label for="origin_width"
                        string="Width"
-                       attrs="{'invisible': [('product_price_type', '=', ('standard'))]}"/>
+                       attrs="{'invisible': [('product_price_type', 'not in', ('fabric','table_2d','table_1d','area'))]}"/>
                 <div>
                     <field name="origin_width"
-                           attrs="{'invisible': [('product_price_type', '=', ('standard'))]}"
+                           attrs="{'invisible': [('product_price_type', 'not in', ('fabric','table_2d','table_1d','area'))]}"
                            class="oe_inline" style="max-width: 48%%; margin-right: 4%;"/>
                     <field name="width_sale_uom"
                            attrs="{'invisible': [('product_price_type', '=', ('standard'))]}"

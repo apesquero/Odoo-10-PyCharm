@@ -34,11 +34,10 @@ class AccountInvoiceLine(models.Model):
 
     @api.constrains('origin_width', 'origin_height')
     def _check_origin_dimensions_constrains(self):
-        if self.origin is False:
-            for record in self:
-                if not record.product_id.origin_check_sale_dim_values(
-                        record.origin_width, record.origin_height):
-                    raise ValidationError(_("Invalid dimension in:\n%s!") % self.product_id.name_get()[0][1])
+        for record in self:
+            if not record.product_id.origin_check_sale_dim_values(
+                    record.origin_width, record.origin_height):
+                raise ValidationError(_("Invalid dimension in:\n%s!") % self.product_id.name_get()[0][1])
 
     @api.onchange('origin_width',
                   'origin_height')
