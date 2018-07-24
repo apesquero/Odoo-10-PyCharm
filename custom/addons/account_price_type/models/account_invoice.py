@@ -34,10 +34,11 @@ class AccountInvoiceLine(models.Model):
 
     @api.constrains('origin_width', 'origin_height')
     def _check_origin_dimensions_constrains(self):
-        for record in self:
-            if not record.product_id.origin_check_sale_dim_values(
-                    record.origin_width, record.origin_height):
-                raise ValidationError(_("Invalid dimension in:\n%s!") % self.product_id.name_get()[0][1])
+        if self.origin is False:
+            for record in self:
+                if not record.product_id.origin_check_sale_dim_values(
+                        record.origin_width, record.origin_height):
+                    raise ValidationError(_("Invalid dimension in:\n%s!") % self.product_id.name_get()[0][1])
 
     @api.onchange('origin_width',
                   'origin_height')
@@ -185,9 +186,16 @@ class AccountInvoiceLine(models.Model):
             name += '\n' + product.description_sale
         vals['name'] = name
 
+        """TODO: simplificado, pendiente de aplicar pricelist, y la conversión de unidades. Para que 
+        funcione correctamente sin el sale instalado, hay que poder activar los grupos de visualización
+        para poder ver los precios de las variantes de los productos, y los atributos en las variantes."""
 
-        # TODO: Pendiente de calcular el precio
+        """TODO: simplified, pending to apply pricelist, and the conversion of units. To work properly 
+        without the sale installed, you must be able to activate the display groups to see the prices 
+        of the variants of the products, and the attributes in the variants."""
 
+        self.price_unit = product.lst_price
+        self._compute_price()
 
         self.update(vals)
 
