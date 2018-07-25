@@ -28,7 +28,7 @@
                            context="{'default_owner_model': 'sale.order.line', 'default_owner_id': id}"
                            attrs="{'invisible':[('product_attribute_ids','=',[])]}">
                         <!-- We are not using isolated view because onchange doesn't work in this case -->
-                        <tree create="0" delete="0" editable="1">
+                        <tree create="0" delete="0" editable="0">
                             <field name="owner_model" invisible="1"/>
                             <field name="owner_id" invisible="1"/>
                             <field name="attribute_id"/>
@@ -36,8 +36,6 @@
                             <field name="product_tmpl_id" invisible="1"/>
                             <field name="value_id" options="{'no_create': true, 'no_open': true}"/>
                             <field name="price_extra" invisible="1"/>
-                            <!--No funciona porque no está metido en depends del manifest price_dimension, creo-->
-                            <!--<field name="price_extra_type" invisible="1"/>-->
                             <field name="image" widget='image' display="thumbnail" readonly="1"/>
                         </tree>
                     </field>
