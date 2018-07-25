@@ -33,7 +33,7 @@
                         <field name="create_product_variant"
                                attrs="{'invisible':
                             [('can_create_product', '=', False)]}"/>
-                        <field name="product_id"/>
+                        <field name="product_id" options="{'no_create': true}"/>
 
                         <field name="origin" invisible="1"/>
                         <field name="name"/>
