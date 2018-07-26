@@ -11,3 +11,6 @@ class ProductPricesTable(models.Model):
     value = fields.Float(string="Value", digits=dp.get_precision('Product Price'))
 
     sale_product_tmpl_id = fields.Many2one('product.template', 'Product Template')
+
+    supplier_product_id = fields.Many2one('product.supplierinfo', 'Product Supplier Info')
+
