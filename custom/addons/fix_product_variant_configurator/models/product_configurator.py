@@ -7,11 +7,6 @@ from odoo.exceptions import ValidationError
 class ProductConfigurator(models.AbstractModel):
     _inherit = 'product.configurator'
 
-    product_id = fields.Many2one(
-        string="Product",
-        comodel_name="product.product",
-        required=True)
-
     @api.onchange('product_tmpl_id')
     def _onchange_product_tmpl_id_configurator(self):
         self.ensure_one()
