@@ -13,6 +13,7 @@
     'depends': ['sale',
                 'sale_variant_configurator',
                 'product_price_type',
+                'account_price_type',
                 ],
     'application': True,
     'installable': True,
