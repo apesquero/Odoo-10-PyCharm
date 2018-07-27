@@ -6,10 +6,10 @@
     'version': '10.0.1.0',
     'author': 'Amaro Pesquero',
     'data': [
-              'views/import_price_table.xml',
-              'views/product_supplier_info_views.xml',
-              'views/purchase_order_views.xml',
-            ],
+             'views/import_price_table.xml',
+             'views/product_supplier_info_views.xml',
+             'views/purchase_order_views.xml',
+             ],
     'category': 'Purchase',
     'depends': [
                 'purchase',
