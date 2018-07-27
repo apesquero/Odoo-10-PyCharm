@@ -8,9 +8,10 @@ from odoo.exceptions import ValidationError
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
-    origin_width = fields.Float(string="Width", required=True)
-    origin_height = fields.Float(string="Height", required=True)
+    origin_width = fields.Float(string="Width", required=True, default=0.0)
+    origin_height = fields.Float(string="Height", required=True, default=0.0)
     product_price_type = fields.Selection([('standard', 'Standard'),
+                                           ('fabric', 'Fabric'),
                                            ('table_1d', '1D Table'),
                                            ('table_2d', '2D Table'),
                                            ('area', 'Area')],

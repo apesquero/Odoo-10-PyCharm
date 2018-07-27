@@ -8,7 +8,7 @@
             <xpath expr="//form/sheet/group/group/field[@name='product_id']" position="after">
                 <field name="origin_width" attrs="{'invisible': [('product_price_type', 'not in', ('area','table_2d','table_1d'))]}"/>
                 <field name="origin_height" attrs="{'invisible': [('product_price_type', 'not in', ('area','table_2d'))]}"/>
-                <field name="product_price_type" invisible="0" readonly="1"/>
+                <field name="product_price_type" invisible="1"/>
             </xpath>
         </field>
     </record>
