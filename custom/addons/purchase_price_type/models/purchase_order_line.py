@@ -10,6 +10,12 @@ class PurchaseOrderLine(models.Model):
 
     origin_width = fields.Float(string="Width", required=True, default=0.0)
     origin_height = fields.Float(string="Height", required=True, default=0.0)
+
+    width_sale_uom = fields.Many2one('product.uom',
+                                     string='Width UOM',
+                                     related='product_id.width_uom',
+                                     readonly=True)
+
     product_price_type = fields.Selection([('standard', 'Standard'),
                                            ('fabric', 'Fabric'),
                                            ('table_1d', '1D Table'),

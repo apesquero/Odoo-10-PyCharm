@@ -6,13 +6,39 @@ from odoo.exceptions import ValidationError
 class SuppliferInfo(models.Model):
     _inherit = 'product.supplierinfo'
 
+    width_uom = fields.Many2one('product.uom',
+                                domain="[('category_id', '=', 4)]",
+                                related='product_tmpl_id.width_uom',
+                                string='Width UOM')
+    height_uom = fields.Many2one('product.uom',
+                                 domain="[('category_id', '=', 4)]",
+                                 related='product_tmpl_id.height_uom',
+                                 string='Height UOM')
+
+    purchase_price_type = fields.Selection([
+        ('standard', 'Standard'),
+        ('fabric', 'Fabric'),
+        ('table_1d', '1D Table'),
+        ('table_2d', '2D Table'),
+        ('area', 'Area')],
+        string='Supplier Price Type',
+        required=True,
+        related='product_tmpl_id.sale_price_type',
+    )
+    """FABRIC"""
+    fabric_uom = fields.Many2one('product.uom',
+                                 domain="[('category_id', '=', 4)]",
+                                 string='Fabric UOM',
+                                 related='product_tmpl_id.fabric_uom')
+
+    """AREA"""
     area_uom = fields.Many2one('product.uom',
                                string='Area UOM',
                                related='purchase_prices_area.area_uom')
 
     purchase_prices_area = fields.One2many('purchase.prices_area',
-                                       'purchase_area_suppl_id',
-                                       string="Purchase Prices Area")
+                                           'purchase_area_suppl_id',
+                                           string="Purchase Prices Area")
 
     min_width_area = fields.Float(related='purchase_prices_area.min_width_area')
     max_width_area = fields.Float(related='purchase_prices_area.max_width_area')
@@ -21,15 +47,7 @@ class SuppliferInfo(models.Model):
 
     min_price_area = fields.Float(related='purchase_prices_area.min_price_area')
 
-    purchase_price_type = fields.Selection([
-        ('standard', 'Standard'),
-        ('table_1d', '1D Table'),
-        ('table_2d', '2D Table'),
-        ('area', 'Area')],
-        string='Supplier Price Type',
-        required=True,
-        default='standard',
-    )
+
 
     prices_table = fields.One2many('product.prices_table',
                                    'supplier_product_id',
