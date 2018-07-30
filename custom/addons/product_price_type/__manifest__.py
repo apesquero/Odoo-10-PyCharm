@@ -11,6 +11,7 @@
              'views/product_product_views.xml',
              'views/product_template_views.xml',
              'views/product_fabric_views.xml',
+             'views/product_supplier_info_views.xml',
              ],
     'demo': ['data/product.template.csv'],
     'external_dependencies': {'python': ['xlrd']},

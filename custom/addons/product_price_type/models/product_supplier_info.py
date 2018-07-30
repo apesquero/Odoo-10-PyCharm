@@ -23,7 +23,7 @@ class SuppliferInfo(models.Model):
         ('area', 'Area')],
         string='Supplier Price Type',
         required=True,
-        related='product_tmpl_id.sale_price_type',
+        default='standard'
     )
     """FABRIC"""
     fabric_uom = fields.Many2one('product.uom',
