@@ -7,5 +7,4 @@ from . import product_prices_fabric
 from . import product_prices_table
 from . import product_prices_area
 from . import product_supplier_info
-from . import purchase_prices_area
-
+from . import product_supplier_prices_area

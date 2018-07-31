@@ -36,7 +36,7 @@ class SuppliferInfo(models.Model):
                                string='Area UOM',
                                related='purchase_prices_area.area_uom')
 
-    purchase_prices_area = fields.One2many('purchase.prices_area',
+    purchase_prices_area = fields.One2many('product.supplier_prices_area',
                                            'purchase_area_suppl_id',
                                            string="Purchase Prices Area")
 

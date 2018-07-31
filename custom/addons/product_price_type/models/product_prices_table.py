@@ -13,4 +13,3 @@ class ProductPricesTable(models.Model):
     sale_product_tmpl_id = fields.Many2one('product.template', 'Product Template')
 
     supplier_product_id = fields.Many2one('product.supplierinfo', 'Product Supplier Info')
-

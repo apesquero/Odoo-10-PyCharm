@@ -4,7 +4,7 @@ import odoo.addons.decimal_precision as dp
 
 
 class PurchasePricesArea(models.Model):
-    _name = 'purchase.prices_area'
+    _name = 'product.supplier_prices_area'
 
     min_width_area = fields.Float(string="Min. Width", default=0.0,
                              digits=dp.get_precision('Product Unit of Measure'))
