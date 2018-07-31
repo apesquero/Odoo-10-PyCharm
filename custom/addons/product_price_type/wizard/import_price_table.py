@@ -16,10 +16,13 @@ class WizardMultiDimensionTable(models.TransientModel):
 
     @api.multi
     def import_sale_prices_from_file(self):
-        record_id = self.env[self._context.get('active_model')].browse(self._context.get('active_id'))
+        record_id = self.env[self._context.get('active_model')].browse(
+            self._context.get('active_id'))
         try:
-            book = xlrd.open_workbook(file_contents=base64.b64decode(self.prices_table_file))
-            opers = self._generate_commands_from_xls_book(record_id.sale_price_type, book)
+            book = xlrd.open_workbook(file_contents=base64.b64decode(
+                self.prices_table_file))
+            opers = self._generate_commands_from_xls_book(
+                record_id.sale_price_type, book)
             # We eliminate previous values, in case of replacing an existing table.
             for record_prices in record_id.sale_prices_table:
                 record_id.write({'sale_prices_table': [(2, record_prices.id, False)]})
@@ -34,13 +37,15 @@ class WizardMultiDimensionTable(models.TransientModel):
     def import_supplier_prices_from_file(self):
         record_id = self.env[self._context.get('active_model')].browse(
             self._context.get('active_id'))
-
         try:
             book = xlrd.open_workbook(file_contents=base64.b64decode(
                 self.prices_table_file))
             opers = self._generate_commands_from_xls_book(
                 record_id.purchase_price_type, book)
-            record_id.write({'prices_table': [(5, False, False)] + opers})
+            # We eliminate previous values, in case of replacing an existing table.
+            for record_prices in record_id.prices_table:
+                record_id.write({'prices_table': [(2, record_prices.id, False)]})
+            record_id.write({'prices_table': opers})
         except xlrd.XLRDError:
             raise UserError(_('Invalid file format! (Only accept .xls or .xlsx)'))
         return {}

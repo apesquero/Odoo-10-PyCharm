@@ -146,20 +146,34 @@ class SuppliferInfo(models.Model):
                 height <= self.max_height_area
         return True
 
+    @api.model
     def origin_normalize_width_value(self, width):
         headers = self.get_price_table_headers()
         norm_val = width
         for index in range(len(headers['x'])-1):
-            if width > headers['x'][index] and width <= headers['x'][index+1]:
-                norm_val = headers['x'][index+1]
+            if headers['x'][0] == 0 and index == 0:
+                if width >= headers['x'][index + 1] and \
+                                width <= headers['x'][index + 1]:
+                    norm_val = headers['x'][index + 2]
+            else:
+                if width > headers['x'][index] and \
+                                width <= headers['x'][index + 1]:
+                    norm_val = headers['x'][index + 1]
         return norm_val
 
+    @api.model
     def origin_normalize_height_value(self, height):
         headers = self.get_price_table_headers()
         norm_val = height
-        for index in range(len(headers['y'])-1):
-            if height > headers['y'][index] and height <= headers['y'][index+1]:
-                norm_val = headers['y'][index+1]
+        for index in range(len(headers['y']) - 1):
+            if headers['y'][0] == 0 and index == 0:
+                if height >= headers['y'][index + 1] and \
+                                height <= headers['y'][index + 1]:
+                    norm_val = headers['y'][index + 2]
+            else:
+                if height > headers['y'][index] and \
+                            height <= headers['y'][index + 1]:
+                    norm_val = headers['y'][index + 1]
         return norm_val
 
     @api.depends('price')
