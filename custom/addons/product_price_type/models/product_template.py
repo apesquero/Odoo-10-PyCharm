@@ -15,7 +15,7 @@ class ProductTemplate(models.Model):
                                  default=lambda self: self.env['product.uom'].search([('name', '=', u'cm')]).id,
                                  string='Height UOM')
 
-    sale_price_type = fields.Selection([
+    product_price_type = fields.Selection([
         ('standard', 'Standard'),
         ('fabric', 'Fabric'),
         ('table_1d', '1D Table'),
@@ -92,10 +92,10 @@ class ProductTemplate(models.Model):
     min_price_area = fields.Float(related='sale_prices_area.min_price_area')
 
     @api.one
-    @api.constrains('sale_price_type')
+    @api.constrains('product_price_type')
     def _create_relation(self):
         self.ensure_one()
-        if self.sale_price_type == 'fabric':
+        if self.product_price_type == 'fabric':
             column = {'rapport': self.rapport,
                       'height_roll': self.height_roll,
                       'min_price_fabric': self.min_price_fabric,
@@ -106,10 +106,10 @@ class ProductTemplate(models.Model):
             if not self.sale_prices_fabric:
                 self.write({'sale_prices_fabric': [(0, None, column)]})
             return {}
-        if self.sale_price_type != 'fabric' and self.sale_prices_fabric.id is not False:
+        if self.product_price_type != 'fabric' and self.sale_prices_fabric.id is not False:
             self.write({'sale_prices_fabric': [(2, self.sale_prices_fabric.id, False)]})
             return {}
-        if self.sale_price_type == 'area':
+        if self.product_price_type == 'area':
             column = {'min_width_area': self.min_width_area,
                       'max_width_area': self.max_width_area,
                       'min_height_area': self.min_height_area,
@@ -120,7 +120,7 @@ class ProductTemplate(models.Model):
             if not self.sale_prices_area:
                 self.write({'sale_prices_area': [(0, None, column)]})
             return {}
-        if self.sale_price_type != 'area' and self.sale_prices_area.id is not False:
+        if self.product_price_type != 'area' and self.sale_prices_area.id is not False:
             self.write({'sale_prices_area': [(2, self.sale_prices_area.id, False)]})
             return {}
 
@@ -131,7 +131,7 @@ class ProductTemplate(models.Model):
                     'max_height_area',
                     'min_price_area')
     def _check_area_values(self):
-        if self.sale_price_type == 'area':
+        if self.product_price_type == 'area':
             if self.min_width_area <= 0 or \
                 self.min_height_area <= 0 or \
                 self.max_width_area <= 0 or \

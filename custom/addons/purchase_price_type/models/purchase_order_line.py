@@ -16,13 +16,13 @@ class PurchaseOrderLine(models.Model):
                                      related='product_id.width_uom',
                                      readonly=True)
 
-    product_price_type = fields.Selection([('standard', 'Standard'),
+    purchase_price_type = fields.Selection([('standard', 'Standard'),
                                            ('fabric', 'Fabric'),
                                            ('table_1d', '1D Table'),
                                            ('table_2d', '2D Table'),
                                            ('area', 'Area')],
                                           string='Sale Price Type',
-                                          related='product_id.sale_price_type')
+                                          related='product_id.product_price_type')
 
     # @api.constrains('origin_width')
     # def _check_origin_width(self):
@@ -66,7 +66,10 @@ class PurchaseOrderLine(models.Model):
     #             if not seller.origin_check_dim_values(record.origin_width, record.origin_height):
     #                 raise ValidationError(_("Invalid height!"))
 
-    @api.onchange('product_id', 'origin_width', 'origin_height', 'product_attribute_ids')
+    @api.onchange('product_id',
+                  'origin_width',
+                  'origin_height',
+                  'product_attribute_ids')
     def onchange_product_id(self):
         result = super(PurchaseOrderLine, self).onchange_product_id()
         if not self.product_tmpl_id:
@@ -87,16 +90,16 @@ class PurchaseOrderLine(models.Model):
             height=self.origin_height
         )
 
-        if product.sale_price_type in ['table_2d', 'area'] \
+        if product.product_price_type in ['table_2d', 'area'] \
                 and self.origin_height != 0 and self.origin_width != 0 \
                 and not self.product_id.origin_check_sale_dim_values(self.origin_width,
                                                                      self.origin_height):
             raise ValidationError(_("Invalid Dimensions!"))
-        elif product.sale_price_type == 'table_1d' and self.origin_width != 0 \
+        elif product.product_price_type == 'table_1d' and self.origin_width != 0 \
                 and not self.product_id.origin_check_sale_dim_values(self.origin_width, 0):
             raise ValidationError(_("Invalid Dimensions!"))
 
-        if self.product_tmpl_id.sale_price_type not in ['table_1d','table_2d', 'area']:
+        if self.product_tmpl_id.product_price_type not in ['table_1d','table_2d', 'area']:
             self.origin_height = self.origin_width = 0
 
         # Reset date, price and quantity since _onchange_quantity will provide default values
@@ -112,14 +115,14 @@ class PurchaseOrderLine(models.Model):
             'height': self.origin_height
         })
         name = product_lang.display_name
-        if product.sale_price_type in ['table_2d', 'area']:
+        if product.product_price_type in ['table_2d', 'area']:
             height_uom = product.height_uom.name
             width_uom = product.width_uom.name
             name += _(' [Width:%.2f %s x Height:%.2f %s]') % (self.origin_width,
                                                               width_uom,
                                                               self.origin_height,
                                                               height_uom)
-        elif product.sale_price_type == 'table_1d':
+        elif product.product_price_type == 'table_1d':
             width_uom = product.width_uom.name
             name += _(' [ Width:%.2f %s]') % (self.origin_width,
                                               width_uom)

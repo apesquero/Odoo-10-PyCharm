@@ -8,24 +8,24 @@
 
             <!--Igualamos las opciones a product.product_template_form_view, vista productos-->
             <xpath expr="//field[@name='lst_price']" position="attributes">
-                <attribute name="attrs">{'invisible':[('sale_price_type',
+                <attribute name="attrs">{'invisible':[('product_price_type',
                                          'not in', ['standard', 'fabric', 'area'])]
                                         }</attribute>
             </xpath>
 
             <xpath expr="//notebook/page[1]" position="after">
                 <page string="Sale Price Type"
-                      attrs="{'invisible':[('sale_price_type', '=', 'standard')]}">
-                    <group attrs="{'invisible':[('sale_price_type', '=', 'fabric')]}">
+                      attrs="{'invisible':[('product_price_type', '=', 'standard')]}">
+                    <group attrs="{'invisible':[('product_price_type', '=', 'fabric')]}">
                         <field name="width_uom"
-                               attrs="{'required':[('sale_price_type', 'in',
+                               attrs="{'required':[('product_price_type', 'in',
                                       ['table_1d','table_2d','area'])]}"/>
                         <field name="height_uom"
-                               attrs="{'invisible':[('sale_price_type', '=', 'table_1d')],
-                                       'required':[('sale_price_type', 'in', ['table_2d','area'])]}"/>
+                               attrs="{'invisible':[('product_price_type', '=', 'table_1d')],
+                                       'required':[('product_price_type', 'in', ['table_2d','area'])]}"/>
                     </group>
 
-                    <group attrs="{'invisible':[('sale_price_type', '!=', 'fabric')]}">
+                    <group attrs="{'invisible':[('product_price_type', '!=', 'fabric')]}">
                         <group>
                             <label for="rapport" string="Rapport"/>
                             <div>
@@ -33,7 +33,7 @@
                                        class="oe_inline"
                                        style="max-width: 48%%; margin-right: 4%;"/>
                                 <field name="rapport_uom"
-                                       attrs="{'required':[('sale_price_type', '=', 'fabric')]}"
+                                       attrs="{'required':[('product_price_type', '=', 'fabric')]}"
                                        options="{'no_create': True, 'no_open': True}"
                                        class="oe_inline" style="max-width: 48%%"/>
                             </div>
@@ -43,12 +43,12 @@
                                        class="oe_inline"
                                        style="max-width: 48%%; margin-right: 4%;"/>
                                 <field name="roll_uom"
-                                       attrs="{'required':[('sale_price_type', '=', 'fabric')]}"
+                                       attrs="{'required':[('product_price_type', '=', 'fabric')]}"
                                        options="{'no_create': True, 'no_open': True}"
                                        class="oe_inline" style="max-width: 48%%"/>
                             </div>
                             <field name="rapport_orientation"
-                                   attrs="{'required':[('sale_price_type', '=', 'fabric')]}"/>
+                                   attrs="{'required':[('product_price_type', '=', 'fabric')]}"/>
                             <field name="min_price_fabric" widget="monetary"/>
                             <field name="cost_transport_fabric" widget="monetary"/>
                             <field name="min_transport_fabric" widget="monetary"/>
@@ -63,7 +63,7 @@
                         </group>
                     </group>
 
-                    <group attrs="{'invisible':[('sale_price_type', '!=', 'area')]}">
+                    <group attrs="{'invisible':[('product_price_type', '!=', 'area')]}">
                         <group>
                             <field name="min_width_area"/>
                             <field name="max_width_area"/>
@@ -77,13 +77,13 @@
                         </group>
                     </group>
 
-                    <div attrs="{'invisible':[('sale_price_type', 'not in',
+                    <div attrs="{'invisible':[('product_price_type', 'not in',
                                 ['table_1d','table_2d'])]}">
                         <div>
                             <field class="col-md-12"
                                    name="sale_prices_table"
                                    widget="mdtable"
-                                   mode="sale_price_type"
+                                   mode="product_price_type"
                                    nolabel="1"/>
                             <div class="o_td_label">
                                 <button name="%(launch_wizard_mdtable_sale_import_data)d"

@@ -8,20 +8,20 @@
             <xpath expr="//form/group/group/field[@name='product_id']" position="after">
                 <label for="origin_width"
                        string="Width"
-                       attrs="{'invisible': [('product_price_type', 'not in', ('fabric','table_2d','table_1d','area'))]}"/>
+                       attrs="{'invisible': [('sale_price_type', 'not in', ('fabric','table_2d','table_1d','area'))]}"/>
                 <div>
                     <field name="origin_width"
-                           attrs="{'invisible': [('product_price_type', 'not in', ('fabric','table_2d','table_1d','area'))]}"
+                           attrs="{'invisible': [('sale_price_type', 'not in', ('fabric','table_2d','table_1d','area'))]}"
                            class="oe_inline" style="max-width: 48%%; margin-right: 4%;"/>
-                    <field name="width_sale_uom"
-                           attrs="{'invisible': [('product_price_type', '=', ('standard'))]}"
+                    <field name="width_uom"
+                           attrs="{'invisible': [('sale_price_type', '=', ('standard'))]}"
                            options="{'no_create': True, 'no_open': True}"
                            class="oe_inline" style="max-width: 48%%"/>
                 </div>
                 <label for="rapport"
                        string="Rapport"
-                       attrs="{'invisible': [('product_price_type', '!=', ('fabric'))]}"/>
-                <div attrs="{'invisible': [('product_price_type', '!=', ('fabric'))]}">
+                       attrs="{'invisible': [('sale_price_type', '!=', ('fabric'))]}"/>
+                <div attrs="{'invisible': [('sale_price_type', '!=', ('fabric'))]}">
                     <field name="rapport"
                            readonly="1"
                            class="oe_inline" style="max-width: 48%%; margin-right: 4%;"/>
@@ -32,20 +32,20 @@
 
                 <label for="origin_height"
                        string="Height"
-                       attrs="{'invisible': [('product_price_type', 'not in',
+                       attrs="{'invisible': [('sale_price_type', 'not in',
                        ('table_2d','area'))]}"/>
                 <div>
                     <field name="origin_height"
-                           attrs="{'invisible': [('product_price_type', 'not in',
+                           attrs="{'invisible': [('sale_price_type', 'not in',
                            ('area','table_2d'))]}"
                            class="oe_inline" style="max-width: 48%%; margin-right: 4%;"/>
-                    <field name="height_sale_uom"
-                           attrs="{'invisible': [('product_price_type', 'not in',
+                    <field name="height_uom"
+                           attrs="{'invisible': [('sale_price_type', 'not in',
                            ('table_2d','area'))]}"
                            options="{'no_create': True, 'no_open': True}"
                            class="oe_inline" style="max-width: 48%%"/>
                 </div>
-                <field name="product_price_type" invisible="1"/>
+                <field name="sale_price_type" invisible="1"/>
             </xpath>
         </field>
     </record>

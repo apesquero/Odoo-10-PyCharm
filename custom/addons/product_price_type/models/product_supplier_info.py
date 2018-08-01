@@ -55,7 +55,7 @@ class SuppliferInfo(models.Model):
 
     @api.onchange('purchase_price_type')
     def _check_tmpl_area(self):
-        if self.purchase_price_type == 'area' and self.product_tmpl_id.sale_price_type == 'area':
+        if self.purchase_price_type == 'area' and self.product_tmpl_id.product_price_type == 'area':
             self.update({'min_width_area': self.product_tmpl_id.min_width_area,
                          'max_width_area': self.product_tmpl_id.max_width_area,
                          'min_height_area': self.product_tmpl_id.min_height_area,
@@ -67,7 +67,7 @@ class SuppliferInfo(models.Model):
     @api.constrains('purchase_price_type')
     def _create_relation(self):
         self.ensure_one()
-        if self.purchase_price_type == 'area' and self.product_tmpl_id.sale_price_type == 'area':
+        if self.purchase_price_type == 'area' and self.product_tmpl_id.product_price_type == 'area':
             column = {'min_width_area': self.product_tmpl_id.min_width_area,
                       'max_width_area': self.product_tmpl_id.max_width_area,
                       'min_height_area': self.product_tmpl_id.min_height_area,

@@ -18,13 +18,13 @@ class AccountInvoiceLine(models.Model):
                                       related='product_tmpl_id.height_uom',
                                       readonly=True)
 
-    product_price_type = fields.Selection([('standard', 'Standard'),
+    account_price_type = fields.Selection([('standard', 'Standard'),
                                            ('fabric', 'Fabric'),
                                            ('table_1d', '1D Table'),
                                            ('table_2d', '2D Table'),
                                            ('area', 'Area')],
                                           string='Sale Price Type',
-                                          related='product_tmpl_id.sale_price_type')
+                                          related='product_tmpl_id.product_price_type')
 
     rapport = fields.Float(related='product_tmpl_id.rapport')
     rapport_uom = fields.Many2one('product.uom',
@@ -46,27 +46,27 @@ class AccountInvoiceLine(models.Model):
         width_uom = self.product_id.width_uom.name
         height_uom = self.product_id.height_uom.name
 
-        if self.product_id and self.product_id.sale_price_type in ['table_1d', 'table_2d']:
+        if self.product_id and self.product_id.product_price_type in ['table_1d', 'table_2d']:
             max_width = self.product_id.get_sale_price_table_headers()['x'][-1]
             if self.product_id.get_sale_price_table_headers()['x'][0] == 0:
                 min_width = self.product_id.get_sale_price_table_headers()['x'][1]
             else:
                 min_width = self.product_id.get_sale_price_table_headers()['x'][0]
 
-        if self.product_id and self.product_id.sale_price_type in ['table_2d']:
+        if self.product_id and self.product_id.product_price_type in ['table_2d']:
             max_height = self.product_id.get_sale_price_table_headers()['y'][-1]
             if self.product_id.get_sale_price_table_headers()['y'][0] == 0:
                 min_height = self.product_id.get_sale_price_table_headers()['y'][1]
             else:
                 min_height = self.product_id.get_sale_price_table_headers()['y'][0]
 
-        if self.product_id and self.product_id.sale_price_type in ['area']:
+        if self.product_id and self.product_id.product_price_type in ['area']:
             max_width = self.product_id.max_width_area
             min_width = self.product_id.min_width_area
             max_height = self.product_id.max_height_area
             min_height = self.product_id.min_height_area
 
-        if self.product_id.sale_price_type in ['table_2d', 'area'] and \
+        if self.product_id.product_price_type in ['table_2d', 'area'] and \
                         self.origin_height != 0 and self.origin_width != 0 and \
                 not self.product_id.origin_check_sale_dim_values(
                     self.origin_width, self.origin_height):
@@ -87,7 +87,7 @@ class AccountInvoiceLine(models.Model):
                                         "See the table dimensions"))
 
 
-        elif self.product_id.sale_price_type == 'table_1d' and self.origin_width != 0 and \
+        elif self.product_id.product_price_type == 'table_1d' and self.origin_width != 0 and \
                 not self.product_id.origin_check_sale_dim_values(self.origin_width, 0):
             if self.origin_width > max_width:
                 raise ValidationError(_("Invalid Dimensions Product! "
@@ -146,11 +146,11 @@ class AccountInvoiceLine(models.Model):
         message = False
         warning = {}
 
-        if self.product_tmpl_id.sale_price_type not in ['fabric', 'table_1d', 'table_2d', 'area']:
+        if self.product_tmpl_id.product_price_type not in ['fabric', 'table_1d', 'table_2d', 'area']:
             self.origin_height = self.origin_width = 0
 
         # rapport calculation
-        if self.product_tmpl_id.sale_price_type in ['fabric']:
+        if self.product_tmpl_id.product_price_type in ['fabric']:
             rapport = (self.width_sale_uom.factor * self.rapport) / self.rapport_uom.factor
             width_uom = self.width_sale_uom.name
             if rapport > 0:
@@ -170,13 +170,13 @@ class AccountInvoiceLine(models.Model):
         name = ''
         if self.product_id:
             name = product.name_get()[0][1]
-        if product.sale_price_type in ['fabric']:
+        if product.product_price_type in ['fabric']:
             width_uom = product.width_uom.name
             name += _(' [Length:%.2f %s]') % (self.origin_width, width_uom)
-        elif product.sale_price_type in ['table_1d']:
+        elif product.product_price_type in ['table_1d']:
             width_uom = product.width_uom.name
             name += _(' [Width:%.2f %s]') % (self.origin_width, width_uom)
-        elif product.sale_price_type in ['table_2d', 'area']:
+        elif product.product_price_type in ['table_2d', 'area']:
             height_uom = product.height_uom.name
             width_uom = product.width_uom.name
             name += _(' [Width:%.2f %s x Height:%.2f %s]') % \

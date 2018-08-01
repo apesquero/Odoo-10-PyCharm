@@ -54,9 +54,9 @@ class ProcurementOrder(models.Model):
             taxes_id = taxes_id.filtered(lambda x: x.company_id.id == self.company_id.id)
 
         name = res['name']
-        if product_id.sale_price_type in ['table_2d', 'area']:
+        if product_id.product_price_type in ['table_2d', 'area']:
             name += ' [Width:%.2f cms x Height:%.2f cms]' % (self.origin_width, self.origin_height)
-        elif product_id.sale_price_type == 'table_1d':
+        elif product_id.product_price_type == 'table_1d':
             name += ' [ Width:%.2f cms]' % (self.origin_width)
 
         price_unit = self.env['account.tax']._fix_tax_included_price(

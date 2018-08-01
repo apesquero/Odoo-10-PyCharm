@@ -7,10 +7,10 @@ class ProductProduct(models.Model):
 
     @api.model
     def origin_check_sale_dim_values(self, width, height):
-        if self.sale_price_type in ['table_1d', 'table_2d']:
+        if self.product_price_type in ['table_1d', 'table_2d']:
             product_prices_table_obj = self.env['product.prices_table']
             norm_width = self.origin_normalize_sale_width_value(width)
-            if self.sale_price_type == 'table_2d':
+            if self.product_price_type == 'table_2d':
                 norm_height = self.origin_normalize_sale_height_value(height)
                 return product_prices_table_obj.search_count([
                     ('sale_product_tmpl_id', '=', self.product_tmpl_id.id),
@@ -21,7 +21,7 @@ class ProductProduct(models.Model):
                 ('sale_product_tmpl_id', '=', self.product_tmpl_id.id),
                 ('pos_x', '=', norm_width),
                 ('value', '!=', 0)]) > 0
-        elif self.sale_price_type == 'area':
+        elif self.product_price_type == 'area':
             return width >= self.min_width_area and \
                    width <= self.max_width_area and \
                    height >= self.min_height_area and \
@@ -79,7 +79,7 @@ class ProductProduct(models.Model):
         if origin_width:
             product_prices_table_obj = self.env['product.prices_table']
             origin_width = self.origin_normalize_sale_width_value(origin_width)
-            if self.sale_price_type == 'table_2d':
+            if self.product_price_type == 'table_2d':
                 origin_height = self.origin_normalize_sale_height_value(origin_height)
                 res = product_prices_table_obj.search([
                     ('sale_product_tmpl_id', '=', self.product_tmpl_id.id),
@@ -87,20 +87,20 @@ class ProductProduct(models.Model):
                     ('pos_y', '=', origin_height)
                 ], limit=1)
                 result = res and res.value or False
-            elif self.sale_price_type == 'table_1d':
+            elif self.product_price_type == 'table_1d':
                 res = product_prices_table_obj.search([
                     ('sale_product_tmpl_id', '=', self.product_tmpl_id.id),
                     ('pos_x', '=', origin_width)
                 ], limit=1)
                 result = res and res.value or False
-            elif self.sale_price_type == 'area':
+            elif self.product_price_type == 'area':
                 # Unit conversion created
                 origin_width = (self.area_uom.factor * origin_width) / self.width_uom.factor
                 origin_height = (self.area_uom.factor * origin_height) / self.height_uom.factor
 
                 result = self.list_price * origin_width * origin_height
                 result = max(self.min_price_area, result)
-            elif self.sale_price_type == 'fabric':
+            elif self.product_price_type == 'fabric':
                 # Unit conversion created
                 origin_width = (self.fabric_uom.factor * origin_width) / self.width_uom.factor
 

@@ -22,7 +22,7 @@ class WizardMultiDimensionTable(models.TransientModel):
             book = xlrd.open_workbook(file_contents=base64.b64decode(
                 self.prices_table_file))
             opers = self._generate_commands_from_xls_book(
-                record_id.sale_price_type, book)
+                record_id.product_price_type, book)
             # We eliminate previous values, in case of replacing an existing table.
             for record_prices in record_id.sale_prices_table:
                 record_id.write({'sale_prices_table': [(2, record_prices.id, False)]})
