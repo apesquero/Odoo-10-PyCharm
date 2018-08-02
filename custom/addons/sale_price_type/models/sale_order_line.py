@@ -3,6 +3,7 @@ from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from math import ceil
 
+
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
@@ -10,21 +11,21 @@ class SaleOrderLine(models.Model):
     origin_height = fields.Float(string="Height", required=True, default=0.0)
 
     width_uom = fields.Many2one('product.uom',
-                                     string='Width UOM',
-                                     related='product_tmpl_id.width_uom',
-                                     readonly=True)
+                                string='Width UOM',
+                                related='product_tmpl_id.width_uom',
+                                readonly=True)
     height_uom = fields.Many2one('product.uom',
-                                      string='Height UOM',
-                                      related='product_tmpl_id.height_uom',
-                                      readonly=True)
+                                 string='Height UOM',
+                                 related='product_tmpl_id.height_uom',
+                                 readonly=True)
 
     sale_price_type = fields.Selection([('standard', 'Standard'),
-                                           ('fabric', 'Fabric'),
-                                           ('table_1d', '1D Table'),
-                                           ('table_2d', '2D Table'),
-                                           ('area', 'Area')],
-                                          string='Sale Price Type',
-                                          related='product_tmpl_id.product_price_type')
+                                        ('fabric', 'Fabric'),
+                                        ('table_1d', '1D Table'),
+                                        ('table_2d', '2D Table'),
+                                        ('area', 'Area')],
+                                       string='Sale Price Type',
+                                       related='product_tmpl_id.product_price_type')
 
     rapport = fields.Float(related='product_tmpl_id.rapport')
     rapport_uom = fields.Many2one('product.uom',
@@ -37,25 +38,25 @@ class SaleOrderLine(models.Model):
         for record in self:
             if not record.product_id.origin_check_sale_dim_values(
                     record.origin_width, record.origin_height):
-                raise ValidationError(_("Invalid dimension in:\n%s!") % self.product_id.name_get()[0][1])
+                raise ValidationError(_("Invalid dimension in:\n%s!")
+                                      % self.product_id.name_get()[0][1])
 
     @api.onchange('product_id',
                   'origin_width',
                   'origin_height',
                   'product_attribute_ids')
     def product_id_change(self):
-        # super(SaleOrderLine, self).product_id_change()
-        product_tmp = False
-        if not self.product_tmpl_id or (self.product_id and \
-                                        self.product_id.product_tmpl_id.id != \
-                                        self.product_id.product_tmpl_id.id):
+        if not self.product_tmpl_id \
+                or (self.product_id
+                    and self.product_id.product_tmpl_id.id
+                        != self.product_id.product_tmpl_id.id):
             return {'domain': {'product_uom': []}}
 
         # Create a product if it doesn't exist
         if self.can_create_product:
             try:
                 with self.env.cr.savepoint():
-                    product_tmp = self.product_id = self.create_variant_if_needed()
+                    self.product_id = self.create_variant_if_needed()
             except ValidationError as e:
                 return {'warning': {
                     'title': _('Product not created!'),
@@ -102,13 +103,13 @@ class SaleOrderLine(models.Model):
         if self.product_tmpl_id.product_price_type not in ['fabric', 'table_1d', 'table_2d', 'area']:
             self.origin_height = self.origin_width = 0
 
-        #rapport calculation
+        # rapport calculation
         if self.product_tmpl_id.product_price_type in ['fabric']:
             rapport = (self.width_uom.factor * self.rapport) / self.rapport_uom.factor
             width_uom = self.width_uom.name
             if rapport > 0:
 
-                result_width = (int(ceil(round((self.origin_width / rapport), 2))))*rapport
+                result_width = (int(ceil(round((self.origin_width / rapport), 2)))) * rapport
                 remainder = result_width - self.origin_width
                 if remainder > 0:
                     self.origin_width = result_width
@@ -141,7 +142,7 @@ class SaleOrderLine(models.Model):
         self._compute_tax_id()
 
         if self.order_id.pricelist_id and self.order_id.partner_id:
-            vals['price_unit'] = self.env['account.tax'].\
+            vals['price_unit'] = self.env['account.tax']. \
                 _fix_tax_included_price_company(self._get_display_price(product),
                                                 product.taxes_id,
                                                 self.tax_id,
@@ -233,7 +234,7 @@ class SaleOrderLine(models.Model):
             )
 
         if self.order_id.pricelist_id and self.order_id.partner_id:
-            self.price_unit = self.env['account.tax'].\
+            self.price_unit = self.env['account.tax']. \
                 _fix_tax_included_price_company(self._get_display_price(product),
                                                 product.taxes_id,
                                                 self.tax_id,
@@ -243,11 +244,11 @@ class SaleOrderLine(models.Model):
     @api.multi
     def _get_display_price(self, product):
         # TO DO: move me in master/saas-16 on sale.order
-        if self.order_id.pricelist_id.discount_policy == 'with_discount'\
+        if self.order_id.pricelist_id.discount_policy == 'with_discount' \
                 or product._name != 'product.product' or self.product_id.id is False:
             return product.with_context(pricelist=self.order_id.pricelist_id.id).price
 
-        final_price, rule_id = self.order_id.pricelist_id.\
+        final_price, rule_id = self.order_id.pricelist_id. \
             get_product_price_rule(product,
                                    self.product_uom_qty or 1.0,
                                    self.order_id.partner_id)
@@ -255,13 +256,13 @@ class SaleOrderLine(models.Model):
         context_partner = dict(self.env.context, partner_id=self.order_id.partner_id.id,
                                date=self.order_id.date_order)
 
-        base_price, currency_id = self.with_context(context_partner).\
+        base_price, currency_id = self.with_context(context_partner). \
             _get_real_price_currency(product, rule_id,
                                      self.product_uom_qty,
                                      self.product_uom,
                                      self.order_id.pricelist_id.id)
         if currency_id != self.order_id.pricelist_id.currency_id.id:
-            base_price = self.env['res.currency'].browse(currency_id).\
+            base_price = self.env['res.currency'].browse(currency_id). \
                 with_context(context_partner).compute(base_price,
                                                       self.order_id.pricelist_id.currency_id)
 
@@ -277,9 +278,11 @@ class SaleOrderLine(models.Model):
         """
         self.ensure_one()
         res = {}
-        account = self.product_id.property_account_income_id or self.product_id.categ_id.property_account_income_categ_id
+        account = self.product_id.property_account_income_id \
+                  or self.product_id.categ_id.property_account_income_categ_id
         if not account:
-            raise UserError(_('Please define income account for this product: "%s" (id:%d) - or for its category: "%s".') %
+            raise UserError(
+                _('Please define income account for this product: "%s" (id:%d) - or for its category: "%s".') %
                 (self.product_id.name, self.product_id.id, self.product_id.categ_id.name))
 
         fpos = self.order_id.fiscal_position_id or self.order_id.partner_id.property_account_position_id
@@ -302,12 +305,11 @@ class SaleOrderLine(models.Model):
             'analytic_tag_ids': [(6, 0, self.analytic_tag_ids.ids)],
 
             'product_tmpl_id': self.product_tmpl_id.id or False,
+
+            # TODO: Pendiente de pasar los valores de atributo
             # 'product_attribute_ids': [(6, 0, self.product_attribute_ids.ids)],
 
             'origin_width': self.origin_width,
             'origin_height': self.origin_height,
-            'rapport': self.rapport,
-            'rapport_uom': self.rapport_uom,
-
         }
         return res
