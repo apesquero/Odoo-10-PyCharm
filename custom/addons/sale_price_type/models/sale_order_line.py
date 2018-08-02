@@ -7,8 +7,12 @@ from math import ceil
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    origin_width = fields.Float(string="Width", required=True, default=0.0)
-    origin_height = fields.Float(string="Height", required=True, default=0.0)
+    origin_width = fields.Float(string="Width",
+                                required=True,
+                                default=0.0)
+    origin_height = fields.Float(string="Height",
+                                 required=True,
+                                 default=0.0)
 
     width_uom = fields.Many2one('product.uom',
                                 string='Width UOM',

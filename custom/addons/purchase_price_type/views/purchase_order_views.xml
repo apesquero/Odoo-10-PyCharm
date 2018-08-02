@@ -13,12 +13,36 @@
                     <field name="origin_width"
                            attrs="{'invisible': [('purchase_price_type', 'not in', ('fabric','table_2d','table_1d','area'))]}"
                            class="oe_inline" style="max-width: 48%%; margin-right: 4%;"/>
-                    <field name="width_sale_uom"
-                           attrs="{'invisible': [('purchase_price_type', '=', ('standard'))]}"
+                    <field name="width_uom"
+                           attrs="{'invisible': [('purchase_price_type', 'not in', ('fabric','table_2d','table_1d','area'))]}"
                            options="{'no_create': True, 'no_open': True}"
                            class="oe_inline" style="max-width: 48%%"/>
                 </div>
-                <field name="origin_height" attrs="{'invisible': [('purchase_price_type', 'not in', ('area','table_2d'))]}"/>
+
+                <label for="rapport"
+                       string="Rapport"
+                       attrs="{'invisible': [('purchase_price_type', '!=', ('fabric'))]}"/>
+                <div attrs="{'invisible': [('purchase_price_type', '!=', ('fabric'))]}">
+                    <field name="rapport"
+                           readonly="1"
+                           class="oe_inline" style="max-width: 48%%; margin-right: 4%;"/>
+                    <field name="rapport_uom"
+                           options="{'no_create': True, 'no_open': True}"
+                           class="oe_inline" style="max-width: 48%%"/>
+                </div>
+
+                <label for="origin_height"
+                       string="Height"
+                       attrs="{'invisible': [('purchase_price_type', 'not in', ('table_2d','area'))]}"/>
+                <div>
+                    <field name="origin_height"
+                           attrs="{'invisible': [('purchase_price_type', 'not in', ('table_2d','area'))]}"
+                           class="oe_inline" style="max-width: 48%%; margin-right: 4%;"/>
+                    <field name="height_uom"
+                           attrs="{'invisible': [('purchase_price_type', 'not in', ('table_2d','area'))]}"
+                           options="{'no_create': True, 'no_open': True}"
+                           class="oe_inline" style="max-width: 48%%"/>
+                </div>
                 <field name="purchase_price_type" invisible="1"/>
             </xpath>
         </field>

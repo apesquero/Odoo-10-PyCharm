@@ -8,21 +8,35 @@ from odoo.exceptions import ValidationError
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
-    origin_width = fields.Float(string="Width", required=True, default=0.0)
-    origin_height = fields.Float(string="Height", required=True, default=0.0)
+    origin_width = fields.Float(string="Width",
+                                required=True,
+                                default=0.0)
+    origin_height = fields.Float(string="Height",
+                                 required=True,
+                                 default=0.0)
 
-    width_sale_uom = fields.Many2one('product.uom',
-                                     string='Width UOM',
-                                     related='product_id.width_uom',
-                                     readonly=True)
+    width_uom = fields.Many2one('product.uom',
+                                string='Width UOM',
+                                related='product_id.width_uom',
+                                readonly=True)
+    height_uom = fields.Many2one('product.uom',
+                                 string='Width UOM',
+                                 related='product_id.width_uom',
+                                 readonly=True)
 
     purchase_price_type = fields.Selection([('standard', 'Standard'),
-                                           ('fabric', 'Fabric'),
-                                           ('table_1d', '1D Table'),
-                                           ('table_2d', '2D Table'),
-                                           ('area', 'Area')],
-                                          string='Sale Price Type',
-                                          related='product_id.product_price_type')
+                                            ('fabric', 'Fabric'),
+                                            ('table_1d', '1D Table'),
+                                            ('table_2d', '2D Table'),
+                                            ('area', 'Area')],
+                                           string='Sale Price Type',
+                                           related='product_id.product_price_type')
+
+    rapport = fields.Float(related='product_id.rapport')
+    rapport_uom = fields.Many2one('product.uom',
+                                  string='Rapport UOM',
+                                  related='product_id.rapport_uom',
+                                  readonly=True)
 
     # @api.constrains('origin_width')
     # def _check_origin_width(self):
@@ -85,10 +99,8 @@ class PurchaseOrderLine(models.Model):
                     'message': e.name,
                 }}
 
-        product = self.product_id.with_context(
-            width=self.origin_width,
-            height=self.origin_height
-        )
+        product = self.product_id.with_context(width=self.origin_width,
+                                               height=self.origin_height)
 
         if product.product_price_type in ['table_2d', 'area'] \
                 and self.origin_height != 0 and self.origin_width != 0 \
@@ -99,7 +111,7 @@ class PurchaseOrderLine(models.Model):
                 and not self.product_id.origin_check_sale_dim_values(self.origin_width, 0):
             raise ValidationError(_("Invalid Dimensions!"))
 
-        if self.product_tmpl_id.product_price_type not in ['table_1d','table_2d', 'area']:
+        if self.product_tmpl_id.product_price_type not in ['table_1d', 'table_2d', 'area']:
             self.origin_height = self.origin_width = 0
 
         # Reset date, price and quantity since _onchange_quantity will provide default values
@@ -187,18 +199,18 @@ class PurchaseOrderLine(models.Model):
                                                                 to_uom_id=self.product_uom.id)
         self.price_unit = price_unit
 
-    # @api.multi
-    # def _create_stock_moves(self, picking):
-    #     moves = super(PurchaseOrderLine, self)._create_stock_moves(picking)
-    #     for move in moves:
-    #         width = 0
-    #         height = 0
-    #         if move.purchase_line_id.origin_width:
-    #             width = move.purchase_line_id.origin_width
-    #         if move.purchase_line_id.origin_height:
-    #             height = move.purchase_line_id.origin_height
-    #         move.update({
-    #             'origin_width': width,
-    #             'origin_height': height
-    #         })
-    #     return moves
+        # @api.multi
+        # def _create_stock_moves(self, picking):
+        #     moves = super(PurchaseOrderLine, self)._create_stock_moves(picking)
+        #     for move in moves:
+        #         width = 0
+        #         height = 0
+        #         if move.purchase_line_id.origin_width:
+        #             width = move.purchase_line_id.origin_width
+        #         if move.purchase_line_id.origin_height:
+        #             height = move.purchase_line_id.origin_height
+        #         move.update({
+        #             'origin_width': width,
+        #             'origin_height': height
+        #         })
+        #     return moves
