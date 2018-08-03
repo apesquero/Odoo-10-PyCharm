@@ -3,6 +3,7 @@ from datetime import datetime
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from odoo import models, fields, api, _, SUPERUSER_ID, exceptions
 from odoo.exceptions import ValidationError
+from math import ceil
 
 
 class PurchaseOrderLine(models.Model):
@@ -111,8 +112,26 @@ class PurchaseOrderLine(models.Model):
                 and not self.product_id.origin_check_sale_dim_values(self.origin_width, 0):
             raise ValidationError(_("Invalid Dimensions!"))
 
-        if self.product_tmpl_id.product_price_type not in ['table_1d', 'table_2d', 'area']:
+        if self.product_tmpl_id.product_price_type not in ['fabric', 'table_1d', 'table_2d', 'area']:
             self.origin_height = self.origin_width = 0
+
+        # rapport calculation
+        if self.product_tmpl_id.product_price_type in ['fabric']:
+            rapport = (self.width_uom.factor * self.rapport) / self.rapport_uom.factor
+            width_uom = self.width_uom.name
+            if rapport > 0:
+
+                result_width = (int(ceil(round((self.origin_width / rapport), 2)))) * rapport
+                remainder = result_width - self.origin_width
+                if remainder > 0:
+                    self.origin_width = result_width
+                    product = product.with_context(width=self.origin_width)
+
+                    message = _("The measure is less than the necessary rapport:\n"
+                                "The measure has been increased %.2f %s!") % (remainder, width_uom)
+                    mess = {'title': _("Warning measure"),
+                            'message': message}
+                    result = {'warning': mess}
 
         # Reset date, price and quantity since _onchange_quantity will provide default values
         self.date_planned = datetime.today().strftime(DEFAULT_SERVER_DATETIME_FORMAT)
@@ -127,17 +146,21 @@ class PurchaseOrderLine(models.Model):
             'height': self.origin_height
         })
         name = product_lang.display_name
-        if product.product_price_type in ['table_2d', 'area']:
+        if product.product_price_type in ['fabric']:
+            width_uom = product.width_uom.name
+            name += _(' [Length:%.2f %s]') % (self.origin_width,
+                                              width_uom)
+        elif product.product_price_type in ['table_1d']:
+            width_uom = product.width_uom.name
+            name += _(' [ Width:%.2f %s]') % (self.origin_width,
+                                              width_uom)
+        elif product.product_price_type in ['table_2d', 'area']:
             height_uom = product.height_uom.name
             width_uom = product.width_uom.name
             name += _(' [Width:%.2f %s x Height:%.2f %s]') % (self.origin_width,
                                                               width_uom,
                                                               self.origin_height,
                                                               height_uom)
-        elif product.product_price_type == 'table_1d':
-            width_uom = product.width_uom.name
-            name += _(' [ Width:%.2f %s]') % (self.origin_width,
-                                              width_uom)
         if product_lang.description_purchase:
             name += '\n' + product_lang.description_purchase
         self.name = name
