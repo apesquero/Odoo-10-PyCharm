@@ -204,8 +204,17 @@ class SuppliferInfo(models.Model):
                 ], limit=1)
                 result = res and res.value or False
             elif self.purchase_price_type == 'area':
+                # Unit conversion created
+                origin_width = (self.area_uom.factor * origin_width) / self.width_uom.factor
+                origin_height = (self.area_uom.factor * origin_height) / self.height_uom.factor
+
                 result = self.price * origin_width * origin_height
                 result = max(self.min_price_area, result)
+            elif self.purchase_price_type == 'fabric':
+                # Unit conversion created
+                origin_width = (self.fabric_uom.factor * origin_width) / self.width_uom.factor
+
+                result = self.price * origin_width
         if not result:
             result = self.price
         return result
