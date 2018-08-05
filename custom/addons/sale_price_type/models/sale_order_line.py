@@ -1,11 +1,22 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+from odoo.tools import float_is_zero, float_compare, DEFAULT_SERVER_DATETIME_FORMAT
 from math import ceil
 
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
+
+    # sale_stock_variant_configurator
+    # Redefine again the product template field as a regular one
+    product_tmpl_id = fields.Many2one(
+        string='Product Template',
+        comodel_name='product.template',
+        store=True,
+        related=False,
+        auto_join=True,
+    )
 
     origin_width = fields.Float(string="Width",
                                 required=True,
@@ -274,6 +285,55 @@ class SaleOrderLine(models.Model):
         return max(base_price, final_price)
 
     @api.multi
+    def _prepare_order_line_procurement(self, group_id=False):
+        self.ensure_one()
+        vals = super(SaleOrderLine, self)._prepare_order_line_procurement(group_id=group_id)
+        vals.update({
+            'product_tmpl_id': self.product_tmpl_id.id or False,
+
+            # TODO: Pendiente de pasar los valores de atributo
+            # 'product_attribute_ids': [(6, 0, self.product_attribute_ids.ids)],
+
+            'origin_width': self.origin_width,
+            'origin_height': self.origin_height
+        })
+        return vals
+
+    @api.multi
+    def _action_procurement_create(self):
+        """
+        Create procurements based on quantity ordered. If the quantity is increased, new
+        procurements are created. If the quantity is decreased, no automated action is taken.
+        """
+        precision = self.env['decimal.precision'].precision_get('Product Unit of Measure')
+        new_procs = self.env['procurement.order']  # Empty recordset
+        for line in self:
+            if line.state != 'sale' or not line.product_id._need_procurement():
+                continue
+            qty = 0.0
+            for proc in line.procurement_ids:
+                qty += proc.product_qty
+            if float_compare(qty, line.product_uom_qty, precision_digits=precision) >= 0:
+                continue
+
+            if not line.order_id.procurement_group_id:
+                vals = line.order_id._prepare_procurement_group()
+                line.order_id.procurement_group_id = self.env["procurement.group"].create(vals)
+
+            vals = line._prepare_order_line_procurement(
+                group_id=line.order_id.procurement_group_id.id)
+            vals['product_qty'] = line.product_uom_qty - qty
+            new_proc = self.env["procurement.order"].with_context(
+                procurement_autorun_defer=True,
+            ).create(vals)
+            # Do one by one because need pass specific context values
+            new_proc.with_context(
+                width=line.origin_width,
+                height=line.origin_height).run()
+            new_procs += new_proc
+        return new_procs
+
+    @api.multi
     def _prepare_invoice_line(self, qty):
         """
         Prepare the dict of values to create the new invoice line for a sales order line.
@@ -317,3 +377,4 @@ class SaleOrderLine(models.Model):
             'origin_height': self.origin_height,
         }
         return res
+
