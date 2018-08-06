@@ -12,6 +12,7 @@
     'depends': ['stock',
                 'purchase_price_type',
                 ],
-    'application': True,
+    'application': False,
     'installable': True,
+    'auto-install': True,
 }

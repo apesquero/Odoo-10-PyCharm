@@ -85,7 +85,7 @@ class ProcurementOrder(models.Model):
         if product_id.sale_price_type in ['table_2d', 'area']:
             name += ' [Width:%.2f cms x Height:%.2f cms]' % (self.origin_width, self.origin_height)
         elif product_id.sale_price_type == 'table_1d':
-            name += ' [ Width:%.2f cms]' % (self.origin_width)
+            name += ' [ Width-Length:%.2f cms]' % (self.origin_width)
 
         price_unit = self.env['account.tax']._fix_tax_included_price(
             seller.get_supplier_price(), product_id.supplier_taxes_id, taxes_id) \
