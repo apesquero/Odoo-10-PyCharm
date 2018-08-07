@@ -11,7 +11,6 @@
                 'procurement',
                 'sale_price_type',
                 'purchase_price_type',
-                'stock_price_type',
                ],
     'application': True,
     'installable': True,

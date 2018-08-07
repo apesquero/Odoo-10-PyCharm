@@ -69,3 +69,11 @@ class SaleOrderLine(models.Model):
 
         # negative discounts (= surcharge) are included in the display price
         return max(base_price, final_price)
+
+    @api.multi
+    def _prepare_invoice_line(self, qty):
+        res = super(SaleOrderLine, self)._prepare_invoice_line(qty)
+        res.update({
+            'product_tmpl_id': self.product_tmpl_id.id or False,
+        })
+        return res
