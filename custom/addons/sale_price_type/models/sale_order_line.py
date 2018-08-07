@@ -289,11 +289,6 @@ class SaleOrderLine(models.Model):
         self.ensure_one()
         vals = super(SaleOrderLine, self)._prepare_order_line_procurement(group_id=group_id)
         vals.update({
-            'product_tmpl_id': self.product_tmpl_id.id or False,
-
-            # TODO: Pendiente de pasar los valores de atributo
-            # 'product_attribute_ids': [(6, 0, self.product_attribute_ids.ids)],
-
             'origin_width': self.origin_width,
             'origin_height': self.origin_height
         })
