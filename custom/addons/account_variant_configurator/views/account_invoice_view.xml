@@ -19,7 +19,7 @@
                         <field name="product_attribute_ids" widget="one2many"
                                context="{'default_owner_model': 'account.invoice.line'}"
                                attrs="{'invisible':[('product_attribute_ids','=',[])]}"
-                               nolabel="0" colspan="2">
+                               colspan="2">
                             <tree create="0" delete="0" editable="1">
                                 <field name="owner_model" invisible="1"/>
                                 <field name="owner_id" invisible="1"/>
