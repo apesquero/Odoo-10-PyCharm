@@ -78,10 +78,10 @@ class SaleOrderLine(models.Model):
         })
         return res
 
-    @api.multi
-    def _prepare_order_line_procurement(self, group_id=False):
-        vals = super(SaleOrderLine, self)._prepare_order_line_procurement(group_id=group_id)
-        vals.update({
-            'product_tmpl_id': self.product_tmpl_id.id or False,
-        })
-        return vals
+    # @api.multi
+    # def _prepare_order_line_procurement(self, group_id=False):
+    #     vals = super(SaleOrderLine, self)._prepare_order_line_procurement(group_id=group_id)
+    #     vals.update({
+    #         'product_tmpl_id': self.product_tmpl_id.id or False,
+    #     })
+    #     return vals
