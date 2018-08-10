@@ -1,5 +1,29 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models
+from odoo.tools import float_is_zero, float_compare, DEFAULT_SERVER_DATETIME_FORMAT
+
+
+class SaleOrder(models.Model):
+    _inherit = "sale.order"
+
+    @api.multi
+    def action_confirm(self):
+        product_obj = self.env['product.product']
+        lines = self.mapped('order_line').filtered(lambda x: not x.product_id)
+        for line in lines:
+            product = product_obj._product_find(
+                line.product_tmpl_id, line.product_attribute_ids,
+            )
+            if not product:
+                values = line.product_attribute_ids.mapped('value_id')
+                product = product_obj.create({
+                    'product_tmpl_id': line.product_tmpl_id.id,
+                    'attribute_value_ids': [(6, 0, values.ids)],
+                })
+            line.write({'product_id': product.id,
+                        'product_tmpl_id': product.product_tmpl_id.id,
+                        })
+        super(SaleOrder, self).action_confirm()
 
 
 class SaleOrderLine(models.Model):
@@ -45,11 +69,11 @@ class SaleOrderLine(models.Model):
     @api.multi
     def _get_display_price(self, product):
         # TO DO: move me in master/saas-16 on sale.order
-        if self.order_id.pricelist_id.discount_policy == 'with_discount'\
+        if self.order_id.pricelist_id.discount_policy == 'with_discount' \
                 or product._name != 'product.product':
             return product.with_context(pricelist=self.order_id.pricelist_id.id).price
 
-        final_price, rule_id = self.order_id.pricelist_id.\
+        final_price, rule_id = self.order_id.pricelist_id. \
             get_product_price_rule(self.product_id,
                                    self.product_uom_qty or 1.0,
                                    self.order_id.partner_id)
@@ -57,13 +81,13 @@ class SaleOrderLine(models.Model):
         context_partner = dict(self.env.context, partner_id=self.order_id.partner_id.id,
                                date=self.order_id.date_order)
 
-        base_price, currency_id = self.with_context(context_partner).\
+        base_price, currency_id = self.with_context(context_partner). \
             _get_real_price_currency(self.product_id, rule_id,
                                      self.product_uom_qty,
                                      self.product_uom,
                                      self.order_id.pricelist_id.id)
         if currency_id != self.order_id.pricelist_id.currency_id.id:
-            base_price = self.env['res.currency'].browse(currency_id).\
+            base_price = self.env['res.currency'].browse(currency_id). \
                 with_context(context_partner).compute(base_price,
                                                       self.order_id.pricelist_id.currency_id)
 
@@ -78,10 +102,44 @@ class SaleOrderLine(models.Model):
         })
         return res
 
-    # @api.multi
-    # def _prepare_order_line_procurement(self, group_id=False):
-    #     vals = super(SaleOrderLine, self)._prepare_order_line_procurement(group_id=group_id)
-    #     vals.update({
-    #         'product_tmpl_id': self.product_tmpl_id.id or False,
-    #     })
-    #     return vals
+    @api.multi
+    def _prepare_order_line_procurement(self, group_id=False):
+        vals = super(SaleOrderLine, self)._prepare_order_line_procurement(group_id=group_id)
+        vals.update({
+            'product_tmpl_id': self.product_tmpl_id.id or False,
+        })
+        return vals
+
+    @api.multi
+    def _action_procurement_create(self):
+        """
+        Create procurements based on quantity ordered. If the quantity is increased, new
+        procurements are created. If the quantity is decreased, no automated action is taken.
+        """
+        precision = self.env['decimal.precision'].precision_get('Product Unit of Measure')
+        new_procs = self.env['procurement.order']  # Empty recordset
+        for line in self:
+            if line.state != 'sale' or not line.product_id._need_procurement():
+                continue
+            qty = 0.0
+            for proc in line.procurement_ids:
+                qty += proc.product_qty
+            if float_compare(qty, line.product_uom_qty, precision_digits=precision) >= 0:
+                continue
+
+            if not line.order_id.procurement_group_id:
+                vals = line.order_id._prepare_procurement_group()
+                line.order_id.procurement_group_id = self.env["procurement.group"].create(vals)
+
+            vals = line._prepare_order_line_procurement(
+                group_id=line.order_id.procurement_group_id.id)
+            vals['product_qty'] = line.product_uom_qty - qty
+            new_proc = self.env["procurement.order"].with_context(
+                procurement_autorun_defer=True,
+            ).create(vals)
+            # Do one by one because need pass specific context values
+            new_proc.with_context(
+                product_tmpl_id=line.product_tmpl_id.id
+            ).run()
+            new_procs += new_proc
+        return new_procs
