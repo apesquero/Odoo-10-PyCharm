@@ -3,12 +3,13 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 {
-    "name": "Fix Sale - Product variants",
+    "name": "Fix Purchase - Product variants",
     "summary": "Fixed product variants in sale management",
     "version": "10.0.1.0.0",
     "license": "AGPL-3",
     "data": [],
-    "depends": ["sale_variant_configurator",
+    "depends": ["purchase",
+                "purchase_variant_configurator",
                 ],
     "author": "Amaro Pesquero Rodríguez",
     "category": "Sales Management",
