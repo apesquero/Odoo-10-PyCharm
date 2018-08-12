@@ -3,29 +3,6 @@ from odoo import api, fields, models
 from odoo.tools import float_is_zero, float_compare, DEFAULT_SERVER_DATETIME_FORMAT
 
 
-class SaleOrder(models.Model):
-    _inherit = "sale.order"
-
-    @api.multi
-    def action_confirm(self):
-        product_obj = self.env['product.product']
-        lines = self.mapped('order_line').filtered(lambda x: not x.product_id)
-        for line in lines:
-            product = product_obj._product_find(
-                line.product_tmpl_id, line.product_attribute_ids,
-            )
-            if not product:
-                values = line.product_attribute_ids.mapped('value_id')
-                product = product_obj.create({
-                    'product_tmpl_id': line.product_tmpl_id.id,
-                    'attribute_value_ids': [(6, 0, values.ids)],
-                })
-            line.write({'product_id': product.id,
-                        'product_tmpl_id': product.product_tmpl_id.id,
-                        })
-        super(SaleOrder, self).action_confirm()
-
-
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
@@ -107,6 +84,7 @@ class SaleOrderLine(models.Model):
         vals = super(SaleOrderLine, self)._prepare_order_line_procurement(group_id=group_id)
         vals.update({
             'product_tmpl_id': self.product_tmpl_id.id or False,
+            # 'product_attribute_ids': [(4, x.id) for x in self.product_attribute_ids],
         })
         return vals
 
@@ -139,7 +117,8 @@ class SaleOrderLine(models.Model):
             ).create(vals)
             # Do one by one because need pass specific context values
             new_proc.with_context(
-                product_tmpl_id=line.product_tmpl_id.id
+                product_tmpl_id=line.product_tmpl_id.id,
+                # product_attribute_ids=[(4, x.id) for x in line.product_attribute_ids],
             ).run()
             new_procs += new_proc
         return new_procs
