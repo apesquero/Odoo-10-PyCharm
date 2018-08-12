@@ -4,16 +4,8 @@ from odoo import api, fields, models
 
 class ProcurementOrder(models.Model):
     """ Procurement Orders """
-    _inherit = 'procurement.order'
-
-    # Redefine again the product template field as a regular one
-    product_tmpl_id = fields.Many2one(
-        string='Product Template',
-        comodel_name='product.template',
-        store=True,
-        related=False,
-        auto_join=True,
-    )
+    _inherit = ['procurement.order', 'product.configurator']
+    _name = 'procurement.order'
 
 
     @api.model
