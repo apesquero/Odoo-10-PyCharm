@@ -24,6 +24,6 @@ class ProcurementOrder(models.Model):
 
         res.update({
             'product_tmpl_id': self.product_id.product_tmpl_id.id,
-            # 'product_attribute_ids': [(4, x.id) for x in self.product_id.product_variant_id.attribute_line_ids],
+            # 'product_attribute_ids': [(4, x.id) for x in self.product_id.product_attribute_ids],
         })
         return res

@@ -118,7 +118,7 @@ class SaleOrderLine(models.Model):
             # Do one by one because need pass specific context values
             new_proc.with_context(
                 product_tmpl_id=line.product_tmpl_id.id,
-                # product_attribute_ids=[(4, x.id) for x in line.product_attribute_ids],
+                # product_attribute_ids=line.product_attribute_ids,
             ).run()
             new_procs += new_proc
         return new_procs
