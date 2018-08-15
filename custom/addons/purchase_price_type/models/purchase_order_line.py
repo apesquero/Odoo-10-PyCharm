@@ -39,47 +39,29 @@ class PurchaseOrderLine(models.Model):
                                   related='product_id.rapport_uom',
                                   readonly=True)
 
-    # @api.constrains('origin_width')
-    # def _check_origin_width(self):
-    #     for record in self:
-    #         product = self.product_id.with_context(
-    #             width=self.origin_width,
-    #             height=self.origin_height
-    #         )
-    #         seller = product._select_seller(
-    #             partner_id=self.partner_id,
-    #             quantity=self.product_qty,
-    #             date=self.order_id.date_order and self.order_id.date_order[:10],
-    #             uom_id=self.product_uom)
-    #
-    #         if seller:
-    #             seller = seller.with_context(
-    #                 width=self.origin_width,
-    #                 height=self.origin_height
-    #             )
-    #             if not seller.origin_check_dim_values(record.origin_width, record.origin_height):
-    #                 raise ValidationError(_("Invalid width!"))
-    #
-    # @api.constrains('origin_height')
-    # def _check_origin_height(self):
-    #     for record in self:
-    #         product = self.product_id.with_context(
-    #             width=self.origin_width,
-    #             height=self.origin_height
-    #         )
-    #         seller = product._select_seller(
-    #             partner_id=self.partner_id,
-    #             quantity=self.product_qty,
-    #             date=self.order_id.date_order and self.order_id.date_order[:10],
-    #             uom_id=self.product_uom)
-    #
-    #         if seller:
-    #             seller = seller.with_context(
-    #                 width=self.origin_width,
-    #                 height=self.origin_height
-    #             )
-    #             if not seller.origin_check_dim_values(record.origin_width, record.origin_height):
-    #                 raise ValidationError(_("Invalid height!"))
+    @api.constrains('origin_width', 'origin_height')
+    def _check_origin_dimensions_constrains(self):
+        for record in self:
+            product = self.product_id.with_context(
+                width=self.origin_width,
+                height=self.origin_height
+            )
+            seller = product._select_seller(
+                partner_id=self.partner_id,
+                quantity=self.product_qty,
+                date=self.order_id.date_order and self.order_id.date_order[:10],
+                uom_id=self.product_uom)
+
+            if seller:
+                seller = seller.with_context(
+                    width=self.origin_width,
+                    height=self.origin_height
+                )
+                if not seller.origin_check_purchase_dim_values(
+                        record.origin_width, record.origin_height):
+                    raise ValidationError(_("Invalid dimension in:\n%s!")
+                                          % self.product_id.name_get()[0][1])
+
 
     @api.onchange('product_id',
                   'origin_width',

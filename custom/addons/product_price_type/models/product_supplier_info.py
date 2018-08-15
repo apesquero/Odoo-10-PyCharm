@@ -124,7 +124,7 @@ class SuppliferInfo(models.Model):
         })
         return result
 
-    def origin_check_dim_values(self, width, height):
+    def origin_check_purchase_dim_values(self, width, height):
         if self.purchase_price_type in ['table_1d', 'table_2d']:
             product_prices_table_obj = self.env['product.prices_table']
             norm_width = self.origin_normalize_width_value(width)
