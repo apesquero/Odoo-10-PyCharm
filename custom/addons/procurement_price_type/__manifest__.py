@@ -12,7 +12,7 @@
                 'sale_price_type',
                 'purchase_price_type',
                ],
-    'application': True,
+    'application': False,
     'installable': True,
     'auto_install': True,
 }
