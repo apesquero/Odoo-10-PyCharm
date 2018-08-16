@@ -10,6 +10,7 @@ class ResPartner(models.Model):
 
     purchase_only_allowed = fields.Boolean(
         string="Use in purchases only allowed products",
+        default=True,
         help="If checked, by default you will only be able to select products"
              " that can be supplied by this supplier when creating a purchase"
              " order for it. This value can be changed for each order.")

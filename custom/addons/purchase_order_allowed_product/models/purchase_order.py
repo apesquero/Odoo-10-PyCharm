@@ -10,6 +10,7 @@ class PurchaseOrder(models.Model):
 
     only_allowed_products = fields.Boolean(
         string="Use only allowed products",
+        default=True,
         help="If checked, you will only be able to select products that can be"
              " supplied by this supplier.")
     allowed_products = fields.Many2many(
@@ -23,7 +24,7 @@ class PurchaseOrder(models.Model):
             partner.commercial_partner_id.purchase_only_allowed)
         return result
 
-    @api.one
+    @api.multi
     @api.onchange('only_allowed_products')
     def onchange_only_allowed_products(self):
         product_obj = self.env['product.product']
