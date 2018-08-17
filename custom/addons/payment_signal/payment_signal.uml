@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>Python</ID>
+  <OriginalElement>#D:/Odoo-10-PyCharm/custom/addons/payment_signal</OriginalElement>
+  <nodes>
+    <node x="447.0" y="79.0">custom.addons.payment_signal.models.inherit_sale_order.SaleOrder</node>
+    <node x="395.0" y="0.0">Model</node>
+    <node x="-606.2787456445993" y="86.376306620209">custom.addons.payment_signal.models.inherit_sale_make_invoice_advance.SaleAdvancePaymentInv</node>
+    <node x="0.0" y="123.0">custom.addons.payment_signal.models.inherit_res_company.ResCompany</node>
+    <node x="898.0975609756099" y="96.29268292682923">custom.addons.payment_signal.tests.test_payment_signal.TestPaymentSignal</node>
+    <node x="1059.09756097561" y="17.29268292682923">TransactionCase</node>
+    <node x="-382.2787456445993" y="7.376306620208993">TransientModel</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="custom.addons.payment_signal.models.inherit_sale_make_invoice_advance.SaleAdvancePaymentInv" target="TransientModel">
+      <point x="0.0" y="-70.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="custom.addons.payment_signal.models.inherit_res_company.ResCompany" target="Model">
+      <point x="0.0" y="-48.0" />
+      <point x="213.5" y="54.0" />
+      <point x="411.5" y="54.0" />
+      <point x="-16.5" y="14.5" />
+    </edge>
+    <edge source="custom.addons.payment_signal.models.inherit_sale_order.SaleOrder" target="Model">
+      <point x="0.0" y="-92.0" />
+      <point x="642.5" y="54.0" />
+      <point x="444.5" y="54.0" />
+      <point x="16.5" y="14.5" />
+    </edge>
+    <edge source="custom.addons.payment_signal.tests.test_payment_signal.TestPaymentSignal" target="TransactionCase">
+      <point x="0.0" y="-25.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7183528215556685" x="367.0" y="132.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+  </Categories>
+</Diagram>
+
