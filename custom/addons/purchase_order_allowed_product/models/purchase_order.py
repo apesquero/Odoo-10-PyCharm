@@ -10,18 +10,17 @@ class PurchaseOrder(models.Model):
 
     only_allowed_products = fields.Boolean(
         string="Use only allowed products",
-        default=True,
         help="If checked, you will only be able to select products that can be"
              " supplied by this supplier.")
     allowed_products = fields.Many2many(
         comodel_name='product.product', string='Allowed products')
 
-    @api.multi
-    def onchange_partner_id(self, partner_id):
-        result = super(PurchaseOrder, self).onchange_partner_id(partner_id)
-        partner = self.env['res.partner'].browse(partner_id)
-        result['value']['only_allowed_products'] = (
-            partner.commercial_partner_id.purchase_only_allowed)
+    @api.onchange('partner_id', 'company_id')
+    def onchange_partner_id(self):
+        result = super(PurchaseOrder, self).onchange_partner_id()
+        partner = self.partner_id
+        if partner:
+            self.update({'only_allowed_products': partner.commercial_partner_id.purchase_only_allowed})
         return result
 
     @api.multi
