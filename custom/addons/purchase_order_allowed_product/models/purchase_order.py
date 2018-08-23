@@ -26,6 +26,9 @@ class PurchaseOrder(models.Model):
     @api.multi
     @api.onchange('only_allowed_products')
     def onchange_only_allowed_products(self):
+        res = {'domain': {
+            'product_id': "[('id', 'in', False)]",
+        }}
         product_obj = self.env['product.product']
         self.allowed_products = product_obj.search(
             [('purchase_ok', '=', True)])
@@ -35,6 +38,8 @@ class PurchaseOrder(models.Model):
             self.allowed_products = product_obj.search(
                 [('product_tmpl_id', 'in',
                   [x.product_tmpl_id.id for x in supplierinfos])])
+            res['domain']['product_id'] = "[('id', 'in', self.allowed_products.ids)]"
+        return res
 
     def _prepare_allowed_product_domain(self):
         return [('name', 'in', (self.partner_id.commercial_partner_id.id,
