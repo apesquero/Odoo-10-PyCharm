@@ -3,6 +3,7 @@
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
 from openerp import models, fields, api
+import json
 
 
 class PurchaseOrder(models.Model):
@@ -14,6 +15,9 @@ class PurchaseOrder(models.Model):
              " supplied by this supplier.")
     allowed_products = fields.Many2many(
         comodel_name='product.product', string='Allowed products')
+    allowed_products_domain = fields.Char(compute='_compute_allowed_products_domain',
+                                          readonly=True,
+                                          store=False,)
 
     @api.onchange('partner_id', 'company_id')
     def onchange_partner_id(self):
@@ -24,11 +28,16 @@ class PurchaseOrder(models.Model):
         return result
 
     @api.multi
+    @api.depends('allowed_products')
+    def _compute_allowed_products_domain(self):
+        for rec in self:
+            rec.allowed_products_domain = json.dumps(
+                [('id', 'in', self.allowed_products.ids)]
+            )
+
+    @api.multi
     @api.onchange('only_allowed_products')
     def onchange_only_allowed_products(self):
-        res = {'domain': {
-            'product_id': "[('id', 'in', False)]",
-        }}
         product_obj = self.env['product.product']
         self.allowed_products = product_obj.search(
             [('purchase_ok', '=', True)])
@@ -38,8 +47,6 @@ class PurchaseOrder(models.Model):
             self.allowed_products = product_obj.search(
                 [('product_tmpl_id', 'in',
                   [x.product_tmpl_id.id for x in supplierinfos])])
-            res['domain']['product_id'] = "[('id', 'in', self.allowed_products.ids)]"
-        return res
 
     def _prepare_allowed_product_domain(self):
         return [('name', 'in', (self.partner_id.commercial_partner_id.id,
