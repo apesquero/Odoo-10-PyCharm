@@ -3,7 +3,6 @@
 # For copyright and license notices, see __openerp__.py file in root directory
 ##############################################################################
 from openerp import models, fields, api
-import json
 
 
 class PurchaseOrder(models.Model):
@@ -15,9 +14,6 @@ class PurchaseOrder(models.Model):
              " supplied by this supplier.")
     allowed_products = fields.Many2many(
         comodel_name='product.product', string='Allowed products')
-    allowed_products_domain = fields.Char(compute='_compute_allowed_products_domain',
-                                          readonly=True,
-                                          store=False,)
 
     @api.onchange('partner_id', 'company_id')
     def onchange_partner_id(self):
@@ -26,14 +22,6 @@ class PurchaseOrder(models.Model):
         if partner:
             self.update({'only_allowed_products': partner.commercial_partner_id.purchase_only_allowed})
         return result
-
-    @api.multi
-    @api.depends('allowed_products')
-    def _compute_allowed_products_domain(self):
-        for rec in self:
-            rec.allowed_products_domain = json.dumps(
-                [('id', 'in', self.allowed_products.ids)]
-            )
 
     @api.multi
     @api.onchange('only_allowed_products')
@@ -47,6 +35,8 @@ class PurchaseOrder(models.Model):
             self.allowed_products = product_obj.search(
                 [('product_tmpl_id', 'in',
                   [x.product_tmpl_id.id for x in supplierinfos])])
+            domain_allowed_products = [('id', 'in', self.allowed_products.ids)]
+            return {'domain': {'product_id': domain_allowed_products}}
 
     def _prepare_allowed_product_domain(self):
         return [('name', 'in', (self.partner_id.commercial_partner_id.id,
